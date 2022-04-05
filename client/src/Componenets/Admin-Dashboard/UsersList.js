@@ -1,8 +1,13 @@
 import React from 'react'
+import { Datagrid, List, ListView } from 'react-admin'
 
-const UsersList = () => {
+const UsersList = (props) => {
   return (
-    <div>UsersList</div>
+    <List {...props}>
+      <Datagrid>
+        
+      </Datagrid>
+    </List>
   )
 }
 
