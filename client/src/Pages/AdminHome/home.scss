@@ -1,0 +1,14 @@
+/** @format */
+.home {
+	display: flex;
+}
+.home-container {
+	flex: 6;
+	.widgets {
+		display: flex;
+		gap: 10px;
+		@media only screen and (max-width: 850px) {
+			flex-direction: column;
+		}
+	}
+}
