@@ -4,11 +4,27 @@
 }
 .home-container {
 	flex: 6;
-	.widgets {
+	.widgets,
+	.charts {
 		display: flex;
 		gap: 10px;
 		@media only screen and (max-width: 850px) {
 			flex-direction: column;
+		}
+	}
+	.lists {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+		-webkit-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+		-moz-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+		padding: 10px;
+		margin: 5px;
+		.list-title {
+			color: gray;
+			font-size: 20px;
+			font-weight: 400;
 		}
 	}
 }

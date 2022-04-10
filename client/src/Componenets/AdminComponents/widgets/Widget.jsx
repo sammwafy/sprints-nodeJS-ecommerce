@@ -1,7 +1,11 @@
 import "./widgets.scss"
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { red } from "@mui/material/colors";
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+
+
 const Widget = ({ type }) => {
     let data;
     switch (type) {
@@ -16,7 +20,7 @@ const Widget = ({ type }) => {
             title: "Orders",
             isMoney: false,
             link: "See All Orders",
-            icon: <PersonOutlineIcon className="icon" style={{
+            icon: <CreditCardIcon className="icon" style={{
                 color: "green", backgroundColor: 'rgba(0, 128, 0, 0.419)'
             }} />
         };
@@ -25,14 +29,14 @@ const Widget = ({ type }) => {
             title: "Earnings",
             isMoney: true,
             link: "See All Earnings",
-            icon: <PersonOutlineIcon className="icon" style={{ color: "purple", backgroundColor: 'rgba(128, 0, 128, 0.328)' }} />
+            icon: <MonetizationOnIcon className="icon" style={{ color: "purple", backgroundColor: 'rgba(128, 0, 128, 0.328)' }} />
         };
             break;
         case "balance": data = {
             title: "Balance",
             isMoney: true,
             link: "See All Balance",
-            icon: <PersonOutlineIcon className="icon" style={{
+            icon: <AccountBalanceWalletOutlinedIcon className="icon" style={{
                 color: "orangered", backgroundColor: 'rgba(255, 68, 0, 0.324)'
             }} />
         };
