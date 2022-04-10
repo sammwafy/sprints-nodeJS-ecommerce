@@ -4,17 +4,21 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/homepage/HomePage";
 import AdminPage from "./Componenets/Admin-Dashboard/AdminPage";
 import Home from "./Pages/AdminHome/Home";
+
 import New from "./Pages/AdminNew/New";
 import AdminLogin from "./Pages/AdminLogin/AdminLogin";
 import AdminList from "./Pages/AdminListComp/AdminList";
 import Single from "./Pages/AdminSingle/Single";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-multi-carousel/lib/styles.css";
 
 function App() {
 	return (
 		<Router>
 			<Routes>
 				<Route path='/admin/*' element={<AdminPage />} />
-
+				<Route path='/*' element={<HomePage />} />
 				<Route path='/'>
 					<Route index element={<Home />} />
 					<Route path='login' element={<AdminLogin />} />
