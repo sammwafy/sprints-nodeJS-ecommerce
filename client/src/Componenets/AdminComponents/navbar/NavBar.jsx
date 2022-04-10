@@ -36,7 +36,7 @@ const NavBar = () => {
                         <FormatListBulletedIcon className="navIcon" />
                     </div>
                     <div className="item">
-                        <img src="main-qimg-7b3f1fc4dd119a2a4a3978dfcf536904-lq.jpeg" className="avatar" alt="" />
+                        <img src="/main-qimg-7b3f1fc4dd119a2a4a3978dfcf536904-lq.jpeg" className="avatar" alt="cat" />
                     </div>
                 </div>
             </div>
