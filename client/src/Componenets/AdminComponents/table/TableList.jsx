@@ -71,11 +71,13 @@ const TableList = () => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell >Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableCell >Tracking ID</TableCell>
+                        <TableCell align="right" className="table-cell">Product</TableCell>
+                        <TableCell align="right" className="table-cell">Custumer</TableCell>
+                        <TableCell align="right" className="table-cell">Date</TableCell>
+                        <TableCell align="right" className="table-cell">Price</TableCell>
+                        <TableCell align="right" className="table-cell">Payment Method</TableCell>
+                        <TableCell align="right" className="table-cell">Status</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

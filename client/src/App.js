@@ -18,8 +18,8 @@ function App() {
 		<Router>
 			<Routes>
 				<Route path='/admin/*' element={<AdminPage />} />
-				<Route path='/*' element={<HomePage />} />
-				<Route path='/'>
+				<Route path='/' element={<HomePage />} />
+				<Route path='admin'>
 					<Route index element={<Home />} />
 					<Route path='login' element={<AdminLogin />} />
 					<Route path='users'>
