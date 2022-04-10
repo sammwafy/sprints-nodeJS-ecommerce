@@ -14,7 +14,7 @@ function App() {
 				<Route path='/admin/*' element={<AdminPage />} />
 				<Route path='/*' element={<HomePage />} />
 
-				{/* <Route path='/admin/users' element={<Home />}>
+				{/* <Route path='/admin' element={<Home />}>
 					<Route index element={<Home />} />
 					<Route path='/users' elements={<Home />} />
 				</Route> */}
