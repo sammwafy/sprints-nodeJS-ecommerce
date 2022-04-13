@@ -1,0 +1,45 @@
+/** @format */
+
+.newItem {
+	.top {
+		padding: 15px;
+		.title {
+			color: darkgrey;
+			font-weight: bold;
+			font-size: 20px;
+		}
+	}
+	.bottom {
+		display: flex;
+		align-items: center;
+		.left {
+			flex: 1;
+			text-align: center;
+			.image {
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+			}
+		}
+		.right {
+			flex: 2;
+			display: flex;
+			flex-wrap: wrap;
+
+			.form-input {
+				padding: 15px;
+				display: flex;
+				gap: 15px;
+				align-items: center;
+				justify-content: space-between;
+				.label {
+					cursor: pointer;
+				}
+				.input {
+					border: none;
+					border-bottom: 1px solid #000;
+				}
+			}
+		}
+	}
+}

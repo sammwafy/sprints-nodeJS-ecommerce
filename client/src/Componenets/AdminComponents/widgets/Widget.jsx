@@ -4,6 +4,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import UpdownInput from "../UpdownInput";
 
 
 const Widget = ({ type }) => {
@@ -53,10 +54,7 @@ const Widget = ({ type }) => {
                 <span className="link">{data.link}</span>
             </div>
             <div className="right">
-                <div className="percentage positive">
-                    <KeyboardArrowUpIcon />
-                    20%
-                </div>
+                <UpdownInput input={"20%"} sign={"positive"} />
                 {data.icon}
 
             </div>
