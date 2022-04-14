@@ -1,0 +1,38 @@
+/** @format */
+%shadow {
+	box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+}
+.view {
+	display: flex;
+	.view-container {
+		flex: 6;
+		.top {
+			margin: 10px;
+			display: flex;
+			gap: 5px;
+			height: 300px;
+			.left {
+				flex: 2;
+				padding: 10px;
+
+				@extend %shadow;
+			}
+			.right {
+				flex: 5;
+			}
+		}
+		.bottom {
+			margin: 10px;
+			padding: 10px;
+
+			@extend %shadow;
+			.title {
+				font-size: 26px;
+				font-weight: 600;
+				color: darkgrey;
+			}
+		}
+	}
+}

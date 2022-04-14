@@ -11,4 +11,10 @@
 	box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
 	-webkit-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
 	-moz-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+	.title {
+		align-self: start;
+		font-size: 26px;
+		font-weight: 600;
+		color: darkgrey;
+	}
 }
