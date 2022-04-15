@@ -4,13 +4,14 @@
 	display: flex;
 	gap: 30px;
 	margin: 25px;
-    align-items: center;
+	align-items: center;
 	justify-content: center;
-	@media screen and (max-width:768px){
+	@media screen and (max-width: 768px) {
 		flex-direction: column;
 	}
 	.cards-info {
 		margin-left: 25px;
+
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -18,16 +19,14 @@
 		flex: 2;
 		color: black;
 		height: 300px;
-		h1 { 
+		h1 {
 			color: black;
 		}
 		h3 {
 			color: crimson;
 			margin-top: -5 px;
 		}
-		p{
-			text-align: center;
-		}
+
 		button {
 			background-color: #222;
 			border-radius: 4px;
@@ -61,13 +60,13 @@
 		}
 	}
 	.cards-list {
-
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		gap: 25px;
 		flex: 6;
-		@media screen and (max-width:768px){
-			flex-direction: column;}
+		@media screen and (max-width: 768px) {
+			flex-direction: column;
+		}
 	}
 }
