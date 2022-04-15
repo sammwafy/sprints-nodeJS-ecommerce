@@ -20,14 +20,19 @@ export default function Card() {
 							alt='Avatar'
 							style={{ width: "300px", height: "300px" }}
 						/>
-						<button> ADD TO CART </button>
+						<div className="icons">
+							<button className="add"> ADD TO CART </button>
+						    <button className="wish-list"> ❤ </button>
+						</div>
+						
+						
 					</div>
 				</div>
 			</div>
 			<div className='card-title'>
 				<h3> crystal light </h3>
-				<h3> 550$ </h3>
+				<h4> 550$ </h4>
 			</div>
 		</div>
 	);
-}
+} 

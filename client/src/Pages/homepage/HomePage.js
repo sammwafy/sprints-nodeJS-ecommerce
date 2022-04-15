@@ -3,6 +3,7 @@ import Carousel from "../../Componenets/Carousels/Carousel";
 import Header from "../../Componenets/Header/header";
 import { TestimonialsContainter } from "./styles/homePage.styled";
 import Container from 'react-bootstrap/Container'
+import CardContainer from "../../Componenets/cardContainer/CardContainer";
 
 const HomePage = () => {
   const NavMenuItems = [
@@ -74,7 +75,7 @@ const HomePage = () => {
         interval={null}
         subHeader={true}
       />
-      
+     <CardContainer/>
       <TestimonialsContainter>
       <Container>
         <Carousel
@@ -82,6 +83,7 @@ const HomePage = () => {
           items={testimonialsItems}
           interval={null}
         />
+        
         </Container>
       </TestimonialsContainter>
 
