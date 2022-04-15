@@ -28,7 +28,7 @@ const New = ({ title, inputs }) => {
                                 </div>
                             ))}
 
-                            <button className="submit" onClick={handleSubmit}>Submit</button>
+                            <button className="submit" >Submit</button>
                         </form>
                     </div>
                 </div>

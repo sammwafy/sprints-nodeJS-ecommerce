@@ -54,21 +54,56 @@ const HomePage = () => {
 			});
 	}, []);
 	const NavMenuItems = [
-		{ Fashion: ["Accesories", "Dresses", "Pants", "T-shirts"] },
-		{ Bags: ["Backpacks", "Clutches", "Formal", "Purses"] },
-		{ "HEALTH & BEAUTY": ["Accessories", "Body", "Makeup", "Lipstick"] },
-		{ FOOTWEAR: ["Flats", "Flip Flops", "Heels", "Running"] },
-		{ "HOME DECOR": ["Armchair", "Decor", "Lamps", "Sofa"] },
 		{
-			ELECTRONICS: [
-				"Desktops",
-				"Laptops & Notebooks",
-				"Components",
-				"Phones & PDAs",
+			Furniture: [
+				"Gaming furniture",
+				"Sofas & armchairs",
+				"Wardrobes",
+				"Café furniture",
 			],
 		},
-		{ FOOD: ["Breakfast", "Dessert", "Grill", "Pasta"] },
-		{ "BABY & KIDS": ["Bath", "Baby Care", "Diepers", "Fashion"] },
+		{
+			Lighting: [
+				"Smart lighting",
+				"Decorative lighting",
+				"Integrated lighting",
+				"Outdoor lighting",
+			],
+		},
+		{
+			Decoration: [
+				"Frames & pictures",
+				"Plants & flowers",
+				"Mirrors",
+				"Vases & bowls",
+			],
+		},
+		{
+			"Rugs, mats & flooring": [
+				"Rugs",
+				"Outdoor flooring",
+				"Door mats",
+				"Bath mats",
+			],
+		},
+		{
+			"Working from home": [
+				"Desks & computer desks",
+				"Work lamps",
+				"Drawer units",
+				"Desk chairs",
+			],
+		},
+		{
+			"Kitchen & appliances": [
+				"Kitchen cabinets",
+				"Kitchen worktops",
+				"Appliances",
+				"Pantry",
+			],
+		},
+		{ Outdoor: ["Chairs", "Dining Furniture", "Accessories"] },
+		{ "BABY & KIDS": ["Kids", "Baby "] },
 	];
 	const fullscreenCarouselItems = [
 		{

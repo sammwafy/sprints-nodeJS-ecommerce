@@ -12,7 +12,7 @@ const DataTable = ({ columns, rows, type }) => {
                 return (
                     <div className="actions">
 
-                        <Link to={`/admin/${type}/new`}>
+                        <Link to={`/admin/${type}/123`}>
                             <div className="viewButton">View</div>
                         </Link>
 
