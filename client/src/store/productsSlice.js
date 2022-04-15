@@ -17,6 +17,9 @@ const productSlice = createSlice({
 		addProduct(state, action) {
 			state.push(action.payload);
 		},
-		updateProduct(state, action) {},
+		updateProduct(state, action) {
+			//update in backend
+			state.push(action.payload);
+		},
 	},
 });

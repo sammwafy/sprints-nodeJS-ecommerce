@@ -4,6 +4,7 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useState } from "react";
 const New = ({ title, inputs }) => {
     const [file, setFile] = useState(null)
+
     console.log(file);
     return (
         <AdminLayout>
@@ -27,7 +28,7 @@ const New = ({ title, inputs }) => {
                                 </div>
                             ))}
 
-                            <button className="submit">Submit</button>
+                            <button className="submit" onClick={handleSubmit}>Submit</button>
                         </form>
                     </div>
                 </div>

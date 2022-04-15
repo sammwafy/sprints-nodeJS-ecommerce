@@ -26,3 +26,5 @@ yarn-error.log*
 .vscode/settings.json
 .vscode/settings.json
 client/src/Pages/AdminHome/Test.jsx
+node_modules/
+
