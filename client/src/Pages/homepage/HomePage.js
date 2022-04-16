@@ -1,6 +1,7 @@
 import React from "react";
 import Carousel from "../../Componenets/Carousels/Carousel";
 import Header from "../../Componenets/Header/header";
+import Footer from "../../Componenets/Footer/footer";
 import { TestimonialsContainter } from "./styles/homePage.styled";
 import Container from 'react-bootstrap/Container'
 
@@ -76,12 +77,12 @@ const HomePage = () => {
       />
 
       <TestimonialsContainter>
-      <Container>
-        <Carousel
-          type="testimonials"
-          items={testimonialsItems}
-          interval={null}
-        />
+        <Container>
+          <Carousel
+            type="testimonials"
+            items={testimonialsItems}
+            interval={null}
+          />
         </Container>
       </TestimonialsContainter>
 
@@ -89,6 +90,7 @@ const HomePage = () => {
       <div
         style={{ background: "rgb(46 46 46)", width: "100%", height: "500px" }}
       ></div>
+      <Footer />
     </>
   );
 };
