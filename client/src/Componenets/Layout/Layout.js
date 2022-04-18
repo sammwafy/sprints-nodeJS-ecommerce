@@ -1,16 +1,18 @@
-import Header from "../Header/header";
-import db from "../../db.json"
-import Footer from "../Footer/footer"
-const Layout = ({children}) => {
-const data = db;
-console.log(data)
-  return(
-    <>
-    <Header items={db.NavMenuItems}/>
-    {children}
-    <Footer />
-    </>
-  )
-}
+/** @format */
 
-export default Layout
+import Header from "../Header/header";
+import db from "../../db.json";
+import Footer from "../Footer/footer";
+const Layout = ({ children }) => {
+	const data = db;
+	console.log(data);
+	return (
+		<>
+			<Header items={db.NavMenuItems} />
+			{children}
+			<Footer />
+		</>
+	);
+};
+
+export default Layout;

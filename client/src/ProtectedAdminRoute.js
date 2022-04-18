@@ -1,12 +1,13 @@
+/** @format */
+
 import { Navigate } from "react-router-dom";
 
 const ProtectedAdminRoute = ({ user, children }) => {
+	if (!user.isAdmin) {
+		return <Navigate to='/' replace />;
+	}
 
-  if (!user.isAdmin) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
+	return children;
 };
 
-export default ProtectedAdminRoute
+export default ProtectedAdminRoute;
