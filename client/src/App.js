@@ -23,8 +23,12 @@ import {
 	categoriesColumns,
 	brandsColumns,
 } from "./dummy data/user";
+import { useSelector } from "react-redux";
+import Login from "./Pages/Login/Login";
 
 function App() {
+	const authUser = useSelector((state) => state.users.authUser);
+	console.log(authUser);
 	return (
 		<Router>
 			<Routes>
@@ -33,8 +37,8 @@ function App() {
 				<Route path='/' element={<HomePage />} />
 
 				<Route path='admin'>
-					<Route index element={<Home />} />
-					<Route path='login' element={<AdminLogin />} />
+					<Route index element={authUser ? <Home /> : <Login />} />
+					<Route path='login' element={<Login />} />
 					<Route path='underConstruc' element={<UnderConstruc />} />
 
 					<Route path='users'>
