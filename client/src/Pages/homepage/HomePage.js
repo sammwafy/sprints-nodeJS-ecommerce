@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import Carousel from "../../Componenets/Carousels/Carousel";
 import { TestimonialsContainter } from "./styles/homePage.styled";

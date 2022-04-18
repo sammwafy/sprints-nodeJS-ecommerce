@@ -34,23 +34,9 @@ export const productsColumns = [
 	{ field: "price", headerName: "Price", width: 130 },
 ];
 
-export const ordersColumns = [
+export const categoriesColumns = [
 	{ field: "id", headerName: "ID", width: 130 },
-	{ field: "custumer", headerName: "Custumer", width: 200 },
 
-	{
-		field: "date",
-		headerName: "Date",
-		description: "This column has a value getter and is not sortable.",
-		sortable: false,
-		width: 70,
-	},
-	{ field: "total", headerName: "Total", width: 130 },
-	{ field: "payment", headerName: "Payment", width: 130 },
-	{ field: "status", headerName: "Status", width: 130 },
-];
-
-export const usersColumns = [
 	{
 		field: "avatar",
 		headerName: "Avatar",
@@ -70,13 +56,58 @@ export const usersColumns = [
 			);
 		},
 	},
-	{ field: "id", headerName: "User Name", width: 130 },
-	{ field: "email", headerName: "Email", width: 200 },
+	{ field: "title", headerName: "Title", width: 200 },
+];
+
+
+export const brandsColumns = [
+	{ field: "id", headerName: "ID", width: 130 },
+
 	{
-		field: "lastTrans",
-		headerName: "Last Transaction",
-		width: 200,
+		field: "avatar",
+		headerName: "Avatar",
+		width: 70,
+		renderCell: (params) => {
+			return (
+				<img
+					src={params.row.avatar}
+					alt={`${params.row.userName}`}
+					style={{
+						width: "50px",
+						height: "50px",
+						borderRadius: "50%",
+						objectFit: "cover",
+					}}
+				/>
+			);
+		},
 	},
+	{ field: "title", headerName: "Title", width: 200 },
+];
+
+
+
+export const ordersColumns = [
+	{ field: "id", headerName: "ID", width: 130 },
+	{ field: "custumer", headerName: "Custumer", width: 200 },
+
+	{
+		field: "date",
+		headerName: "Date",
+		description: "This column has a value getter and is not sortable.",
+		sortable: false,
+		width: 70,
+	},
+	{ field: "total", headerName: "Total", width: 130 },
+	{ field: "payment", headerName: "Payment", width: 130 },
+	{ field: "status", headerName: "Status", width: 130 },
+];
+
+export const usersColumns = [
+	{ field: "id", headerName: "No.", width: 70 },
+	{ field: "username", headerName: "User Name", width: 100 },
+	{ field: "email", headerName: "Email", width: 200 },
+
 	{
 		field: "status",
 		headerName: "Status",
@@ -98,77 +129,61 @@ export const usersColumns = [
 
 export const usersRows = [
 	{
-		avatar:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-		id: "Snow",
+		id: "1",
+		username: "Snow",
 		email: "Jon@gmail.com",
-		lastTrans: " $35",
 		status: "Active",
 	},
 	{
-		avatar:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-		id: "Lannister",
+		id: "2",
+		username: "Lanniste",
 		email: "Cersei@gmail.com",
-		lastTrans: " $42",
-		status: "Offline",
+		status: "deactive",
 	},
 	{
-		avatar:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-		id: "Sara",
+		id: "3",
+		username: "Sara",
 		email: "Jaime@gmail.com",
-		lastTrans: " $45",
 		status: "Active",
 	},
 	{
-		avatar:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-		id: "Stark",
+		id: "4",
+		username: "Stark",
 		email: "Arya@gmail.com",
 		lastTrans: " $16",
 		status: "Active",
 	},
 	{
-		avatar:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-		id: "Targaryen",
+		id: "5",
+		username: "Targaryen",
 		email: "Daenerys@gmail.com",
-		lastTrans: null,
 		status: "Active",
 	},
 	{
-		avatar:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-		id: "Melisandre",
-		email: null,
-		lastTrans: "$150",
+		id: "6",
+		username: "Melisandre",
+		email: "Ferrara@gmail.com",
 		status: "offline",
 	},
 	{
-		avatar:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-		id: "Clifford",
+		id: "7",
+		username: "Clifford",
 		email: "Ferrara@gmail.com",
-		lastTrans: " $44",
 		status: "Active",
 	},
 	{
-		avatar:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-		id: "Frances",
+		id: "8",
+		username: "Frances",
 		email: "Rossini@gmail.com",
-		lastTrans: " $36",
 		status: "Offline",
 	},
 	{
-		avatar:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-		id: "Roxie",
+		id: "9",
+		username: "Harvey",
 		email: "Harvey@gmail.com",
-		lastTrans: " $65",
 		status: "Active",
 	},
+	//add date field..
 ];
 
 export const productsRows = [
@@ -253,6 +268,16 @@ export const productsRows = [
 		price: " $65",
 	},
 ];
+
+
+export const categoriesRows = [
+	{
+		id: "2",
+		avatar:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
+		title: "Cersei@gmail.com",
+	},
+]
 
 export const ordersRows = [
 	{

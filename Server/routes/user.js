@@ -36,7 +36,11 @@ router.get("/find/:id", verifyTokenAndAuthorization, async (req, res) => {
     try {
         const user = await User.findById(req.params.id)
         const { password, isAdmin, ...others } = user._doc
-        res.status(200).json(others)
+        res.status(200).json({
+          opts: others,
+          isAdmin: isAdmin
+        })
+
     } catch (err) {
         res.status(500).json(err)
     }

@@ -60,7 +60,7 @@ const SignIn = ({ user }) => {
       const username = response?.data?.username;
       const userID = response?.data?._id;
       if (username && password && accessToken) {
-        setAuth({ username, password, accessToken });
+        setAuth({ username });
         setCookie("token", accessToken);
         setCookie("id", userID);
         setSuccessMsg(true);

@@ -28,7 +28,7 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
             >
               <FaBars /> SHOP
             </li>
-            {typeof (auth) === 'undefined' ? (
+            {typeof auth === "undefined" ? (
               <li className="signIn">
                 <a href="/login">
                   <FaSignInAlt /> SIGN IN
@@ -50,9 +50,11 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
         </div>
         <div className="rightTopNav">
           <ul>
-            <li className="helloMSG">
-              hi <span>{auth.username}</span>
-            </li>
+            {typeof auth !== "undefined" && (
+              <li className="helloMSG">
+                hi <span>{auth?.opts?.username}</span>
+              </li>
+            )}
             <li>
               <FaRegHeart />
             </li>
