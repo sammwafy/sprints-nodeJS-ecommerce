@@ -9,9 +9,6 @@ export const FooterWrapper = styled.footer`
     padding-top: 50px;
     color: rgba(187, 198, 221, 1);
   }
-  .logoWhite {
-    width: 250px;
-  }
 
   .block-header {
     display: flex;
