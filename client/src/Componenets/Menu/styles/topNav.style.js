@@ -9,7 +9,14 @@ export const TopNavWrapper = styled.div`
     display: flex;
     padding: 0;
   }
+  .leftTopNav ul a {
+    text-decoration: none;
+    color:#212529;
+  }
 
+  .leftTopNav ul a:hover {
+    color:#0d6efd
+  }
   & > div {
     width: 33.3%;
   }
@@ -24,6 +31,18 @@ export const TopNavWrapper = styled.div`
   .middleTopNav {
     display: flex;
     justify-content: center;
+    margin-top: -1rem;
+    img{
+      width: 120px;
+    }
+
+    @media screen and (max-width:482px){
+      margin-top: -0.3rem;
+      margin-left: -2rem;
+      img{
+      width: 90px;
+      }
+    }
   }
 
   .rightTopNav {
@@ -40,6 +59,13 @@ export const TopNavWrapper = styled.div`
     margin-right: 15px;
     font-size: 0.8rem;
   }
+  .rightTopNav .helloMSG{
+    font-size: 1rem;
+    font-weight: 600;
+    span{
+      color:rgba(208,30,36,1)
+    }
+  }
   .signInIconOnly {
     display: none;
   }
@@ -53,7 +79,7 @@ export const TopNavWrapper = styled.div`
 
   /** mobile */
   @media screen and (max-width: 482px) {
-    .topBarBlog,
+    
     .signIn {
       display: none;
     }

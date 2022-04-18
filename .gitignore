@@ -4,7 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.vscode
+.env
 # testing
 /coverage
 
@@ -18,6 +19,14 @@
 .env.test.local
 .env.production.local
 
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.vscode/settings.json
+.vscode/settings.json
+.vscode/settings.json
+client/src/Pages/AdminHome/Test.jsx
+node_modules/
+.env
+

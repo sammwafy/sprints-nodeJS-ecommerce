@@ -34,13 +34,14 @@
 			list-style: none;
 			margin: 0;
 			padding: 0;
+
 			li {
 				display: flex;
 				align-items: center;
 				padding: 5px;
 				cursor: pointer;
 				&:hover {
-					background-color: rgb(108, 187, 236);
+					background-color: rgba(10, 61, 128, 0.353);
 					span {
 						color: white;
 					}

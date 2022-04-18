@@ -1,4 +1,75 @@
 /** @format */
+.link {
+	text-decoration: none;
+	span {
+		border-radius: 5px;
+		font-weight: bold;
+		border: 2px solid blue;
+		color: blue;
+		cursor: pointer;
+		width: 50px;
+		height: 50px;
+		padding: 3px 5px;
+		&:hover {
+			border: none;
+			background-color: rgba(0, 0, 255, 0.267);
+			color: white;
+		}
+	}
+}
 
 .datatable {
+	.badge {
+		width: 70px;
+		border-radius: 50%;
+		&.Active {
+			color: green;
+			background-color: rgba(0, 128, 0, 0.206);
+		}
+		&.Offline {
+			color: red;
+			background-color: rgba(255, 0, 0, 0.193);
+		}
+	}
+	.actions {
+		display: flex;
+		gap: 20px;
+		align-items: center;
+
+		.viewButton {
+			color: green;
+			border-radius: 5px;
+			border: 1px dotted rgba(0, 128, 0, 0.275);
+			padding: 5px 10px;
+			cursor: pointer;
+			&:hover {
+				background-color: green;
+				color: white;
+			}
+		}
+		.deleteButton {
+			color: crimson;
+			border-radius: 5px;
+			border: 1px dotted rgba(220, 20, 60, 0.445);
+			padding: 5px 10px;
+			cursor: pointer;
+			&:hover {
+				background-color: crimson;
+				color: white;
+			}
+			&:active {
+			}
+		}
+		.editButton {
+			color: orange;
+			border-radius: 5px;
+			border: 1px dotted rgba(255, 166, 0, 0.566);
+			padding: 5px 10px;
+			cursor: pointer;
+			&:hover {
+				background-color: orange;
+				color: white;
+			}
+		}
+	}
 }

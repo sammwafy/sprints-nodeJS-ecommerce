@@ -11,6 +11,10 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import LogoutIcon from '@mui/icons-material/Logout';
+import CategoryIcon from '@mui/icons-material/Category';
+import InstagramIcon from '@mui/icons-material/Instagram';
+
+import { Link, Outlet } from "react-router-dom"
 const SideBar = () => {
     return (
         <div className="sidebar">
@@ -23,57 +27,99 @@ const SideBar = () => {
             <div className="center">
                 <ul>
                     <p className="title">Main</p>
-                    <li>
-                        <DashboardIcon className="icon" />
-                        <span>Dashboard</span>
-                    </li>
+                    <Link to="/admin" style={{ textDecoration: "none" }}>
+                        <li>
+                            <DashboardIcon className="icon" />
+                            <span>Dashboard</span>
+                        </li>
+                    </Link>
                     <p className="title">Lists</p>
-                    <li>
-                        <PersonIcon className="icon" />
-                        <span>Users</span>
-                    </li>
-                    <li>
-                        <AddBusinessIcon className="icon" />
-                        <span>Products</span>
-                    </li>
-                    <li>
-                        <AttachMoneyIcon className="icon" />
-                        <span>Orders</span>
-                    </li>
-                    <li>
-                        <LocalShippingIcon className="icon" />
-                        <span>Delivery</span>
-                    </li>
+                    <Link to="/admin/users/" style={{ textDecoration: "none" }}>
+                        <li>
+                            <PersonIcon className="icon" />
+                            <span>Users</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/products/" style={{ textDecoration: "none" }}>
+                        <li>
+                            <AddBusinessIcon className="icon" />
+                            <span>Products</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/categories/" style={{ textDecoration: "none" }}>
+                        <li>
+                            <CategoryIcon className="icon" />
+                            <span>Categories</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/brands/" style={{ textDecoration: "none" }}>
+                        <li>
+                            <InstagramIcon className="icon" />
+                            <span>Brands</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/orders" style={{ textDecoration: "none" }}>
+                        <li>
+                            <AttachMoneyIcon className="icon" />
+                            <span>Orders</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                        <li>
+                            <LocalShippingIcon className="icon" />
+                            <span>Delivery</span>
+                        </li>
+                    </Link>
                     <p className="title">Useful</p>
-                    <li>
-                        <BarChartIcon className="icon" />
-                        <span>stats</span>
-                    </li>
-                    <li>
-                        <NotificationsNoneIcon className="icon" />
-                        <span>Notifications</span>
-                    </li>
+                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                        <li>
+                            <BarChartIcon className="icon" />
+                            <span>stats</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                        <li>
+                            <NotificationsNoneIcon className="icon" />
+                            <span>Notifications</span>
+                        </li>
+                    </Link>
+
                     <p className="title">Service</p>
-                    <li>
-                        <HealthAndSafetyIcon className="icon" />
-                        <span>System Health</span>
-                    </li>
-                    <li>
-                        <VpnKeyIcon className="icon" />
-                        <span>Logs</span></li>
-                    <li><SettingsIcon className="icon" />
-                        <span>Settings</span>
-                    </li>
+                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                        <li>
+                            <HealthAndSafetyIcon className="icon" />
+                            <span>System Health</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                        <li>
+                            <VpnKeyIcon className="icon" />
+                            <span>Logs</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                        <li>
+                            <SettingsIcon className="icon" />
+                            <span>Settings</span>
+                        </li>
+                    </Link>
+
                     <p className="title">User</p>
-                    <li>
-                        <ManageAccountsIcon className="icon" />
-                        <span>Profile</span>
-                    </li>
-                    <li>
-                        <LogoutIcon className="icon" />
-                        <span>Logout</span>
-                    </li>
+                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                        <li>
+                            <ManageAccountsIcon className="icon" />
+                            <span>Profile</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                        <li>
+                            <LogoutIcon className="icon" />
+                            <span>Logout</span>
+                        </li>
+                    </Link>
+
                 </ul>
+                <Outlet />
             </div>
             {/* TODO: bottom */}
             <div className="bottom">
