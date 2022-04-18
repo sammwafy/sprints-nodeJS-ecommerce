@@ -1,5 +1,4 @@
 import { FooterWrapper } from "./styles/footer.styled";
-import './style.css'
 
 const Footer = () => {
    return (
@@ -18,7 +17,6 @@ const Footer = () => {
                      </div>
                   </div>
                </div>
-
                <div className="container-fluid">
                   <div className="social-row">
                      <div className="col-12">
