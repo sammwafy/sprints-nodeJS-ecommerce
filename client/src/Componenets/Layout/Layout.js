@@ -1,6 +1,6 @@
-import Header from "./Header/header";
-import db from "../db.json"
-
+import Header from "../Header/header";
+import db from "../../db.json"
+import Footer from "../Footer/footer"
 const Layout = ({children}) => {
 const data = db;
 console.log(data)
@@ -8,7 +8,7 @@ console.log(data)
     <>
     <Header items={db.NavMenuItems}/>
     {children}
-    <div>footer</div>
+    <Footer />
     </>
   )
 }

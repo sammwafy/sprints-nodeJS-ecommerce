@@ -1,6 +1,6 @@
 {
 	"name": "client",
-	"proxy": "http://localhost:5008",
+	"proxy": "http://localhost:5000",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -26,6 +26,7 @@
 		"react-bootstrap": "^2.2.3",
 		"react-chartjs-2": "^4.0.1",
 		"react-circular-progressbar": "^2.0.4",
+		"react-cookie": "^4.1.1",
 		"react-dom": "^18.0.0",
 		"react-icons": "^4.3.1",
 		"react-multi-carousel": "^2.8.0",

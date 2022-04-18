@@ -47,6 +47,18 @@ export const LoginWrapper = styled.div`
     color: #560fec;
   }
 
+  .successLogin{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .successLogin img{
+    width: 150px;
+    display: block;
+    margin: 20px auto;
+  }
+
   .LoginBtn {
     background-color: #9633ff;
     background-image: linear-gradient(326deg, #560fec 0%, #9633ff 74%);

@@ -6,15 +6,20 @@ import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import store from "./store/store";
-
+import { AuthProvider } from "./context/AuthProvider";
+import { CookiesProvider } from 'react-cookie';
 const container = document.getElementById("root");
 
 const root = createRoot(container);
 
 root.render(
-	<Provider store={store}>
-		<App />
-	</Provider>
+  <AuthProvider>
+    <Provider store={store}>
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>
+    </Provider>
+  </AuthProvider>
 );
 
 /** old method in react 17 and below */

@@ -1,8 +1,9 @@
 import React from "react";
 import Carousel from "../../Componenets/Carousels/Carousel";
-import Header from "../../Componenets/Header/header";
 import { TestimonialsContainter } from "./styles/homePage.styled";
-import Container from 'react-bootstrap/Container'
+import Container from "react-bootstrap/Container";
+import Layout from "../../Componenets/Layout/Layout";
+
 
 const HomePage = () => {
   const NavMenuItems = [
@@ -67,7 +68,8 @@ const HomePage = () => {
   ];
   return (
     <>
-      <Header items={NavMenuItems} />
+      <Layout>
+      {/* <Header items={NavMenuItems} /> */}
       <Carousel
         type="fullscreen"
         items={fullscreenCarouselItems}
@@ -76,19 +78,18 @@ const HomePage = () => {
       />
 
       <TestimonialsContainter>
-      <Container>
-        <Carousel
-          type="testimonials"
-          items={testimonialsItems}
-          interval={null}
-        />
+        <Container>
+          <Carousel
+            type="testimonials"
+            items={testimonialsItems}
+            interval={null}
+          />
         </Container>
       </TestimonialsContainter>
 
       <Carousel type="brands" />
-      <div
-        style={{ background: "rgb(46 46 46)", width: "100%", height: "500px" }}
-      ></div>
+   
+      </Layout>
     </>
   );
 };

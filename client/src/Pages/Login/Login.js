@@ -1,12 +1,17 @@
 import SignIn from "../../Componenets/Sign-in/SignIn";
-import Layout from "../../Componenets/Layout";
+import Layout from "../../Componenets/Layout/Layout";
+import { Navigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ user }) => {
   return (
     <>
-      <Layout>
-      <SignIn />
-      </Layout>
+      {user.length > 0 ? (
+        <Navigate to="/" replace />
+      ) : (
+        <Layout>
+          <SignIn />
+        </Layout>
+      )}
     </>
   );
 };

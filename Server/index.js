@@ -1,5 +1,12 @@
 const express = require("express")
 const app = express()
+const cors = require('cors')
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  credentials:true,            //allow-credentials
+  optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const UserRoute = require("./routes/user")
@@ -19,6 +26,8 @@ app.use("/api/auth" , authRoute)
 app.use("/api/products" , ProductRoute)
 app.use("/api/carts" , CartRoute)
 app.use("/api/orders" , OrderRoute)
+
 app.listen(5000, () => {
     console.log("server is running")
 })
+
