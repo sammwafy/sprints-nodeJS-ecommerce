@@ -25,8 +25,6 @@ export default function Card() {
 							<button className='add'> ADD TO CART </button>
 							<button className='wish-list'> ❤ </button>
 						</div>
-
-						<button> ADD TO CART </button>
 					</div>
 				</div>
 			</div>

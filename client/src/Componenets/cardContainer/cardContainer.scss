@@ -9,6 +9,9 @@
 	@media screen and (max-width: 768px) {
 		flex-direction: column;
 	}
+	@media screen and (max-width: 1300px) {
+		flex-direction: column;
+	}
 	.cards-info {
 		margin-left: 25px;
 
@@ -67,6 +70,9 @@
 		flex: 6;
 		@media screen and (max-width: 768px) {
 			flex-direction: column;
+		}
+		@media screen and (max-width: 900px) {
+			flex-wrap: wrap;
 		}
 	}
 }

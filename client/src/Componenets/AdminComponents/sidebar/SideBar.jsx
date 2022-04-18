@@ -11,8 +11,10 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import LogoutIcon from '@mui/icons-material/Logout';
+import CategoryIcon from '@mui/icons-material/Category';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 const SideBar = () => {
     return (
         <div className="sidebar">
@@ -42,6 +44,18 @@ const SideBar = () => {
                         <li>
                             <AddBusinessIcon className="icon" />
                             <span>Products</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/categories/" style={{ textDecoration: "none" }}>
+                        <li>
+                            <CategoryIcon className="icon" />
+                            <span>Categories</span>
+                        </li>
+                    </Link>
+                    <Link to="/admin/brands/" style={{ textDecoration: "none" }}>
+                        <li>
+                            <InstagramIcon className="icon" />
+                            <span>Brands</span>
                         </li>
                     </Link>
                     <Link to="/admin/orders" style={{ textDecoration: "none" }}>
@@ -105,6 +119,7 @@ const SideBar = () => {
                     </Link>
 
                 </ul>
+                <Outlet />
             </div>
             {/* TODO: bottom */}
             <div className="bottom">

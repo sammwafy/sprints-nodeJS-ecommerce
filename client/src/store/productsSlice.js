@@ -6,7 +6,7 @@ const initialValue = [];
 
 const productSlice = createSlice({
 	name: "products",
-	initialstate: initialValue,
+	initialState: initialValue,
 	reducers: {
 		getProducts(state, action) {
 			return (state = action.payload);
@@ -19,7 +19,10 @@ const productSlice = createSlice({
 		},
 		updateProduct(state, action) {
 			//update in backend
-			state.push(action.payload);
+			state[action.payload.id].price = action.payload.price;
 		},
 	},
 });
+
+export const productActions = productSlice.actions;
+export default productSlice.reducer;

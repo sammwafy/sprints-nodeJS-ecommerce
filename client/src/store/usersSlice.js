@@ -1,10 +1,16 @@
 /** @format */
 
-// const login = async (req, res, dispatch) => {
-// 	axios.get("http://localhost:5000/api/users/login", (req, res) => {
-// 		data: {
-//             email: "123@123",
-//             password: "123456"
-//         }
-// 	});
-// };
+import { createSlice } from "@reduxjs/toolkit";
+const initialValue = { authUser: null, users: {} };
+const usersSlice = createSlice({
+	name: "users",
+	initialState: initialValue,
+	reducers: {
+		login(state, action) {
+			state.authUser = action.payload;
+		},
+	},
+});
+
+export const usersActions = usersSlice.actions;
+export default usersSlice.reducer;

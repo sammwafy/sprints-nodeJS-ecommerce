@@ -10,6 +10,7 @@ import New from "./Pages/AdminNew/New";
 import AdminLogin from "./Pages/AdminLogin/AdminLogin";
 import AdminList from "./Pages/AdminListComp/AdminList";
 import Single from "./Pages/AdminSingle/Single";
+import AdminEdit from "./Pages/AdminEdit/AdminEdit";
 import UnderConstruc from "./Pages/UnderConstruc";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,10 +19,9 @@ import { userInputs, productInputs } from "./inputs";
 import {
 	usersColumns,
 	productsColumns,
-	usersRows,
-	productsRows,
 	ordersColumns,
-	ordersRows,
+	categoriesColumns,
+	brandsColumns,
 } from "./dummy data/user";
 
 function App() {
@@ -40,48 +40,67 @@ function App() {
 					<Route path='users'>
 						<Route
 							index
-							element={
-								<AdminList
-									columns={usersColumns}
-									rows={usersRows}
-									type='users'
-								/>
-							}
+							element={<AdminList columns={usersColumns} type='users' />}
 						/>
-						<Route path=':userId' element={<Single />} />
-						<Route
-							path='new'
-							element={<New title='Add new User' inputs={userInputs} />}
-						/>
+						<Route path=':userId'>
+							<Route index element={<Single />} />
+							<Route path='edit' element={<AdminEdit inputs={userInputs} />} />
+						</Route>
 					</Route>
 
 					<Route path='products'>
 						<Route
 							index
-							element={
-								<AdminList
-									columns={productsColumns}
-									rows={productsRows}
-									type='products'
-								/>
-							}
+							element={<AdminList columns={productsColumns} type='products' />}
 						/>
-						<Route path=':productId' element={<Single />} />
+						<Route path=':productId'>
+							<Route index element={<Single />} />
+							<Route path='edit' element={<AdminEdit />} />
+						</Route>
 						<Route
 							path='new'
-							element={<New inputs={productInputs} title='Add new Product' />}
+							element={<New type='products' title='Add new Product' />}
+						/>
+					</Route>
+					<Route path='categories'>
+						<Route
+							index
+							element={
+								<AdminList columns={categoriesColumns} type='categories' />
+							}
+						/>
+						<Route path=':categoryId'>
+							<Route index element={<Single />} />
+							<Route path='edit' element={<AdminEdit />} />
+						</Route>
+						<Route
+							path='new'
+							element={<New type='categories' title='Add new Category' />}
+						/>
+					</Route>
+					<Route path='brands'>
+						<Route
+							index
+							element={<AdminList columns={brandsColumns} type='brands' />}
+						/>
+						<Route path=':brandtId'>
+							<Route index element={<Single />} />
+							<Route path='edit' element={<AdminEdit />} />
+						</Route>
+						<Route
+							path='new'
+							element={<New type='brands' title='Add new Brand' />}
 						/>
 					</Route>
 					<Route path='orders'>
 						<Route
 							index
-							element={<AdminList columns={ordersColumns} rows={ordersRows} />}
+							element={<AdminList columns={ordersColumns} type='orders' />}
 						/>
-						<Route path=':userId' element={<Single />} />
-						<Route
-							path='new'
-							element={<New title='Add new User' inputs={userInputs} />}
-						/>
+						<Route path=':orderId'>
+							<Route index element={<Single />} />
+							<Route path='edit' element={<AdminEdit />} />
+						</Route>
 					</Route>
 				</Route>
 			</Routes>

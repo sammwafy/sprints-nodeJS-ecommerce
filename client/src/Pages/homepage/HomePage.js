@@ -8,23 +8,19 @@ import Container from "react-bootstrap/Container";
 import Cardcontainer from "../../Componenets/cardContainer/CardContainer";
 import { useEffect } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { productActions } from "../../store/productsSlice";
 
 const HomePage = () => {
-	// axios.get("http://localhost:5009/api/products", async (req, res) => {
-	// 	console.log("here");
-	// 	try {
-	// 		const allProducts = await res.body.json();
-	// 		console.log(allProducts);
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// });
+	const products = useSelector((state) => state.products);
+	const dispatch = useDispatch();
 	useEffect(() => {
 		axios
 			.get("http://localhost:5009/api/products")
 			.then(function (response) {
 				// handle success
 				console.log(response.data);
+				dispatch(productActions.getProducts(response.data));
 			})
 			.catch(function (error) {
 				// handle error
@@ -54,6 +50,7 @@ const HomePage = () => {
 				console.log(error);
 			});
 	}, []);
+	console.log(products);
 	const NavMenuItems = [
 		{
 			Furniture: [
