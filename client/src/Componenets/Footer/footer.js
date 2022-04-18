@@ -1,4 +1,5 @@
 import { FooterWrapper } from "./styles/footer.styled";
+import LogoWhite from "../../Assets/imgs/sprintsWhite.png";
 
 const Footer = () => {
    return (
@@ -9,7 +10,7 @@ const Footer = () => {
                <div className="row">
                   <div className="col-12 block-body">
                      <div className="block-header">
-                        <h2>LOGO PLACE</h2>
+                        <img className="logoWhite" src={LogoWhite} alt="logo" />
                      </div>
                      <div className="block-content">
                         <p>123 Main St. NY, NY, 11220</p>

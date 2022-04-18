@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const FooterWrapper = styled.footer`
   background: rgba(41, 41, 43, 1);
 
+  .logoWhite {
+   width: 250px;
+ }
+ 
   .block-body {
     display: flex;
     flex-direction: column;
