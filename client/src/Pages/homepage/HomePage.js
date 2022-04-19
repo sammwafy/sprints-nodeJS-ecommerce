@@ -78,6 +78,7 @@ const HomePage = () => {
 					interval={null}
 					subHeader={true}
 				/>
+				<Carousel type="category" />
 				<CardContainer />
 				<TestimonialsContainter>
 					<Container>
