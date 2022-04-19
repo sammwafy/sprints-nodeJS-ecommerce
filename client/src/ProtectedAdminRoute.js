@@ -3,7 +3,7 @@
 import { Navigate } from "react-router-dom";
 
 const ProtectedAdminRoute = ({ user, children }) => {
-	if (!user.isAdmin) {
+	if (user.isAdmin) {
 		return <Navigate to='/' replace />;
 	}
 

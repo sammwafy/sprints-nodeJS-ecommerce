@@ -16,7 +16,7 @@ const Footer = () => {
                         <p>123 Main St. NY, NY, 11220</p>
                         <p></p>
                      </div>
-                  </div>
+                  </div> 
                </div>
                <div className="container-fluid">
                   <div className="social-row">
@@ -175,18 +175,18 @@ const Footer = () => {
                                  <form action="" method="post" enctype="multipart/form-data" className="form-horizontal">
                                     <div className="input-group">
                                        <input type="text" name="email" placeholder="Your email" className="form-control" />
+                                       <div className="checkbox">
+                                          <label>
+                                             <input type="checkbox" name="agree" value="1" />
+                                             I have read and agree to the <a href="#"><b>Privacy Policy</b></a>
+                                          </label>
+                                       </div>
                                        <span className="input-group-btn">
                                           <button type="submit" className="btn btn-primary" data-loading-text="<span>Send</span>">
                                              <i className="fa-solid fa-envelope"></i>
                                              <span> Send</span>
                                           </button>
                                        </span>
-                                    </div>
-                                    <div className="checkbox">
-                                       <label>
-                                          <input type="checkbox" name="agree" value="1" />
-                                          I have read and agree to the <a href="#"><b>Privacy Policy</b></a>
-                                       </label>
                                     </div>
                                  </form>
                               </div>
