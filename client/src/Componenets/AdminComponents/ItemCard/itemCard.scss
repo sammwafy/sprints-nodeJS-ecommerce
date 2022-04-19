@@ -2,6 +2,7 @@
 
 .item-card {
 	position: relative;
+	padding: 20px;
 	.edit {
 		padding: 2px 5px;
 		position: absolute;
@@ -11,6 +12,8 @@
 		background-color: rgba(220, 20, 60, 0.362);
 		color: crimson;
 		cursor: pointer;
+		width: 70px;
+		height: 30px;
 		&:hover {
 			background-color: transparent;
 			border: 1px solid rgba(220, 20, 60, 0.362);

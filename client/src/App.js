@@ -3,17 +3,14 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/homepage/HomePage";
 import { useEffect, useState } from "react";
-import AdminPage from "./Componenets/Admin-Dashboard/AdminPage";
 import Home from "./Pages/AdminHome/Home";
 import New from "./Pages/AdminNew/New";
-import AdminLogin from "./Pages/AdminLogin/AdminLogin";
 import AdminList from "./Pages/AdminListComp/AdminList";
 import Single from "./Pages/AdminSingle/Single";
 import AdminEdit from "./Pages/AdminEdit/AdminEdit";
 import UnderConstruc from "./Pages/UnderConstruc";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-multi-carousel/lib/styles.css";
-import { userInputs, productInputs } from "./inputs";
 import {
 	usersColumns,
 	productsColumns,
@@ -21,7 +18,6 @@ import {
 	categoriesColumns,
 	brandsColumns,
 } from "./dummy data/user";
-import { useSelector } from "react-redux";
 
 // login and logout
 import Login from "./Pages/Login/Login";
@@ -41,8 +37,8 @@ import ProtectedAdminRoute from "./ProtectedAdminRoute";
 import AuthContext from "./context/AuthProvider";
 import { useContext } from "react";
 
-function App({ auth }) {
-	const { setAuth } = useContext(AuthContext);
+function App() {
+	const { auth, setAuth } = useContext(AuthContext);
 	const [user, setUser] = useState({});
 	const [cookies, setCookie] = useCookies(["token", "id"]);
 	console.log(user);
@@ -50,7 +46,7 @@ function App({ auth }) {
 		const userID = cookies.id;
 		const config = {
 			headers: {
-				token: "Bearer" + cookies.token,
+				token: "Bearer " + cookies.token,
 			},
 		};
 
@@ -67,6 +63,7 @@ function App({ auth }) {
 		}
 	}, []);
 
+	console.log(auth);
 	return (
 		<Router>
 			<Routes>
@@ -82,14 +79,7 @@ function App({ auth }) {
 				<Route path='/logout' element={<Logout />} />
 
 				<Route path='admin'>
-					<Route
-						index
-						element={
-							<ProtectedAdminRoute user={user}>
-								<Home />
-							</ProtectedAdminRoute>
-						}
-					/>
+					<Route index element={<Home />} />
 					<Route path='login' element={<Login />} />
 					<Route path='underConstruc' element={<UnderConstruc />} />
 
@@ -100,7 +90,7 @@ function App({ auth }) {
 						/>
 						<Route path=':userId'>
 							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit inputs={userInputs} />} />
+							<Route path='edit' element={<AdminEdit type='users' />} />
 						</Route>
 					</Route>
 
@@ -111,13 +101,14 @@ function App({ auth }) {
 						/>
 						<Route path=':productId'>
 							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit />} />
+							<Route path='edit' element={<AdminEdit type='products' />} />
 						</Route>
 						<Route
 							path='new'
 							element={<New type='products' title='Add new Product' />}
 						/>
 					</Route>
+
 					<Route path='categories'>
 						<Route
 							index
@@ -127,13 +118,14 @@ function App({ auth }) {
 						/>
 						<Route path=':categoryId'>
 							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit />} />
+							<Route path='edit' element={<AdminEdit type='categories' />} />
 						</Route>
 						<Route
 							path='new'
 							element={<New type='categories' title='Add new Category' />}
 						/>
 					</Route>
+
 					<Route path='brands'>
 						<Route
 							index
@@ -141,13 +133,14 @@ function App({ auth }) {
 						/>
 						<Route path=':brandtId'>
 							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit />} />
+							<Route path='edit' element={<AdminEdit type='brands' />} />
 						</Route>
 						<Route
 							path='new'
 							element={<New type='brands' title='Add new Brand' />}
 						/>
 					</Route>
+
 					<Route path='orders'>
 						<Route
 							index
@@ -155,7 +148,7 @@ function App({ auth }) {
 						/>
 						<Route path=':orderId'>
 							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit />} />
+							<Route path='edit' element={<AdminEdit type='orders' />} />
 						</Route>
 					</Route>
 				</Route>
