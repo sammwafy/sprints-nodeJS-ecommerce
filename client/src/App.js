@@ -15,13 +15,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-multi-carousel/lib/styles.css";
 import { userInputs, productInputs } from "./inputs";
 import {
-	usersColumns,
-	productsColumns,
-	ordersColumns,
-	categoriesColumns,
-	brandsColumns,
+  usersColumns,
+  productsColumns,
+  ordersColumns,
+  categoriesColumns,
+  brandsColumns,
 } from "./dummy data/user";
 import { useSelector } from "react-redux";
+
+//shop
+import Shop from "./Pages/shop/Shop";
 
 // login and logout
 import Login from "./Pages/Login/Login";
@@ -38,130 +41,129 @@ import ProtectedRoute from "./ProtectedRoute";
 import ProtectedAdminRoute from "./ProtectedAdminRoute";
 
 // import authcontext
-import AuthContext from "./context/AuthProvider";
-import { useContext } from "react";
+import useAuth from "./Hooks/useAuth.js";
+import ErrorPage from "./Pages/404/404.js";
 
-function App({ auth }) {
-	const { setAuth } = useContext(AuthContext);
-	const [user, setUser] = useState({});
-	const [cookies, setCookie] = useCookies(["token", "id"]);
-	console.log(user);
-	useEffect(() => {
-		const userID = cookies.id;
-		const config = {
-			headers: {
-				token: "Bearer" + cookies.token,
-			},
-		};
+function App() {
+  const { auth } = useAuth();
+  // const [user, setUser] = useState({});
+  // const [cookies, setCookie] = useCookies(["token", "id"]);
+  // useEffect(() => {
+  // 	const userID = cookies.id;
+  // 	const config = {
+  // 		headers: {
+  // 			token: "Bearer" + cookies.token,
+  // 		},
+  // 	};
+  console.log(auth);
+  // 	if (userID) {
+  // 		axios.get(`/api/users/find/${userID}`, config).then(
+  // 			(res) => {
+  // 				setUser(res.data);
+  // 				setAuth(res.data);
+  // 			},
+  // 			(err) => {
+  // 				console.log(err);
+  // 			}
+  // 		);
+  // 	}
+  // }, []);
 
-		if (userID) {
-			axios.get(`/api/users/find/${userID}`, config).then(
-				(res) => {
-					setUser(res.data);
-					setAuth(res.data);
-				},
-				(err) => {
-					console.log(err);
-				}
-			);
-		}
-	}, []);
+  return (
+    <Router>
+      <Routes>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<HomePage />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
 
-	return (
-		<Router>
-			<Routes>
-				<Route
-					path='/'
-					element={
-						<ProtectedRoute user={user}>
-							<HomePage />
-						</ProtectedRoute>
-					}
-				/>
-				<Route path='/login' element={<Login user={user} />} />
-				<Route path='/logout' element={<Logout />} />
+        <Route path="/404" element={<ErrorPage />} />
 
-				<Route path='admin'>
-					<Route
-						index
-						element={
-							<ProtectedAdminRoute user={user}>
-								<Home />
-							</ProtectedAdminRoute>
-						}
-					/>
-					<Route path='login' element={<Login />} />
-					<Route path='underConstruc' element={<UnderConstruc />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/logout" element={<Logout />} />
 
-					<Route path='users'>
-						<Route
-							index
-							element={<AdminList columns={usersColumns} type='users' />}
-						/>
-						<Route path=':userId'>
-							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit inputs={userInputs} />} />
-						</Route>
-					</Route>
+        <Route element={<ProtectedAdminRoute role="SuperUser" />}>
+          <Route path="admin">
+            <Route index element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="underConstruc" element={<UnderConstruc />} />
 
-					<Route path='products'>
-						<Route
-							index
-							element={<AdminList columns={productsColumns} type='products' />}
-						/>
-						<Route path=':productId'>
-							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit />} />
-						</Route>
-						<Route
-							path='new'
-							element={<New type='products' title='Add new Product' />}
-						/>
-					</Route>
-					<Route path='categories'>
-						<Route
-							index
-							element={
-								<AdminList columns={categoriesColumns} type='categories' />
-							}
-						/>
-						<Route path=':categoryId'>
-							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit />} />
-						</Route>
-						<Route
-							path='new'
-							element={<New type='categories' title='Add new Category' />}
-						/>
-					</Route>
-					<Route path='brands'>
-						<Route
-							index
-							element={<AdminList columns={brandsColumns} type='brands' />}
-						/>
-						<Route path=':brandtId'>
-							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit />} />
-						</Route>
-						<Route
-							path='new'
-							element={<New type='brands' title='Add new Brand' />}
-						/>
-					</Route>
-					<Route path='orders'>
-						<Route
-							index
-							element={<AdminList columns={ordersColumns} type='orders' />}
-						/>
-						<Route path=':orderId'>
-							<Route index element={<Single />} />
-							<Route path='edit' element={<AdminEdit />} />
-						</Route>
-					</Route>
-				</Route>
-			</Routes>
-		</Router>
-	);
+            <Route path="users">
+              <Route
+                index
+                element={<AdminList columns={usersColumns} type="users" />}
+              />
+              <Route path=":userId">
+                <Route index element={<Single />} />
+                <Route
+                  path="edit"
+                  element={<AdminEdit inputs={userInputs} />}
+                />
+              </Route>
+            </Route>
+
+            <Route path="products">
+              <Route
+                index
+                element={
+                  <AdminList columns={productsColumns} type="products" />
+                }
+              />
+              <Route path=":productId">
+                <Route index element={<Single />} />
+                <Route path="edit" element={<AdminEdit />} />
+              </Route>
+              <Route
+                path="new"
+                element={<New type="products" title="Add new Product" />}
+              />
+            </Route>
+            <Route path="categories">
+              <Route
+                index
+                element={
+                  <AdminList columns={categoriesColumns} type="categories" />
+                }
+              />
+              <Route path=":categoryId">
+                <Route index element={<Single />} />
+                <Route path="edit" element={<AdminEdit />} />
+              </Route>
+              <Route
+                path="new"
+                element={<New type="categories" title="Add new Category" />}
+              />
+            </Route>
+            <Route path="brands">
+              <Route
+                index
+                element={<AdminList columns={brandsColumns} type="brands" />}
+              />
+              <Route path=":brandtId">
+                <Route index element={<Single />} />
+                <Route path="edit" element={<AdminEdit />} />
+              </Route>
+              <Route
+                path="new"
+                element={<New type="brands" title="Add new Brand" />}
+              />
+            </Route>
+            <Route path="orders">
+              <Route
+                index
+                element={<AdminList columns={ordersColumns} type="orders" />}
+              />
+              <Route path=":orderId">
+                <Route index element={<Single />} />
+                <Route path="edit" element={<AdminEdit />} />
+              </Route>
+            </Route>
+          </Route>
+        </Route>
+        {/* end of admin check */}
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;

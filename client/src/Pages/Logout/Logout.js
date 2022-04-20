@@ -17,6 +17,7 @@ const Logout = () => {
   useEffect(() => {
     removeCookie("token");
     removeCookie("id");
+    removeCookie("username");
     setAuth()
     if (!cookies.id && !cookies.token) {
       setTimeout(() => navigate('/login'),3600);
@@ -63,6 +64,10 @@ const LogoutWrapper = styled.div`
     img {
       width: 100px;
       margin-bottom: 20px;
+    }
+    @media screen and (max-width:482px){
+      width: 90vw;
+      padding: 15px 1.4rem;
     }
   }
 `;

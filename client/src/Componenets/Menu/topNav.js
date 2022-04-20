@@ -10,11 +10,10 @@ import {
 import TopBar from "./TopBar";
 import styled from "styled-components";
 import logo from "../../Assets/imgs/sprints.png";
-import AuthContext from "../../context/AuthProvider";
-import { useContext } from "react";
+import useAuth from "../../Hooks/useAuth.js";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
 
   return (
     <TopWrapper>
@@ -28,16 +27,16 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
             >
               <FaBars /> SHOP
             </li>
-            {typeof auth === "undefined" ? (
-              <li className="signIn">
-                <a href="/login">
-                  <FaSignInAlt /> SIGN IN
-                </a>
-              </li>
-            ) : (
+            {auth?.username ? (
               <li className="logout">
                 <a href="/logout">
                   <FaSignOutAlt /> Logout
+                </a>
+              </li>
+            ) : (
+              <li className="signIn">
+                <a href="/login">
+                  <FaSignInAlt /> SIGN IN
                 </a>
               </li>
             )}
@@ -50,9 +49,9 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
         </div>
         <div className="rightTopNav">
           <ul>
-            {typeof auth !== "undefined" && (
+            {auth?.username && (
               <li className="helloMSG">
-                hi <span>{auth?.opts?.username}</span>
+                hi <span>{auth?.username}</span>
               </li>
             )}
             <li>
