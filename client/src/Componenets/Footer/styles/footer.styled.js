@@ -3,14 +3,15 @@ import styled from "styled-components";
 export const FooterWrapper = styled.footer`
   background: rgba(41, 41, 43, 1);
 
+  .logoWhite {
+   width: 250px;
+ }
+ 
   .block-body {
     display: flex;
     flex-direction: column;
     padding-top: 50px;
     color: rgba(187, 198, 221, 1);
-  }
-  .logoWhite {
-    width: 250px;
   }
 
   .block-header {
@@ -258,10 +259,13 @@ export const FooterWrapper = styled.footer`
     border-style: solid !important;
     border-color: rgba(114, 118, 132, 1) !important;
     border-radius: 0px !important;
+    margin-top: -5px;
   }
 
   .module-newsletter .input-group .input-group-btn .btn {
-    background: rgba(114, 118, 132, 1);
+    background: rgb(41,41,43);
+    border-color: rgb(114,118,132);
+    
   }
 
   .input-group {
