@@ -67,14 +67,7 @@ function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route
-					path='/'
-					element={
-						<ProtectedRoute user={user}>
-							<HomePage />
-						</ProtectedRoute>
-					}
-				/>
+				<Route path='/' element={<HomePage />} />
 				<Route path='/login' element={<Login user={user} />} />
 				<Route path='/logout' element={<Logout />} />
 

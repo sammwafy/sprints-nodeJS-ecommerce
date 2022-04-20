@@ -91,7 +91,7 @@ const DataTable = ({ columns, type }) => {
                             <div className="editButton">Edit</div>
                         </Link>
 
-                        <div className="deleteButton">Delete</div>
+                        <div className="deleteButton" >Delete</div>
 
 
 

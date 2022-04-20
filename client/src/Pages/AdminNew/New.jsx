@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Select from 'react-select'
 
 const New = ({ title, type }) => {
-    const [inputData, setInputData] = useState({ categories: "", image: "space" })
+    const [inputData, setInputData] = useState({ categories: "", image: "https://assets.pbimgs.com/pbimgs/ab/images/dp/wcm/202151/0016/get-the-look-coffee-table-couture-c.jpg" })
     const [file, setFile] = useState(null)
     const [required, setRequired] = useState(false)
     const [cookies, setCookie] = useCookies(["token", "id"]);
