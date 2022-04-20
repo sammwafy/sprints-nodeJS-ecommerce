@@ -79,7 +79,7 @@ const HomePage = () => {
 					subHeader={true}
 				/>
 				<CardContainer />
-
+				<CardContainer />
 				<TestimonialsContainter>
 					<Container>
 						<Carousel

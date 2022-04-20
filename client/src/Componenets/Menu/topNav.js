@@ -1,3 +1,5 @@
+/** @format */
+
 import { TopNavWrapper } from "./styles/topNav.style";
 import {
   FaBars,

@@ -6,10 +6,39 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios"
 import { productActions } from "../../../store/productsSlice"
-
+import { useCookies } from "react-cookie";
 
 const DataTable = ({ columns, type }) => {
+    const [cookies, setCookie] = useCookies(["token", "id"]);
     const dispatch = useDispatch()
+    const handleClick = (id) => {
+        const confirm = window.confirm("alert");
+        if (confirm) {
+            axios.delete(`/api/products/${id}`,
+
+
+                {
+                    headers: {
+                        token: "Bearer " + cookies.token,
+
+                        "Content-Type": "application/json",
+
+
+                    },
+                    withCredentials: true,
+                }
+
+
+            ).then(window.location.reload(false)).catch(error => console.log(error))
+        } else {
+            return
+        }
+
+
+    }
+
+
+
     useEffect(() => {
         axios
             .get("http://localhost:5009/api/products")
@@ -26,7 +55,7 @@ const DataTable = ({ columns, type }) => {
     const products = useSelector(state => state.products)
     let no = 1
 
-
+    console.log(products);
 
     let rows
     switch (type) {
@@ -38,7 +67,7 @@ const DataTable = ({ columns, type }) => {
         }]
             break;
         case "products": rows = products.map(product => {
-            return { id: no++, avatar: product.image, title: product.title, stock: product.quantity, price: product.price }
+            return { id: product._id, avatar: product.image, title: product.title, stock: product.quantity, price: product.price }
         })
             break;
 
@@ -91,7 +120,7 @@ const DataTable = ({ columns, type }) => {
                             <div className="editButton">Edit</div>
                         </Link>
 
-                        <div className="deleteButton">Delete</div>
+                        <div className="deleteButton" onClick={() => handleClick(params.row.id)}>Delete</div>
 
 
 

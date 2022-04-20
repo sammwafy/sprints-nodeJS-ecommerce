@@ -1,3 +1,5 @@
+/** @format */
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
@@ -36,11 +38,6 @@ const SignIn = ({ user }) => {
   useEffect(() => {
     emailRefrence?.current?.focus();
   }, []);
-
-  // set the error message
-  useEffect(() => {
-    setErrorMsg("");
-  }, [email, password]);
 
   // handle form submit and fetch login
   const SubmitHandler = async (e) => {
@@ -125,14 +122,14 @@ const SignIn = ({ user }) => {
                   aria-describedby="password"
                 />
               </InputGroup>
-
-              <Form.Group
-                className="mb-3 checkTerms"
-                controlId="formBasicCheckbox"
-              >
-                <Form.Check type="checkbox" required />I read and agree to{" "}
-                <Link to="/">Terms & Conditions</Link>
-              </Form.Group>
+              {/*In  register only i think */}
+              {/* <Form.Group
+								className='mb-3 checkTerms'
+								controlId='formBasicCheckbox'
+							>
+								<Form.Check type='checkbox' required />I read and agree to{" "}
+								<Link to='/'>Terms & Conditions</Link>
+							</Form.Group> */}
               <Button className="LoginBtn" type="submit">
                 Sign In
               </Button>

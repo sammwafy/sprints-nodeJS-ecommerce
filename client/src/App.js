@@ -3,17 +3,14 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/homepage/HomePage";
 import { useEffect, useState } from "react";
-import AdminPage from "./Componenets/Admin-Dashboard/AdminPage";
 import Home from "./Pages/AdminHome/Home";
 import New from "./Pages/AdminNew/New";
-import AdminLogin from "./Pages/AdminLogin/AdminLogin";
 import AdminList from "./Pages/AdminListComp/AdminList";
 import Single from "./Pages/AdminSingle/Single";
 import AdminEdit from "./Pages/AdminEdit/AdminEdit";
 import UnderConstruc from "./Pages/UnderConstruc";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-multi-carousel/lib/styles.css";
-import { userInputs, productInputs } from "./inputs";
 import {
   usersColumns,
   productsColumns,
@@ -21,7 +18,6 @@ import {
   categoriesColumns,
   brandsColumns,
 } from "./dummy data/user";
-import { useSelector } from "react-redux";
 
 //shop
 import Shop from "./Pages/shop/Shop";
@@ -29,12 +25,6 @@ import Shop from "./Pages/shop/Shop";
 // login and logout
 import Login from "./Pages/Login/Login";
 import Logout from "./Pages/Logout/Logout";
-
-// cookies
-import { useCookies } from "react-cookie";
-
-// custom axios
-import axios from "./Hooks/axios";
 
 // protected routes
 import ProtectedRoute from "./ProtectedRoute";
@@ -72,20 +62,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<HomePage />} />
-        </Route>
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
-
-        <Route path="/404" element={<ErrorPage />} />
-
-        <Route path="/shop" element={<Shop />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/404" element={<ErrorPage />} />
 
         <Route element={<ProtectedAdminRoute role="SuperUser" />}>
           <Route path="admin">
             <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
             <Route path="underConstruc" element={<UnderConstruc />} />
 
             <Route path="users">
@@ -95,10 +79,7 @@ function App() {
               />
               <Route path=":userId">
                 <Route index element={<Single />} />
-                <Route
-                  path="edit"
-                  element={<AdminEdit inputs={userInputs} />}
-                />
+                <Route path="edit" element={<AdminEdit type="users" />} />
               </Route>
             </Route>
 
@@ -111,13 +92,14 @@ function App() {
               />
               <Route path=":productId">
                 <Route index element={<Single />} />
-                <Route path="edit" element={<AdminEdit />} />
+                <Route path="edit" element={<AdminEdit type="products" />} />
               </Route>
               <Route
                 path="new"
                 element={<New type="products" title="Add new Product" />}
               />
             </Route>
+
             <Route path="categories">
               <Route
                 index
@@ -127,13 +109,14 @@ function App() {
               />
               <Route path=":categoryId">
                 <Route index element={<Single />} />
-                <Route path="edit" element={<AdminEdit />} />
+                <Route path="edit" element={<AdminEdit type="categories" />} />
               </Route>
               <Route
                 path="new"
                 element={<New type="categories" title="Add new Category" />}
               />
             </Route>
+
             <Route path="brands">
               <Route
                 index
@@ -141,13 +124,14 @@ function App() {
               />
               <Route path=":brandtId">
                 <Route index element={<Single />} />
-                <Route path="edit" element={<AdminEdit />} />
+                <Route path="edit" element={<AdminEdit type="brands" />} />
               </Route>
               <Route
                 path="new"
                 element={<New type="brands" title="Add new Brand" />}
               />
             </Route>
+
             <Route path="orders">
               <Route
                 index
@@ -155,12 +139,11 @@ function App() {
               />
               <Route path=":orderId">
                 <Route index element={<Single />} />
-                <Route path="edit" element={<AdminEdit />} />
+                <Route path="edit" element={<AdminEdit type="orders" />} />
               </Route>
             </Route>
           </Route>
         </Route>
-        {/* end of admin check */}
       </Routes>
     </Router>
   );
