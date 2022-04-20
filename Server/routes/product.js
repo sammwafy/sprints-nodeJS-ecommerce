@@ -41,6 +41,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 		res.status(500).json(err);
 	}
 });
+
 //GET PRODUCT
 router.get("/find/:id", async (req, res) => {
 	try {
