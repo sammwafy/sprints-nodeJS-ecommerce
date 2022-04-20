@@ -67,6 +67,10 @@ const ErrorPageWrapper = styled.div`
     @media screen and (max-width: 482px) {
       width: 90vw;
       padding: 15px 1.4rem;
+      font-size: 1.2rem;
+      h1 {
+        font-size: 3rem;
+      }
     }
   }
 `;

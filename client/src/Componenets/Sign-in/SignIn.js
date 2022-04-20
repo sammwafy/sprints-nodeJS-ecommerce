@@ -33,6 +33,7 @@ const SignIn = ({ user }) => {
   // handle cookies
   const [cookies, setCookie] = useCookies([]);
 
+
   // set ref focus for screen readers
 
   useEffect(() => {
@@ -59,15 +60,15 @@ const SignIn = ({ user }) => {
       const accessToken = response?.data?.accessToken;
       const username = response?.data?.username;
       const userID = response?.data?._id;
-      if (username && accessToken) {
-        setAuth({ username });
+      if (username && password && accessToken) {
+        setAuth(response?.data);
         setCookie("token", accessToken);
         setCookie("id", userID);
         setCookie("username", username);
         setSuccessMsg(true);
         setEmail("");
         setPassword("");
-        setTimeout(() => navigate(from, { replace: true }), 3600);
+        setTimeout(() => navigate("/"), 3600);
       }
     } catch (err) {
       if (!err?.response) {
