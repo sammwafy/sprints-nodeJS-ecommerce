@@ -8,24 +8,27 @@ import { LoginWrapper } from "./styles/sign-in.styled";
 import Container from "react-bootstrap/Container";
 import { FaLock } from "react-icons/fa";
 import { IoMdMailOpen } from "react-icons/io";
-import { Link } from "react-router-dom";
-import { useRef, useEffect, useState, useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useRef, useEffect, useState } from "react";
+import useAuth from "../../Hooks/useAuth.js";
 import axios from "../../Hooks/axios";
 import checkCircle from "../../Assets/imgs/checkCircle.gif";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 const SignIn = ({ user }) => {
-	const { auth, setAuth } = useContext(AuthContext);
+	const { setAuth } = useAuth();
 	const [data, setData] = useState({});
 	const emailRefrence = useRef();
 	const errRefrence = useRef();
-	const navigate = useNavigate();
 	const [email, setEmail] = useState("sameh@gmail.com");
 	const [password, setPassword] = useState("sameh");
 	const [errorMsg, setErrorMsg] = useState("");
 	const [succesMsg, setSuccessMsg] = useState("");
+
+	// redirection
+	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || "/";
 
 	// handle cookies
 	const [cookies, setCookie] = useCookies([]);
@@ -35,11 +38,6 @@ const SignIn = ({ user }) => {
 	useEffect(() => {
 		emailRefrence?.current?.focus();
 	}, []);
-
-	// set the error message
-	useEffect(() => {
-		setErrorMsg("");
-	}, [email, password]);
 
 	// handle form submit and fetch login
 	const SubmitHandler = async (e) => {
@@ -58,15 +56,14 @@ const SignIn = ({ user }) => {
 					withCredentials: true,
 				}
 			);
-			console.log(response);
 			const accessToken = response?.data?.accessToken;
 			const username = response?.data?.username;
 			const userID = response?.data?._id;
-			console.log(response);
 			if (username && password && accessToken) {
 				setAuth(response?.data);
 				setCookie("token", accessToken);
 				setCookie("id", userID);
+				setCookie("username", username);
 				setSuccessMsg(true);
 				setEmail("");
 				setPassword("");
