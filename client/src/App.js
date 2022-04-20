@@ -53,13 +53,16 @@ function App() {
 		if (userID) {
 			axios.get(`/api/users/find/${userID}`, config).then(
 				(res) => {
+					console.log(res);
 					setUser(res.data);
-					setAuth(res.data);
+					setAuth(res.data.opts);
 				},
 				(err) => {
 					console.log(err);
 				}
 			);
+		} else {
+			setAuth(null);
 		}
 	}, []);
 
@@ -72,8 +75,14 @@ function App() {
 				<Route path='/logout' element={<Logout />} />
 
 				<Route path='admin'>
-					<Route index element={<Home />} />
-					<Route path='login' element={<Login />} />
+					<Route
+						index
+						element={
+							<ProtectedAdminRoute auth={user?.isAdmin}>
+								<Home />
+							</ProtectedAdminRoute>
+						}
+					/>
 					<Route path='underConstruc' element={<UnderConstruc />} />
 
 					<Route path='users'>

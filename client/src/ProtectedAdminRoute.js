@@ -2,9 +2,10 @@
 
 import { Navigate } from "react-router-dom";
 
-const ProtectedAdminRoute = ({ user, children }) => {
-	if (!user.isAdmin) {
-		return <Navigate to='/' replace />;
+const ProtectedAdminRoute = ({ auth, children }) => {
+	console.log(auth);
+	if (!auth) {
+		return <Navigate to='/login' replace />;
 	}
 
 	return children;

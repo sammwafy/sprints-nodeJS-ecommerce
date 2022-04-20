@@ -17,7 +17,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = ({ user }) => {
-	const { setAuth } = useContext(AuthContext);
+	const { auth, setAuth } = useContext(AuthContext);
 	const [data, setData] = useState({});
 	const emailRefrence = useRef();
 	const errRefrence = useRef();
@@ -62,7 +62,7 @@ const SignIn = ({ user }) => {
 			const username = response?.data?.username;
 			const userID = response?.data?._id;
 			if (username && password && accessToken) {
-				setAuth({ username });
+				setAuth(response?.data);
 				setCookie("token", accessToken);
 				setCookie("id", userID);
 				setSuccessMsg(true);
@@ -123,14 +123,14 @@ const SignIn = ({ user }) => {
 									aria-describedby='password'
 								/>
 							</InputGroup>
-
-							<Form.Group
+							{/*In  register only i think */}
+							{/* <Form.Group
 								className='mb-3 checkTerms'
 								controlId='formBasicCheckbox'
 							>
 								<Form.Check type='checkbox' required />I read and agree to{" "}
 								<Link to='/'>Terms & Conditions</Link>
-							</Form.Group>
+							</Form.Group> */}
 							<Button className='LoginBtn' type='submit'>
 								Sign In
 							</Button>

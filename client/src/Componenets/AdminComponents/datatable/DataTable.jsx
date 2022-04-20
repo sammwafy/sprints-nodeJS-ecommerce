@@ -55,7 +55,7 @@ const DataTable = ({ columns, type }) => {
     const products = useSelector(state => state.products)
     let no = 1
 
-
+    console.log(products);
 
     let rows
     switch (type) {
