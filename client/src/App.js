@@ -41,7 +41,6 @@ function App() {
 	const { auth, setAuth } = useContext(AuthContext);
 	const [user, setUser] = useState({});
 	const [cookies, setCookie] = useCookies(["token", "id"]);
-	console.log(user);
 	useEffect(() => {
 		const userID = cookies.id;
 		const config = {
@@ -54,8 +53,7 @@ function App() {
 			axios.get(`/api/users/find/${userID}`, config).then(
 				(res) => {
 					console.log(res);
-					setUser(res.data);
-					setAuth(res.data.opts);
+					setUser(res.data.isAdmin);
 				},
 				(err) => {
 					console.log(err);
@@ -67,6 +65,7 @@ function App() {
 	}, []);
 
 	console.log(auth);
+	console.log(user);
 	return (
 		<Router>
 			<Routes>
@@ -78,7 +77,7 @@ function App() {
 					<Route
 						index
 						element={
-							<ProtectedAdminRoute auth={user?.isAdmin}>
+							<ProtectedAdminRoute key={user}>
 								<Home />
 							</ProtectedAdminRoute>
 						}

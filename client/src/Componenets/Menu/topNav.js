@@ -17,7 +17,6 @@ import { useContext } from "react";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const { auth } = useContext(AuthContext);
-	console.log(auth);
 	return (
 		<TopWrapper>
 			<TopBar />

@@ -2,12 +2,11 @@
 
 import { Navigate } from "react-router-dom";
 
-const ProtectedAdminRoute = ({ auth, children }) => {
-	console.log(auth);
-	if (!auth) {
+const ProtectedAdminRoute = ({ key, children }) => {
+	console.log(key);
+	if (key) {
 		return <Navigate to='/login' replace />;
 	}
-
 	return children;
 };
 
