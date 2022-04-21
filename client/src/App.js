@@ -68,6 +68,7 @@ function App() {
 				<Route path='/logout' element={<Logout />} />
 				<Route path='/404' element={<ErrorPage />} />
 				<Route path='/cart' element={<CartPage />} />
+				<Route path='/shop' element={<Shop />} />
 
 				<Route element={<ProtectedAdminRoute role='SuperUser' />}>
 					<Route path='admin'>
