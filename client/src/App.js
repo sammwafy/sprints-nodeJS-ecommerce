@@ -33,6 +33,7 @@ import ProtectedAdminRoute from "./ProtectedAdminRoute";
 // import authcontext
 import useAuth from "./Hooks/useAuth.js";
 import ErrorPage from "./Pages/404/404.js";
+import CartPage from "./Pages/cart/CartPage";
 
 function App() {
 	const { auth } = useAuth();
@@ -66,6 +67,7 @@ function App() {
 				<Route path='/login' element={<Login />} />
 				<Route path='/logout' element={<Logout />} />
 				<Route path='/404' element={<ErrorPage />} />
+				<Route path='/cart' element={<CartPage />} />
 
 				<Route element={<ProtectedAdminRoute role='SuperUser' />}>
 					<Route path='admin'>
@@ -78,7 +80,7 @@ function App() {
 								element={<AdminList columns={usersColumns} type='users' />}
 							/>
 							<Route path=':userId'>
-								<Route index element={<Single />} />
+								<Route index element={<Single type='users' />} />
 								<Route path='edit' element={<AdminEdit type='users' />} />
 							</Route>
 						</Route>
@@ -91,7 +93,7 @@ function App() {
 								}
 							/>
 							<Route path=':productId'>
-								<Route index element={<Single />} />
+								<Route index element={<Single type='products' />} />
 								<Route path='edit' element={<AdminEdit type='products' />} />
 							</Route>
 							<Route
@@ -108,7 +110,7 @@ function App() {
 								}
 							/>
 							<Route path=':categoryId'>
-								<Route index element={<Single />} />
+								<Route index element={<Single type='categories' />} />
 								<Route path='edit' element={<AdminEdit type='categories' />} />
 							</Route>
 							<Route
@@ -123,7 +125,7 @@ function App() {
 								element={<AdminList columns={brandsColumns} type='brands' />}
 							/>
 							<Route path=':brandtId'>
-								<Route index element={<Single />} />
+								<Route index element={<Single type='brands' />} />
 								<Route path='edit' element={<AdminEdit type='brands' />} />
 							</Route>
 							<Route
@@ -138,7 +140,7 @@ function App() {
 								element={<AdminList columns={ordersColumns} type='orders' />}
 							/>
 							<Route path=':orderId'>
-								<Route index element={<Single />} />
+								<Route index element={<Single type='orders' />} />
 								<Route path='edit' element={<AdminEdit type='orders' />} />
 							</Route>
 						</Route>

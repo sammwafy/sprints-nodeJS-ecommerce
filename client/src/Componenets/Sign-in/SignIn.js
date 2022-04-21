@@ -38,7 +38,6 @@ const SignIn = ({ user }) => {
 	useEffect(() => {
 		emailRefrence?.current?.focus();
 	}, []);
-
 	// handle form submit and fetch login
 	const SubmitHandler = async (e) => {
 		e.preventDefault();
