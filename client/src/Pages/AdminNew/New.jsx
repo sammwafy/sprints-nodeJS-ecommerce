@@ -14,11 +14,6 @@ const New = ({ title, type }) => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    // if (e.target.required && e.target.value === null) {
-    //     setRequired(true)
-    // } else {
-    //     setRequired(false)
-    // }
     setInputData((prevState) => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
@@ -50,6 +45,7 @@ const New = ({ title, type }) => {
           withCredentials: true,
         }
       );
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -130,9 +126,10 @@ const New = ({ title, type }) => {
   const categories = ["outdoors", "sofa", "kitchen"];
   //to options
   const options = categories.map((category) => ({
-    name: categories,
+    name: "category",
     value: category,
   }));
+
   return (
     <AdminLayout>
       <div className="newItem">
@@ -159,6 +156,7 @@ const New = ({ title, type }) => {
                   <AddPhotoAlternateIcon style={{ marginLeft: "10px" }} />
                 </label>
                 <input
+                  multiple
                   name="image"
                   type="file"
                   style={{ display: "none" }}
@@ -196,7 +194,7 @@ const New = ({ title, type }) => {
                   onChange={(e) =>
                     setInputData((prev) => ({
                       ...prev,
-                      category: e.target.value,
+                      categories: e.target.value,
                     }))
                   }
                 >

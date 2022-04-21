@@ -6,15 +6,42 @@ import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import AdminLayout from '../../Componenets/AdminComponents/layout/AdminLayout';
 import ItemCard from '../../Componenets/AdminComponents/ItemCard/ItemCard';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-
-
-
+import { useParams } from "react-router-dom"
+import { useCookies } from "react-cookie";
+import axios from "../../Hooks/axios"
+import { useEffect } from 'react';
 
 const AdminEdit = ({ type }) => {
+    const [cookies, setCookie] = useCookies(["token", "id"]);
+    const { productId } = useParams()
+    const [product, setProduct] = useState({})
+    console.log(productId);
+
+    const config = {
+        headers: {
+            token: "Bearer" + cookies.token,
+        },
+    };
+    useEffect(() => {
+
+        axios.get(`/api/products/find/${productId}`, config).then(
+            (res) => {
+
+                setProduct(res.data)
+            },
+            (err) => {
+                console.log(err);
+            }
+        )
+    }, []
+
+    )
     const [inputData, setInputData] = useState({})
     const [file, setFile] = useState(null)
 
     console.log(type);
+
+
 
     const currencies = [
         {
@@ -57,6 +84,7 @@ const AdminEdit = ({ type }) => {
                 label: "Username",
                 type: "text",
                 placeholder: "username",
+                status: "active",
                 required: true
             },
             {
@@ -64,13 +92,15 @@ const AdminEdit = ({ type }) => {
                 label: "Email",
                 type: "email",
                 placeholder: "Email",
+                status: "active",
                 required: true
             },
             {
                 id: 3,
                 label: "Password",
-                type: "password",
-                placeholder: "password",
+                type: "select",
+                placeholder: "select",
+                status: "active",
                 required: true
             },
 
@@ -155,7 +185,7 @@ const AdminEdit = ({ type }) => {
                         <h1> Edit</h1>
                         <div />
                         <div className="leftShow">
-                            <ItemCard />
+                            <ItemCard product={product} />
                         </div>
                         {/* <div className="item">
 

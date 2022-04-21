@@ -11,8 +11,9 @@ import { useCookies } from "react-cookie";
 const DataTable = ({ columns, type }) => {
     const [cookies, setCookie] = useCookies(["token", "id"]);
     const dispatch = useDispatch()
+
     const handleClick = (id) => {
-        const confirm = window.confirm("alert");
+        const confirm = window.confirm("Are you sure you want to delete this");
         if (confirm) {
             axios.delete(`/api/products/${id}`,
 
@@ -53,7 +54,7 @@ const DataTable = ({ columns, type }) => {
             });
     }, [])
     const products = useSelector(state => state.products)
-    let no = 1
+
 
     console.log(products);
 
@@ -135,7 +136,7 @@ const DataTable = ({ columns, type }) => {
     return (
         <>
             {(type !== "users" && type !== "orders") && (<Link className="link" to={`/admin/${type}/new`} >
-                <div className="viewButton"><span>{`Add new ${type.slice(0, -1)}`}</span></div>
+                <div className="newButton"><span>{`Add new ${type.slice(0, -1)}`}</span></div>
             </Link>)}
             <div className="datatable" >
                 <div style={{ height: 400, width: '100%', padding: '10px' }}>
