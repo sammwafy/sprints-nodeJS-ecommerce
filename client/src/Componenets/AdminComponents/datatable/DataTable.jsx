@@ -117,7 +117,7 @@ const DataTable = ({ columns, type }) => {
             })
             break;
         case "products": rows = products.map(product => {
-            return { id: product._id, avatar: product.image[0], title: product.title, stock: product.quantity, price: product.price }
+            return { id: product._id, avatar: product.image[product.featuredImg], title: product.title, stock: product.quantity, price: product.price }
         })
             break;
 

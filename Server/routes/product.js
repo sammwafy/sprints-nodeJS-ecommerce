@@ -50,7 +50,6 @@ router.post(
       ...req.body,
       image: imgArray,
     };
-
     const newProduct = new Product(data);
     try {
       const savedProduct = await newProduct.save();
