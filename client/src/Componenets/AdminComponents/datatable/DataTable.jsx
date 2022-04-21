@@ -7,68 +7,116 @@ import { useEffect } from "react";
 import axios from "axios"
 import { productActions } from "../../../store/productsSlice"
 import { useCookies } from "react-cookie";
+import { usersActions } from "../../../store/usersSlice";
 
 const DataTable = ({ columns, type }) => {
     const [cookies, setCookie] = useCookies(["token", "id"]);
     const dispatch = useDispatch()
-
+    const products = useSelector(state => state.products)
+    const users = useSelector(state => state.users.users)
+    //delete action
     const handleClick = (id) => {
         const confirm = window.confirm("Are you sure you want to delete this");
         if (confirm) {
-            axios.delete(`/api/products/${id}`,
+            switch (type) {
+                case "users":
+
+                    axios.delete(`/api/users/${id}`,
+                        {
+                            headers: {
+                                token: "Bearer " + cookies.token,
+
+                                "Content-Type": "application/json",
 
 
-                {
-                    headers: {
-                        token: "Bearer " + cookies.token,
-
-                        "Content-Type": "application/json",
+                            },
+                            withCredentials: true,
+                        }
 
 
-                    },
-                    withCredentials: true,
-                }
+                    ).then(window.location.reload(false)).catch(error => console.log(error))
+                    break;
+                case "products":
+                    axios.delete(`/api/products/${id}`,
+                        {
+                            headers: {
+                                token: "Bearer " + cookies.token,
+
+                                "Content-Type": "application/json",
 
 
-            ).then(window.location.reload(false)).catch(error => console.log(error))
+                            },
+                            withCredentials: true,
+                        }
+
+
+                    ).then(window.location.reload(false)).catch(error => console.log(error))
+                    break;
+                default: return
+
+            }
         } else {
             return
         }
-
-
     }
 
 
 
     useEffect(() => {
-        axios
-            .get("http://localhost:5009/api/products")
-            .then(function (response) {
-                // handle success
+        switch (type) {
+            case "products":
+                axios
+                    .get(`/api/products`)
+                    .then(function (response) {
+                        // handle success
 
-                dispatch(productActions.getProducts(response.data));
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            });
-    }, [])
-    const products = useSelector(state => state.products)
+                        dispatch(productActions.getProducts(response.data));
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    });
+                break;
+            case "users":
+                axios
+                    .get(`/api/users`, {
+                        headers: {
+                            token: "Bearer " + cookies.token,
+
+                            "Content-Type": "application/json",
 
 
-    console.log(products);
+                        },
+                        withCredentials: true,
+                    }
+                    )
+                    .then(function (response) {
+                        // handle success
+                        console.log(response.data);
+                        dispatch(usersActions.getUsers(response.data));
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    });
+                break;
+            default: return
 
+        }
+        // call useEffect every change in type
+    }, [type])
+
+    //get data from redux
+
+    // fill table rows from database
     let rows
     switch (type) {
-        case "users": rows = [{
-            id: "9",
-            username: "Harvey",
-            email: "Harvey@gmail.com",
-            status: "Active",
-        }]
+        case "users": rows =
+            users.map(user => {
+                return { id: user._id, username: user.username, email: user.email, status: user.status }
+            })
             break;
         case "products": rows = products.map(product => {
-
             return { id: product._id, avatar: product.image[0], title: product.title, stock: product.quantity, price: product.price }
         })
             break;
@@ -106,7 +154,7 @@ const DataTable = ({ columns, type }) => {
 
         default: { }
     }
-
+    //create buttons for table rows
     const actionColumns = [
         {
             field: "actions", headerName: "Actions", width: 250,

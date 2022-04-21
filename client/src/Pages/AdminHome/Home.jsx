@@ -9,13 +9,15 @@ import "./home.scss"
 
 
 const Home = () => {
+
+
   return (
     <div className="home">
       <SideBar />
       <div className="home-container">
         <NavBar />
         <div className="widgets">
-          <Widget type="users" />
+          <Widget type="allUsers" />
           <Widget type="orders" />
           <Widget type="earnings" />
           <Widget type="balance" />

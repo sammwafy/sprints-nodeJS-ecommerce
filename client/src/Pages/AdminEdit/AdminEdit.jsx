@@ -14,7 +14,9 @@ import { useEffect } from 'react';
 const AdminEdit = ({ type }) => {
     const [cookies, setCookie] = useCookies(["token", "id"]);
     const { productId } = useParams()
-    const [product, setProduct] = useState({})
+    const { userId } = useParams()
+
+    const [data, setData] = useState({})
     console.log(productId);
 
     const config = {
@@ -23,17 +25,41 @@ const AdminEdit = ({ type }) => {
         },
     };
     useEffect(() => {
+        switch (type) {
 
-        axios.get(`/api/products/find/${productId}`, config).then(
-            (res) => {
+            case "users":
+                axios.get(`/api/users/find/${userId}`, config).then(
+                    (res) => {
+                        setData(res.data)
+                    },
+                    (err) => {
+                        console.log(err);
+                    }
+                )
+                break;
+            case "products":
+                axios.get(`/api/products/find/${productId}`, config).then(
+                    (res) => {
+                        setData(res.data)
+                    },
+                    (err) => {
+                        console.log(err);
+                    }
+                )
+                break;
 
-                setProduct(res.data)
-            },
-            (err) => {
-                console.log(err);
-            }
-        )
-    }, []
+            default: return;
+        }
+
+        // axios.get(`/api/products/find/${productId}`, config).then(
+        //     (res) => {
+        //         setProduct(res.data)
+        //     },
+        //     (err) => {
+        //         console.log(err);
+        //     }
+        // )
+    }, [type]
 
     )
     const [inputData, setInputData] = useState({})
@@ -185,7 +211,7 @@ const AdminEdit = ({ type }) => {
                         <h1> Edit</h1>
                         <div />
                         <div className="leftShow">
-                            <ItemCard product={product} />
+                            <ItemCard input={data} />
                         </div>
                         {/* <div className="item">
 
