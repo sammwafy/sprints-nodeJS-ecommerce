@@ -13,7 +13,7 @@ import { useState } from "react";
 
 const Widget = ({ type }) => {
     const [cookies, setCookie] = useCookies(["token", "id"]);
-    const [input, setInput] = useState({})
+    const [input, setInput] = useState(null)
     useEffect(() => {
         switch (type) {
             case "allUsers":
@@ -23,6 +23,15 @@ const Widget = ({ type }) => {
                     }
                 }).then(response => setInput(response.data)).catch(err => console.log(err))
                 break;
+
+            case "income":
+                axios.get(`/api/orders/lastsevendays`, {
+                    headers: {
+                        token: "Bearer " + cookies.token
+                    }
+                }).then(response => setInput(response.data)).catch(err => console.log(err))
+                break;
+
 
             default: return
 
@@ -38,7 +47,7 @@ const Widget = ({ type }) => {
             title: "New Custumer Today",
             isMoney: false,
             link: "See All Users",
-            count: "input[0].total",
+            count: input ? input[0].total : "err",
             icon: <PersonOutlineIcon className="icon" style={{ color: "red", backgroundColor: 'rgba(255, 0, 0, 0.284)' }} />,
 
         };
@@ -53,10 +62,11 @@ const Widget = ({ type }) => {
 
         };
             break;
-        case "earnings": data = {
-            title: "Earnings",
+        case "income": data = {
+            title: "Income last Week",
             isMoney: true,
             link: "See All Earnings",
+            count: input ? input[0].total : "err",
             icon: <MonetizationOnIcon className="icon" style={{ color: "purple", backgroundColor: 'rgba(128, 0, 128, 0.328)' }} />,
 
         };
@@ -74,19 +84,20 @@ const Widget = ({ type }) => {
             break;
 
     }
+    console.log(data);
     return (
         <div className="widget">
             <div className="left">
-                <span className="title">{data.title}</span>
-                <span className="counter">{data.isMoney && "$"}{data.count}</span>
+                <span className="title">{data?.title}</span>
+                <span className="counter">{data?.isMoney && "$"}{data?.count}</span>
                 <Link to={`/admin/${type}`} className="link-wrapper">
-                    <span className="link">{data.link}</span>
+                    <span className="link">{data?.link}</span>
                 </Link>
 
             </div>
             <div className="right">
                 <UpdownInput input={"20%"} sign={"positive"} />
-                {data.icon}
+                {data?.icon}
 
             </div>
         </div>

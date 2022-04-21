@@ -17,10 +17,14 @@ const Home = () => {
       <div className="home-container">
         <NavBar />
         <div className="widgets">
+          {/* new user today */}
           <Widget type="allUsers" />
+
           <Widget type="orders" />
-          <Widget type="earnings" />
-          <Widget type="balance" />
+          {/* total income last 7 days */}
+          <Widget type="income" />
+          {/* Get the orders number in the same day */}
+          <Widget type="todayOrder" />
         </div>
         <div className="charts">
           <Featured />
