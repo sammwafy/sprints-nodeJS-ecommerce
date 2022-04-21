@@ -23,6 +23,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
+  limits: { fieldNameSize: 300, fileSize: 4194304 },
   fileFilter: (req, file, cb) => {
     if (
       file.mimetype == "image/png" ||
@@ -41,12 +42,13 @@ const upload = multer({
 router.post(
   "/",
   verifyTokenAndAdmin,
-  upload.single("productImg"),
+  upload.array("productImg",6),
   async (req, res) => {
     const url = req.protocol + "://" + req.get("host");
+    const imgArray = req.files.map((file) => url + "/Imgs/" + file.filename);
     const data = {
       ...req.body,
-      image: url + /Imgs/ + req.file.filename,
+      image: imgArray,
     };
 
     const newProduct = new Product(data);
