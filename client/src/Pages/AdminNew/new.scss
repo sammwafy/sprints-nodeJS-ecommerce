@@ -55,7 +55,12 @@
           }
           .image-item__btn-wrapper {
             display: flex;
+            flex-direction: column;
             margin-top: 15px;
+            .imgUpdatesBtns{
+              display: flex;
+              margin-bottom: 8px;
+            }
             .btn-danger {
               margin-left: 8px;
             }

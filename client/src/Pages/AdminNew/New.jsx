@@ -20,7 +20,9 @@ const New = ({ title, type }) => {
     console.log(imageList);
     setImages(imageList);
   };
+
   const [required, setRequired] = useState(false);
+  const [uniqueImgIndex, setuniqueImgIndex] = useState(0);
   const [cookies, setCookie] = useCookies(["token", "id"]);
   const navigate = useNavigate();
 
@@ -30,16 +32,22 @@ const New = ({ title, type }) => {
     });
   };
 
+  const handleFeaturedImg = (e) => {
+
+    setuniqueImgIndex(e.target.value);
+    console.log(uniqueImgIndex)
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const formData = new FormData()
     const imgsFiles = images.map((image) => image.file);
+
     const formData = new FormData();
     for (var i = 0; i < imgsFiles.length; i++) {
       formData.append("productImg", imgsFiles[i]);
     }
 
     formData.append("description", inputData.description);
+    formData.append("featuredImg", uniqueImgIndex);
     formData.append("image", inputData.image);
     formData.append("price", inputData.price);
     formData.append("quantity", inputData.quantity);
@@ -207,18 +215,32 @@ const New = ({ title, type }) => {
                             <div key={index} className="image-item">
                               <img src={image.data_url} alt="" />
                               <div className="image-item__btn-wrapper">
-                                <Button
-                                  variant="success"
-                                  onClick={() => onImageUpdate(index)}
-                                >
-                                  Update
-                                </Button>
-                                <Button
-                                  variant="danger"
-                                  onClick={() => onImageRemove(index)}
-                                >
-                                  Remove
-                                </Button>
+                                <div className="imgUpdatesBtns">
+                                  <Button
+                                    variant="success"
+                                    onClick={() => onImageUpdate(index)}
+                                  >
+                                    Update
+                                  </Button>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => onImageRemove(index)}
+                                  >
+                                    Remove
+                                  </Button>
+                                </div>
+                                <Form.Check type="radio" id="check-api-radio">
+                                  <Form.Check.Input
+                                    type="radio"
+                                    name="featuredImg"
+                                    value={index}
+                                    onChange={handleFeaturedImg}
+                                    isValid
+                                  />
+                                  <Form.Check.Label>
+                                    set as featured image
+                                  </Form.Check.Label>
+                                </Form.Check>
                               </div>
                             </div>
                           ))}
