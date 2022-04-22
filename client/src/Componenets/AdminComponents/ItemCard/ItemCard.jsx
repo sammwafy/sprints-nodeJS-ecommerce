@@ -11,7 +11,7 @@ const ItemCard = ({ input }) => {
             <h1 className="item-title">Details</h1>
             <div className="item-wrapper">
                 <div className="avatar">
-                    <img src={input.image} alt="hi" />
+                    <img src={input?.image} alt="hi" />
                 </div>
                 <div className="info">
                     {Object.entries(input).map(([key, value]) => (
