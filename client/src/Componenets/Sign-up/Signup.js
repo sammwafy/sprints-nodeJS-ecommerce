@@ -4,9 +4,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
-import { LoginWrapper } from "./styles/sign-in.styled";
+import { RegisterWrapper } from "./styles/sign-up.styled";
 import Container from "react-bootstrap/Container";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaUserAlt } from "react-icons/fa";
 import { IoMdMailOpen } from "react-icons/io";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
@@ -15,13 +15,15 @@ import axios from "../../Hooks/axios";
 import checkCircle from "../../Assets/imgs/checkCircle.gif";
 import { useCookies } from "react-cookie";
 
-const SignIn = ({ user }) => {
+const SignUp = ({ user }) => {
   const { setAuth } = useAuth();
   const [data, setData] = useState({});
   const emailRefrence = useRef();
+  const usernameRefrence = useRef();
   const errRefrence = useRef();
-  const [email, setEmail] = useState("sameh@gmail.com");
-  const [password, setPassword] = useState("sameh");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [succesMsg, setSuccessMsg] = useState("");
 
@@ -37,14 +39,16 @@ const SignIn = ({ user }) => {
 
   useEffect(() => {
     emailRefrence?.current?.focus();
+    usernameRefrence?.current?.focus();
   }, []);
   // handle form submit and fetch login
   const SubmitHandler = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `/api/auth/login/`,
+        `/api/auth/register/`,
         {
+          username: userName,
           email: email,
           password: password,
         },
@@ -55,28 +59,22 @@ const SignIn = ({ user }) => {
           withCredentials: true,
         }
       );
-      const accessToken = response?.data?.accessToken;
       const username = response?.data?.username;
-      const userID = response?.data?._id;
-      if (username && password && accessToken) {
-        setAuth(response?.data);
-        setCookie("token", accessToken);
-        setCookie("id", userID);
-        setCookie("username", username);
+      if (username) {
         setSuccessMsg(true);
-        setEmail("");
-        setPassword("");
-        from
-          ? setTimeout(() => navigate(from, { replace: true }))
-          : setTimeout(() => navigate("/"), 3600);
+        setTimeout(() => navigate("/login"), 3600);
       }
     } catch (err) {
       if (!err?.response) {
         setErrorMsg("no server running");
       } else if (err.response?.status === 401) {
-        setErrorMsg("wrong email or password");
+        setErrorMsg("check your inputs");
       } else {
-        setErrorMsg("failed to login");
+        setErrorMsg(
+          <>
+            Already registered <a href="/login"> Login instead </a>
+          </>
+        );
       }
       errRefrence?.current?.focus();
     }
@@ -84,16 +82,32 @@ const SignIn = ({ user }) => {
 
   return (
     <>
-      <LoginWrapper>
+      <RegisterWrapper>
         <Container className="container">
-          <h1>Sign In</h1>
+          <h1>Sign Up</h1>
           {succesMsg ? (
             <section class="successLogin">
               <img src={checkCircle} alt="check circle" />
-              <h1>Login successfully</h1>
+              <h1>Registered successfully</h1>
             </section>
           ) : (
             <Form onSubmit={SubmitHandler}>
+              <InputGroup className="mb-3">
+                <InputGroup.Text id="email">
+                  <FaUserAlt />
+                </InputGroup.Text>
+                <FormControl
+                  required
+                  type="name"
+                  ref={usernameRefrence}
+                  onChange={(e) => setUserName(e.target.value)}
+                  value={userName}
+                  placeholder="username"
+                  aria-label="username"
+                  aria-describedby="username"
+                  autoComplete="off"
+                />
+              </InputGroup>
               <InputGroup className="mb-3">
                 <InputGroup.Text id="email">
                   <IoMdMailOpen />
@@ -123,20 +137,19 @@ const SignIn = ({ user }) => {
                   aria-describedby="password"
                 />
               </InputGroup>
-              {/*In  register only i think */}
-              {/* <Form.Group
-								className='mb-3 checkTerms'
-								controlId='formBasicCheckbox'
-							>
-								<Form.Check type='checkbox' required />I read and agree to{" "}
-								<Link to='/'>Terms & Conditions</Link>
-							</Form.Group> */}
+
+              <Form.Group
+                className="mb-3 checkTerms"
+                controlId="formBasicCheckbox"
+              >
+                <Form.Check type="checkbox" required />I read and agree to
+                <Link to="/terms">
+                  <span> Terms & Conditions</span>
+                </Link>
+              </Form.Group>
               <Button className="LoginBtn" type="submit">
-                Sign In
+                Sign Up
               </Button>
-              <p style={{ marginTop: "10px" }}>
-                new user ? <Link to="/register">signup now</Link>
-              </p>
               {errorMsg && (
                 <p
                   ref={errRefrence}
@@ -149,9 +162,9 @@ const SignIn = ({ user }) => {
             </Form>
           )}
         </Container>
-      </LoginWrapper>
+      </RegisterWrapper>
     </>
   );
 };
 
-export default SignIn;
+export default SignUp;

@@ -1,23 +1,22 @@
 import styled from "styled-components";
 
-export const LoginWrapper = styled.div`
+export const RegisterWrapper = styled.div`
   & {
     background: #9633ff;
     padding: 50px 0;
   }
   .container {
-    width: calc(100vw / 2.4);
+    width: calc(100vw / 2.2);
     margin: 0 auto;
     background: white;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 8px;
     padding: 15px 4.4rem;
-
-    @media screen and (max-width: 1024px){
+    @media screen and (max-width: 1024px) {
       width: calc(100vw / 1.4);
       padding: 15px 1.1rem;
     }
-    @media screen and (max-width: 482px){
+    @media screen and (max-width: 482px) {
       width: 90vw;
       padding: 15px 1.1rem;
     }
@@ -44,25 +43,39 @@ export const LoginWrapper = styled.div`
   .mb-3 {
     margin-bottom: 35px !important;
   }
-  .checkTerms{
+  .checkTerms {
     display: flex;
+    @media screen and (max-width: 375px) {
+      flex-wrap: wrap;
+    }
   }
-  .checkTerms .form-check-input{
+  .checkTerms .form-check-input {
     margin-right: 5px;
   }
   .checkTerms a {
-    padding-left: 5px;
+    display: flex;
+    padding-left: 7px;
     text-decoration: none;
-    color: #560fec;
+    color: black;
+
+    span {
+      color: #560fec;
+      padding-left: 5px;
+    }
+    @media screen and (max-width: 375px) {
+      span {
+        padding-left: 18px;
+      }
+    }
   }
 
-  .successLogin{
+  .successLogin {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     text-align: center;
   }
-  .successLogin img{
+  .successLogin img {
     width: 150px;
     display: block;
     margin: 20px auto;
@@ -72,11 +85,11 @@ export const LoginWrapper = styled.div`
     background-color: #9633ff;
     background-image: linear-gradient(326deg, #560fec 0%, #9633ff 74%);
     border-radius: 14px;
-    padding: .4rem 2.6rem;
+    padding: 0.4rem 2.6rem;
     margin: 0 auto;
-    display:block;
+    display: block;
   }
-  .LoginBtn:hover{
+  .LoginBtn:hover {
     background-image: linear-gradient(326deg, #9633ff 0%, #560fec 74%);
   }
 `;

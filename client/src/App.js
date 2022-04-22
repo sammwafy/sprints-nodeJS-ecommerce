@@ -34,6 +34,7 @@ import ProtectedAdminRoute from "./ProtectedAdminRoute";
 import useAuth from "./Hooks/useAuth.js";
 import ErrorPage from "./Pages/404/404.js";
 import CartPage from "./Pages/cart/CartPage";
+import Register from "./Pages/Register/Register.js";
 
 function App() {
 	const { auth } = useAuth();
@@ -65,6 +66,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<HomePage />} />
 				<Route path='/login' element={<Login />} />
+				<Route path='/register' element={<Register />} />
 				<Route path='/logout' element={<Logout />} />
 				<Route path='/404' element={<ErrorPage />} />
 				<Route path='/cart' element={<CartPage />} />
