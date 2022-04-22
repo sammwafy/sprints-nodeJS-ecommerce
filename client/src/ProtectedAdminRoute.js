@@ -21,7 +21,7 @@ const ProtectedAdminRoute = () => {
 			},
 		};
 
-		axios.get(`/api/users/admin/${auth?.id}`, config).then(
+		axios.get(`/api/users/find/${auth?.id}`, config).then(
 			(res) => {
 				if (res.data) {
 					setISadmin(res.data);

@@ -1,7 +1,7 @@
 /** @format */
 
 import Nav from "react-bootstrap/Nav";
-import { NavWrapper } from "./styles/nav.styled";
+import { NavWrapper } from "./styles/nav.styled.js";
 import {
 	FaChevronRight,
 	FaArrowAltCircleRight,

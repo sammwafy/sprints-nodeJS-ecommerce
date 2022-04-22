@@ -1,0 +1,20 @@
+/** @format */
+
+.table {
+	.table-cell {
+		color: red;
+		font-weight: bold;
+	}
+	.status {
+		padding: 5px;
+		border-radius: 5px;
+		&.Pending {
+			color: orange;
+			background-color: rgba(255, 166, 0, 0.179);
+		}
+		&.Approved {
+			color: green;
+			background-color: rgba(0, 128, 0, 0.155);
+		}
+	}
+}

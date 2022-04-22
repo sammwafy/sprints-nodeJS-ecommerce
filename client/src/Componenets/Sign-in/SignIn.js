@@ -55,10 +55,12 @@ const SignIn = ({ user }) => {
 					withCredentials: true,
 				}
 			);
+			console.log(response.data);
 			const accessToken = response?.data?.accessToken;
 			const username = response?.data?.username;
 			const userID = response?.data?._id;
 			if (username && password && accessToken) {
+				console.log(response.data);
 				setAuth(response?.data);
 				setCookie("token", accessToken);
 				setCookie("id", userID);

@@ -37,6 +37,7 @@ import CartPage from "./Pages/cart/CartPage";
 
 function App() {
 	const { auth } = useAuth();
+	console.log(auth);
 	// const [user, setUser] = useState({});
 	// const [cookies, setCookie] = useCookies(["token", "id"]);
 	// useEffect(() => {
@@ -46,7 +47,6 @@ function App() {
 	// 			token: "Bearer" + cookies.token,
 	// 		},
 	// 	};
-	console.log(auth);
 	// 	if (userID) {
 	// 		axios.get(`/api/users/find/${userID}`, config).then(
 	// 			(res) => {
