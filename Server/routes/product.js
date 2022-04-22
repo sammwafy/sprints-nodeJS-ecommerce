@@ -142,4 +142,7 @@ router.get("/", async (req, res) => {
     return res.status(500).json(err);
   }
 });
+router.post("/search" , async (req, res)=>{
+  
+})
 module.exports = router;
