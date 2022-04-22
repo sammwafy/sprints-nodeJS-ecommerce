@@ -1,4 +1,3 @@
-// import Carousel from "react-bootstrap/Carousel";
 import Carousel from "react-multi-carousel";
 import 'react-multi-carousel/lib/styles.css';
 import Image from "react-bootstrap/Image";
@@ -21,24 +20,23 @@ const CategoryCarousel = ({ interval }) => {
    const responsive = {
       desktop: {
          breakpoint: { max: 3000, min: 1366 },
-         items: 8,
+         items: 3,
          paritialVisibilityGutter: 60,
       },
       laptop: {
          breakpoint: { max: 1366, min: 1024 },
-         items: 7,
+         items: 3,
          paritialVisibilityGutter: 20,
       },
       tablet: {
          breakpoint: { max: 1024, min: 464 },
-         items: 5,
+         items: 3,
          paritialVisibilityGutter: 20,
       },
       mobile: {
          breakpoint: { max: 482, min: 0 },
-         items: 4,
+         items: 2,
          paritialVisibilityGutter: 15,
-         arrows: false,
       },
    };
 
@@ -49,29 +47,24 @@ const CategoryCarousel = ({ interval }) => {
             variant="dark"
             deviceType={deviceType}
             responsive={responsive}
-         // interval={interval}
-         // sliderClass =""
-         // itemClass=""
-         // containerClass=""
+            interval={interval}
+            sliderClass="carousel-slider"
+            containerClass="carousel-container"
          >
             {images.slice().map((item) => {
-               return <Image draggable={false} src={item.imgSrc} />;
-            })}
-
-            {/* {
-               images.slice().map((item) => (
-                  <Carousel.Item>
-                     <div className="backG">
-                        <Image className="img-fluid my-auto mx-auto" src={item.imgSrc} />
-                        <div className='mask'>
-                           <div className='text'>
-                              <h3 className="m-0">{item.name}</h3>
-                           </div>
+               return (
+                  <div>
+                     <a href="#">
+                        <div className="backG">
+                           <Image draggable={false} src={item.imgSrc} />
                         </div>
-                     </div>
-                  </Carousel.Item>
-               ))
-            } */}
+                        <div className="text">
+                           <h3 className="m-0 h3">{item.name}</h3>
+                        </div>
+                     </a>
+                  </div>
+               )
+            })}
          </Carousel>
       </CategoryWrapper>
    );
