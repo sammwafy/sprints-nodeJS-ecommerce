@@ -17,6 +17,13 @@ const ProductSchema = new mongoose.Schema(
 		color: { type: String },
 		price: { type: Number, required: true },
 		quantity: { type: Number, required: true },
+    reviews: [
+			{
+				userId: String,
+        rating: Number,
+        comment: String
+			},
+		],
 	},
 	{ timestamps: true }
 );

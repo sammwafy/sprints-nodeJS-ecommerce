@@ -1,8 +1,36 @@
+import { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
-
+import axios from "../../../Hooks/axios.js";
 const Review = () => {
+
+  useEffect(() => {
+    const productId = "62611311d23d2e0dfa47cb31";
+    const sendReview = async () => {
+      try {
+        const res = await axios.put(`/api/products/review/${productId}`,
+        {
+					userId: "62539a27f04b24e0efdbb118",
+					rating: 4,
+					comment: 'nice product',
+				},
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+					withCredentials: true,
+				}
+        );
+        console.log(res?.data)
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    sendReview();
+  }, []);
+
   const Reviews = [
     {
       username: "Sameh",
