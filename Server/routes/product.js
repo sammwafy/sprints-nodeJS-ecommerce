@@ -142,7 +142,46 @@ router.get("/", async (req, res) => {
     return res.status(500).json(err);
   }
 });
-router.post("/search" , async (req, res)=>{
-  
+//PRODUCT SEARCH
+router.post("/search", async (req, res) => {
+  const qsearch = req.query.search
+  const page = Number (req.query.page )|| 1
+  const limit = Number (req.query.limit)|| 20
+  const skip = (page-1)*limit
+  try {
+    let products
+    if (qsearch) {
+      products = await Product.find({
+        $or: [{ title: { $in: qsearch } },
+        {
+          categories: {
+            $in: [qsearch],
+          }
+        }]
+      }).skip(skip).limit(limit);
+    }
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
+// AVERAGE NUMBER OF REVIEWS
+router.get("/average" , async (req,res)=>{
+  try{
+    const data = await Product.aggregate([
+      // {$project:{reviews:[{
+      //   rating : {$avg : "$rating"}
+      // }]}},
+       {
+        $group: {
+            _id: "$reviews.rating",
+            total: { $avg : "$reviews.rating" }
+        }
+    }
+    ])
+    res.status(200).json(data)
+  }catch (err) {
+    res.status(500).json(err);
+  }
 })
 module.exports = router;
