@@ -8,6 +8,7 @@ export const productsColumns = [
 		headerName: "Avatar",
 		width: 70,
 		renderCell: (params) => {
+			console.log(params);
 			return (
 				<img
 					src={params.row.avatar}
