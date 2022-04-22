@@ -14,7 +14,7 @@ const SingleProduct = () => {
   const [product, setProduct] = useState({});
 
 
-  const productId = "6261c2e131a18134ffbf3580";
+  const productId = "62611311d23d2e0dfa47cb31";
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -55,7 +55,7 @@ const SingleProduct = () => {
                       price: product?.price,
                       description: product?.description,
                       quantity: product?.quantity,
-                      category: product?.categories[0]
+                      category: 'sofa'
                     }}
                   />
                 </Tab>
