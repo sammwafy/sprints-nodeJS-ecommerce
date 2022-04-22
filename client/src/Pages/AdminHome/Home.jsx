@@ -9,17 +9,40 @@ import "./home.scss"
 
 
 const Home = () => {
+
   return (
     <div className="home">
       <SideBar />
       <div className="home-container">
         <NavBar />
-        <div className="widgets">
-          <Widget type="users" />
-          <Widget type="orders" />
-          <Widget type="earnings" />
-          <Widget type="balance" />
+        <div className="home-widgets-wrapper">
+          <div className="widgets">
+            {/* new user today */}
+            <Widget type="allUsers" />
+
+            <Widget type="todayOrders" />
+            {/* total income last 7 days */}
+            <Widget type="income" />
+            {/* Get the orders number in the same day */}
+            <Widget type="userStatusNo" />
+          </div>
+
+          <div className="widgets">
+            {/* new user today */}
+            <Widget type="orders" />
+
+            <Widget type="orders" />
+            {/* total income last 7 days */}
+            <Widget type="orders" />
+            {/* Get the orders number in the same day */}
+            <Widget type="orders" />
+          </div>
+
         </div>
+
+
+
+
         <div className="charts">
           <Featured />
           <Chart aspect={2 / 1} title="Last 6 Month Revenue" />

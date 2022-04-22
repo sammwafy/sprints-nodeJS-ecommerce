@@ -8,11 +8,13 @@ export const productsColumns = [
 		headerName: "Avatar",
 		width: 70,
 		renderCell: (params) => {
+			console.log(params);
 			return (
 				<img
 					src={params.row.avatar}
 					alt={`${params.row.userName}`}
 					style={{
+						padding: "5px",
 						width: "50px",
 						height: "50px",
 						borderRadius: "50%",
@@ -47,6 +49,7 @@ export const categoriesColumns = [
 					src={params.row.avatar}
 					alt={`${params.row.userName}`}
 					style={{
+						padding: "5px",
 						width: "50px",
 						height: "50px",
 						borderRadius: "50%",
@@ -58,7 +61,6 @@ export const categoriesColumns = [
 	},
 	{ field: "title", headerName: "Title", width: 200 },
 ];
-
 
 export const brandsColumns = [
 	{ field: "id", headerName: "ID", width: 130 },
@@ -73,6 +75,7 @@ export const brandsColumns = [
 					src={params.row.avatar}
 					alt={`${params.row.userName}`}
 					style={{
+						padding: "5px",
 						width: "50px",
 						height: "50px",
 						borderRadius: "50%",
@@ -84,8 +87,6 @@ export const brandsColumns = [
 	},
 	{ field: "title", headerName: "Title", width: 200 },
 ];
-
-
 
 export const ordersColumns = [
 	{ field: "id", headerName: "ID", width: 130 },
@@ -269,7 +270,6 @@ export const productsRows = [
 	},
 ];
 
-
 export const categoriesRows = [
 	{
 		id: "2",
@@ -277,7 +277,7 @@ export const categoriesRows = [
 			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
 		title: "Cersei@gmail.com",
 	},
-]
+];
 
 export const ordersRows = [
 	{

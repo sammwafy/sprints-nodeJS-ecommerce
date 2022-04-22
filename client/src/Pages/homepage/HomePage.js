@@ -6,45 +6,46 @@ import { TestimonialsContainter } from "./styles/homePage.styled";
 import Container from "react-bootstrap/Container";
 import Layout from "../../Componenets/Layout/Layout";
 import CardContainer from "../../Componenets/cardContainer/CardContainer";
+import Cart from "../../Componenets/Cart/Cart";
 
 const HomePage = () => {
-	const NavMenuItems = [
-		{ Fashion: ["Accesories", "Dresses", "Pants", "T-shirts"] },
-		{ Bags: ["Backpacks", "Clutches", "Formal", "Purses"] },
-		{ "HEALTH & BEAUTY": ["Accessories", "Body", "Makeup", "Lipstick"] },
-		{ FOOTWEAR: ["Flats", "Flip Flops", "Heels", "Running"] },
-		{ "HOME DECOR": ["Armchair", "Decor", "Lamps", "Sofa"] },
-		{
-			ELECTRONICS: [
-				"Desktops",
-				"Laptops & Notebooks",
-				"Components",
-				"Phones & PDAs",
-			],
-		},
-		{ FOOD: ["Breakfast", "Dessert", "Grill", "Pasta"] },
-		{ "BABY & KIDS": ["Bath", "Baby Care", "Diepers", "Fashion"] },
-	];
-	const fullscreenCarouselItems = [
-		{
-			imgSrc:
-				"https://images.unsplash.com/photo-1593708797232-4c87f1f4bda9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-			header: "Beauty & Brains",
-			text: "Sprints take your desgin skills to a new level",
-		},
-		{
-			imgSrc:
-				"https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80",
-			header: "Simply Prada",
-			text: "Discover our wonderful Prada new items",
-		},
-		{
-			imgSrc:
-				"https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=780&q=80",
-			header: "Summer dress collection",
-			text: "This summer is different and so is our collection!",
-		},
-	];
+  const NavMenuItems = [
+    { Fashion: ["Accesories", "Dresses", "Pants", "T-shirts"] },
+    { Bags: ["Backpacks", "Clutches", "Formal", "Purses"] },
+    { "HEALTH & BEAUTY": ["Accessories", "Body", "Makeup", "Lipstick"] },
+    { FOOTWEAR: ["Flats", "Flip Flops", "Heels", "Running"] },
+    { "HOME DECOR": ["Armchair", "Decor", "Lamps", "Sofa"] },
+    {
+      ELECTRONICS: [
+        "Desktops",
+        "Laptops & Notebooks",
+        "Components",
+        "Phones & PDAs",
+      ],
+    },
+    { FOOD: ["Breakfast", "Dessert", "Grill", "Pasta"] },
+    { "BABY & KIDS": ["Bath", "Baby Care", "Diepers", "Fashion"] },
+  ];
+  const fullscreenCarouselItems = [
+    {
+      imgSrc:
+        "https://images.unsplash.com/photo-1593708797232-4c87f1f4bda9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      header: "Beauty & Brains",
+      text: "Sprints take your desgin skills to a new level",
+    },
+    {
+      imgSrc:
+        "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80",
+      header: "Simply Prada",
+      text: "Discover our wonderful Prada new items",
+    },
+    {
+      imgSrc:
+        "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=780&q=80",
+      header: "Summer dress collection",
+      text: "This summer is different and so is our collection!",
+    },
+  ];
 
 	const testimonialsItems = [
 		{
@@ -88,12 +89,11 @@ const HomePage = () => {
 							interval={null}
 						/>
 					</Container>
-				</TestimonialsContainter>
-
-				<Carousel type='brands' />
-			</Layout>
-		</>
-	);
+				</TestimonialsContainter> 
+        <Carousel type="brands" />
+      </Layout>
+    </>
+  );
 };
 
 export default HomePage;

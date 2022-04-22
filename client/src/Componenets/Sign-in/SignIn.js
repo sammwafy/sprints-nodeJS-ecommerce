@@ -1,3 +1,5 @@
+/** @format */
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
@@ -6,24 +8,27 @@ import { LoginWrapper } from "./styles/sign-in.styled";
 import Container from "react-bootstrap/Container";
 import { FaLock } from "react-icons/fa";
 import { IoMdMailOpen } from "react-icons/io";
-import { Link } from "react-router-dom";
-import { useRef, useEffect, useState, useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useRef, useEffect, useState } from "react";
+import useAuth from "../../Hooks/useAuth.js";
 import axios from "../../Hooks/axios";
 import checkCircle from "../../Assets/imgs/checkCircle.gif";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 const SignIn = ({ user }) => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
   const [data, setData] = useState({});
   const emailRefrence = useRef();
   const errRefrence = useRef();
-  const navigate = useNavigate();
   const [email, setEmail] = useState("sameh@gmail.com");
   const [password, setPassword] = useState("sameh");
   const [errorMsg, setErrorMsg] = useState("");
   const [succesMsg, setSuccessMsg] = useState("");
+
+  // redirection
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // handle cookies
   const [cookies, setCookie] = useCookies([]);
@@ -33,12 +38,6 @@ const SignIn = ({ user }) => {
   useEffect(() => {
     emailRefrence?.current?.focus();
   }, []);
-
-  // set the error message
-  useEffect(() => {
-    setErrorMsg("");
-  }, [email, password]);
-
   // handle form submit and fetch login
   const SubmitHandler = async (e) => {
     e.preventDefault();
@@ -60,13 +59,16 @@ const SignIn = ({ user }) => {
       const username = response?.data?.username;
       const userID = response?.data?._id;
       if (username && password && accessToken) {
-        setAuth({ username });
+        setAuth(response?.data);
         setCookie("token", accessToken);
         setCookie("id", userID);
+        setCookie("username", username);
         setSuccessMsg(true);
         setEmail("");
         setPassword("");
-        setTimeout(() => navigate("/"), 3600);
+        from
+          ? setTimeout(() => navigate(from, { replace: true }))
+          : setTimeout(() => navigate("/"), 3600);
       }
     } catch (err) {
       if (!err?.response) {
@@ -121,17 +123,20 @@ const SignIn = ({ user }) => {
                   aria-describedby="password"
                 />
               </InputGroup>
-
-              <Form.Group
-                className="mb-3 checkTerms"
-                controlId="formBasicCheckbox"
-              >
-                <Form.Check type="checkbox" required />I read and agree to{" "}
-                <Link to="/">Terms & Conditions</Link>
-              </Form.Group>
+              {/*In  register only i think */}
+              {/* <Form.Group
+								className='mb-3 checkTerms'
+								controlId='formBasicCheckbox'
+							>
+								<Form.Check type='checkbox' required />I read and agree to{" "}
+								<Link to='/'>Terms & Conditions</Link>
+							</Form.Group> */}
               <Button className="LoginBtn" type="submit">
                 Sign In
               </Button>
+              <p style={{ marginTop: "10px" }}>
+                new user ? <Link to="/register">signup now</Link>
+              </p>
               {errorMsg && (
                 <p
                   ref={errRefrence}

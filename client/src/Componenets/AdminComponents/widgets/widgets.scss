@@ -15,7 +15,7 @@
 		flex-direction: column;
 		justify-content: space-around;
 		.title {
-			font-size: 14;
+			font-size: 14px;
 			font-weight: bold;
 			color: #999;
 		}
@@ -28,6 +28,10 @@
 			font-size: 13px;
 			border-bottom: 1px solid gray;
 			cursor: pointer;
+		}
+		.link-wrapper {
+			text-decoration: none;
+			color: gray;
 		}
 	}
 	.right {

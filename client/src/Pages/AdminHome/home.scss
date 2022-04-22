@@ -4,6 +4,10 @@
 }
 .home-container {
 	flex: 6;
+	.home-widgets-wrapper {
+		display: flex;
+		flex-direction: column;
+	}
 	.widgets,
 	.charts {
 		display: flex;

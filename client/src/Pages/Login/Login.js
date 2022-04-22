@@ -1,12 +1,16 @@
 import SignIn from "../../Componenets/Sign-in/SignIn";
 import Layout from "../../Componenets/Layout/Layout";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth.js";
 
-const Login = ({ user }) => {
+const Login = () => {
+  const { auth } = useAuth();
+  const location = useLocation();
+
   return (
     <>
-      {user.length > 0 ? (
-        <Navigate to="/" replace />
+      {auth?.username ? (
+        <Navigate to="/" state={{ from: location }} replace />
       ) : (
         <Layout>
           <SignIn />
