@@ -1,6 +1,6 @@
-import Carousel from "react-bootstrap/Carousel";
-// import Carousel from "react-multi-carousel";
-// import 'react-multi-carousel/lib/styles.css';
+// import Carousel from "react-bootstrap/Carousel";
+import Carousel from "react-multi-carousel";
+import 'react-multi-carousel/lib/styles.css';
 import Image from "react-bootstrap/Image";
 import { CategoryWrapper } from "./styles/category-carousel.styled";
 
@@ -54,7 +54,11 @@ const CategoryCarousel = ({ interval }) => {
          // itemClass=""
          // containerClass=""
          >
-            {
+            {images.slice().map((item) => {
+               return <Image draggable={false} src={item.imgSrc} />;
+            })}
+
+            {/* {
                images.slice().map((item) => (
                   <Carousel.Item>
                      <div className="backG">
@@ -67,7 +71,7 @@ const CategoryCarousel = ({ interval }) => {
                      </div>
                   </Carousel.Item>
                ))
-            }
+            } */}
          </Carousel>
       </CategoryWrapper>
    );
