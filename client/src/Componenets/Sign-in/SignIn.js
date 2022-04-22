@@ -132,6 +132,7 @@ const SignIn = ({ user }) => {
 							<Button className='LoginBtn' type='submit'>
 								Sign In
 							</Button>
+              <p style={{marginTop: '10px'}}>new user ? <Link to="/register">signup now</Link></p>
 							{errorMsg && (
 								<p
 									ref={errRefrence}
