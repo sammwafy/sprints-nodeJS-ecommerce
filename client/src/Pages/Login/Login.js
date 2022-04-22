@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 const Login = ({ user }) => {
   return (
     <>
-      {user.length > 0 ? (
+      {user?.length > 0 ? (
         <Navigate to="/" replace />
       ) : (
         <Layout>
