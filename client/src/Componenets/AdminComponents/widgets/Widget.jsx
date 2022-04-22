@@ -12,6 +12,7 @@ import axios from "../../../Hooks/axios";
 import { useState } from "react";
 
 const Widget = ({ type }) => {
+
     const [cookies, setCookie] = useCookies(["token", "id"]);
     const [input, setInput] = useState(null)
     useEffect(() => {
@@ -32,19 +33,27 @@ const Widget = ({ type }) => {
                 }).then(response => setInput(response.data)).catch(err => console.log(err))
                 break;
 
+            case "userStatusNo":
+                axios.get(`/api/orders/status`, {
+                    headers: {
+                        token: "Bearer " + cookies.token
+                    }
+                }).then(response => setInput(response.data)).catch(err => console.log(err))
+                break;
+
 
             default: return
-
         }
 
 
     }, [type])
-    console.log(input);
+
+    console.log(type, input);
 
     let data;
     switch (type) {
         case "allUsers": data = {
-            title: "New Custumer Today",
+            title: "New Custumers Today",
             isMoney: false,
             link: "See All Users",
             count: input ? input[0].total : "err",
@@ -52,16 +61,17 @@ const Widget = ({ type }) => {
 
         };
             break;
-        case "orders": data = {
-            title: "Orders",
+        case "todayOrders": data = {
+            title: "ُToday Orders",
+            count: input ? input[0].total : "err",
             isMoney: false,
             link: "See All Orders",
             icon: <CreditCardIcon className="icon" style={{
                 color: "green", backgroundColor: 'rgba(0, 128, 0, 0.419)'
             }} />,
-
         };
             break;
+
         case "income": data = {
             title: "Income last Week",
             isMoney: true,
@@ -71,6 +81,17 @@ const Widget = ({ type }) => {
 
         };
             break;
+        case "userStatusNo": data = {
+            title: "Custumer status",
+            isMoney: false,
+            count: input ? input[0].total : "err",
+            link: "See All Balance",
+            icon: <AccountBalanceWalletOutlinedIcon className="icon" style={{
+                color: "orangered", backgroundColor: 'rgba(255, 68, 0, 0.324)'
+            }} />
+        };
+            break;
+
         case "balance": data = {
             title: "Balance",
             isMoney: true,
@@ -80,11 +101,13 @@ const Widget = ({ type }) => {
             }} />
         };
             break;
+
+
         default:
             break;
 
     }
-    console.log(data);
+
     return (
         <div className="widget">
             <div className="left">
