@@ -142,8 +142,8 @@ const SignUp = ({ user }) => {
                 className="mb-3 checkTerms"
                 controlId="formBasicCheckbox"
               >
+                <Form.Check type="checkbox" required />I read and agree to
                 <Link to="/terms">
-                  <Form.Check type="checkbox" required />I read and agree to
                   <span> Terms & Conditions</span>
                 </Link>
               </Form.Group>
