@@ -70,7 +70,7 @@ const SideBar = () => {
                             <span>Delivery</span>
                         </li>
                     </Link>
-                    <p className="title">Useful</p>
+                    {/* <p className="title">Useful</p>
                     <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
                         <li>
                             <BarChartIcon className="icon" />
@@ -82,16 +82,16 @@ const SideBar = () => {
                             <NotificationsNoneIcon className="icon" />
                             <span>Notifications</span>
                         </li>
-                    </Link>
+                    </Link> */}
 
                     <p className="title">Service</p>
-                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                    <Link to="/admin/coupons" style={{ textDecoration: "none" }}>
                         <li>
                             <HealthAndSafetyIcon className="icon" />
-                            <span>System Health</span>
+                            <span>Coupons</span>
                         </li>
                     </Link>
-                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                    {/* <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
                         <li>
                             <VpnKeyIcon className="icon" />
                             <span>Logs</span>
@@ -102,7 +102,7 @@ const SideBar = () => {
                             <SettingsIcon className="icon" />
                             <span>Settings</span>
                         </li>
-                    </Link>
+                    </Link>  */}
 
                     <p className="title">User</p>
                     <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
