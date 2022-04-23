@@ -9,11 +9,7 @@ const Product = require("../models/Product");
 const router = require("express").Router();
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
-<<<<<<< HEAD
 const mongoose = require("mongoose");
-=======
-const mongoose = require("mongoose")
->>>>>>> ea2931cf12987ac3c5765f1e603e1ca9abdc2cfa
 const ObjectId = mongoose.Types.ObjectId;
 // handle file upload
 const storage = multer.diskStorage({
@@ -92,7 +88,7 @@ router.put(
     }
   }
 );
-// Review 
+// Review
 router.put("/review/:id", verifyToken, async (req, res) => {
   try {
     const updatedProduct = await Product.findOne({ _id: req.params.id }).then(
@@ -111,7 +107,7 @@ router.put("/review/:id", verifyToken, async (req, res) => {
     );
     res.status(200).json("review received");
   } catch (err) {
-     res.status(500).json(err);
+    res.status(500).json(err);
   }
 });
 //DELETE
@@ -157,33 +153,39 @@ router.get("/", async (req, res) => {
 });
 //PRODUCT SEARCH
 router.post("/search", async (req, res) => {
-  const qsearch = req.query.search
-  const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 20
-  const skip = (page - 1) * limit
+  const qsearch = req.query.search;
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 20;
+  const skip = (page - 1) * limit;
   try {
-    let products , total , queryProducts
+    let products, total, queryProducts;
     if (qsearch) {
       products = await Product.find({
-        $or: [{ title: { $in: qsearch } },
-        {
-          categories: {
-            $in: [qsearch],
-          }
-        }]
-      }).skip(skip).limit(limit);
-       total = await Product.find({
-        $or: [{ title: { $in: qsearch } },
-        {
-          categories: {
-            $in: [qsearch],
-          }
-        }]
+        $or: [
+          { title: { $in: qsearch } },
+          {
+            categories: {
+              $in: [qsearch],
+            },
+          },
+        ],
       })
+        .skip(skip)
+        .limit(limit);
+      total = await Product.find({
+        $or: [
+          { title: { $in: qsearch } },
+          {
+            categories: {
+              $in: [qsearch],
+            },
+          },
+        ],
+      });
     }
-    res.status(200).json({total:total.length , products});
+    res.status(200).json({ total: total.length, products });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -191,18 +193,17 @@ router.post("/search", async (req, res) => {
 // AVERAGE NUMBER OF REVIEWS
 router.post("/average/:id", async (req, res) => {
   try {
-   
     const data = await Product.aggregate([
       { $match: { _id: { $eq: ObjectId(req.params.id) } } },
       { $unwind: "$reviews" },
       {
         $group: {
           _id: "$_id",
-          average: { $avg: "$reviews.rating" }
-        }
-      }
-    ])
-    res.status(200).json(data)
+          average: { $avg: "$reviews.rating" },
+        },
+      },
+    ]);
+    res.status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
   }
