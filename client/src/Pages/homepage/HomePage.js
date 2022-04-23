@@ -81,6 +81,7 @@ const HomePage = () => {
 				/>
 				<Carousel type="category" />
 				<CardContainer />
+        <Cart />
 				<TestimonialsContainter>
 					<Container>
 						<Carousel
