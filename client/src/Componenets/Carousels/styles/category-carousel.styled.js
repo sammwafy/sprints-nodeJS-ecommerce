@@ -4,6 +4,7 @@ export const CategoryWrapper = styled.div`
 
 .carousel-container {
   background-color: darkgrey;
+  padding: 20px;
 }
 
 .react-multi-carousel-item {
@@ -14,7 +15,7 @@ export const CategoryWrapper = styled.div`
   display: flex;
   align-self: flex-start;
   align-items: center;
-  height: 300px;
+  height: fit-content;
   overflow: hidden;
 }
 
@@ -23,17 +24,19 @@ export const CategoryWrapper = styled.div`
   align-items: center;
   overflow: hidden;
   height: 200px;
-  border-radius: 15px;
 }
   
 .react-multi-carousel-item img {
   object-fit: cover;
   max-width: 100%;
   filter: grayscale(1);
+  transition: all .2s ease;
 }
 
 .react-multi-carousel-item:hover img{
-  transform: scale(1.05);
+  transform: scale(1.1);
+  filter: grayscale(0);
+  transition: all .2s ease;
 }
 
 .text {
