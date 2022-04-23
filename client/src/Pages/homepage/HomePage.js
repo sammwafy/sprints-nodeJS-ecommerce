@@ -91,6 +91,7 @@ const HomePage = () => {
             />
           </Container>
         </TestimonialsContainter>
+        >>>>>>> 1f829d543b7e5a3b5e7fedeca83518703b6bf973
         <Carousel type="brands" />
       </Layout>
     </>
