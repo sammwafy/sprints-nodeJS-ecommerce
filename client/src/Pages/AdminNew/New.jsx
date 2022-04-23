@@ -1,7 +1,7 @@
 import "./new.scss";
 import AdminLayout from "../../Componenets/AdminComponents/layout/AdminLayout";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useId } from "react";
 import ImageUploading from "react-images-uploading";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -39,40 +39,96 @@ const New = ({ title, type }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const imgsFiles = images.map((image) => image.file);
 
-    const formData = new FormData();
-    for (var i = 0; i < imgsFiles.length; i++) {
-      formData.append("productImg", imgsFiles[i]);
-    }
-
-    formData.append("description", inputData.description);
-    formData.append("featuredImg", uniqueImgIndex);
-    formData.append("image", inputData.image);
-    formData.append("price", inputData.price);
-    formData.append("quantity", inputData.quantity);
-    formData.append("size", inputData.size);
-    formData.append("title", inputData.title);
-    formData.append("categories", inputData.categories);
-    try {
-      const res = await axios.post(
-        `/api/products/`,
-
-        formData,
-        {
-          headers: {
-            token: "Bearer " + cookies.token,
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
+    switch (type) {
+      case "products":
+        const imgsFiles = images.map((image) => image.file);
+        const formData = new FormData();
+        for (var i = 0; i < imgsFiles.length; i++) {
+          formData.append("productImg", imgsFiles[i]);
         }
-      );
-      console.log(res);
-    } catch (err) {
-      console.log(err);
+        formData.append("featuredImg", uniqueImgIndex);
+        formData.append("description", inputData.description);
+        formData.append("image", inputData.image);
+        formData.append("price", inputData.price);
+        formData.append("quantity", inputData.quantity);
+        formData.append("size", inputData.size);
+        formData.append("title", inputData.title);
+        formData.append("categories", inputData.categories);
+        try {
+          const res = await axios.post(
+            `/api/products/`,
+
+            formData,
+            {
+              headers: {
+                token: "Bearer " + cookies.token,
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          );
+          console.log(res);
+        } catch (err) {
+          console.log(err);
+        }
+        navigate(`/admin/${type}`);
+        break;
+
+      case "categories":
+        const formCategories = new FormData();
+        formCategories.append("description", inputData.description);
+        formCategories.append("image", inputData.image);
+        formCategories.append("title", inputData.title);
+
+        try {
+          const res = await axios.post(
+            `/api/categories/`,
+
+            formCategories,
+            {
+              headers: {
+                token: "Bearer " + cookies.token,
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          );
+          console.log(res);
+        } catch (err) {
+          console.log(err);
+        }
+        navigate(`/admin/${type}`);
+        break;
+      case "brands":
+        const formBrands = new FormData();
+        formBrands.append("description", inputData.description);
+        formBrands.append("image", inputData.image);
+        formBrands.append("title", inputData.title);
+
+        try {
+          const res = await axios.post(
+            `/api/brands/`,
+
+            formBrands,
+            {
+              headers: {
+                token: "Bearer " + cookies.token,
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          );
+          console.log(res);
+        } catch (err) {
+          console.log(err);
+        }
+        navigate(`/admin/${type}`);
+        break;
+      default: return
     }
-    navigate(`/admin/${type}`);
   };
+
   let inputs;
   switch (type) {
     case "products":
@@ -145,12 +201,30 @@ const New = ({ title, type }) => {
     }
   }
   //coming from backend
-  const categories = ["outdoors", "sofa", "kitchen"];
+  // const categories = ["outdoors", "sofa", "kitchen"];
   //to options
-  const options = categories.map((category) => ({
+  const options = [{
     name: "category",
-    value: category,
-  }));
+    value: "outdoors",
+    id: useId()
+  },
+  {
+    name: "category",
+    value: "sofa",
+    id: useId()
+  },
+  {
+    name: "category",
+    value: "kitchen",
+    id: useId()
+  }
+
+  ]
+  // const options = categories.map((category) => ({
+  //   name: "category",
+  //   value: category,
+  //   id:useId()
+  // }));
 
   return (
     <AdminLayout>
@@ -210,9 +284,9 @@ const New = ({ title, type }) => {
                             Remove all images
                           </Button>
                         </div>
-                        <div class="imgsView">
+                        <div className="imgsView">
                           {imageList.map((image, index) => (
-                            <div key={index} className="image-item">
+                            <div key={`${index}-image`} className="image-item">
                               <img src={image.data_url} alt="" />
                               <div className="image-item__btn-wrapper">
                                 <div className="imgUpdatesBtns">
@@ -309,7 +383,7 @@ const New = ({ title, type }) => {
                     category
                   </option>
                   {options.map((option) => (
-                    <option name={option.name} value={option.value}>
+                    <option name={option.name} value={option.value} key={option.id}>
                       {option.value}
                     </option>
                   ))}

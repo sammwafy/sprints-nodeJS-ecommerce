@@ -34,6 +34,7 @@ import ProtectedAdminRoute from "./ProtectedAdminRoute";
 import useAuth from "./Hooks/useAuth.js";
 import ErrorPage from "./Pages/404/404.js";
 import CartPage from "./Pages/cart/CartPage";
+import Register from "./Pages/Register/Register.js";
 
 function App() {
 	const { auth } = useAuth();
@@ -65,6 +66,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<HomePage />} />
 				<Route path='/login' element={<Login />} />
+				<Route path='/register' element={<Register />} />
 				<Route path='/logout' element={<Logout />} />
 				<Route path='/404' element={<ErrorPage />} />
 				<Route path='/cart' element={<CartPage />} />
@@ -80,7 +82,7 @@ function App() {
 								index
 								element={<AdminList columns={usersColumns} type='users' />}
 							/>
-							<Route path=':userId'>
+							<Route path=':id'>
 								<Route index element={<Single type='users' />} />
 								<Route path='edit' element={<AdminEdit type='users' />} />
 							</Route>
@@ -93,7 +95,7 @@ function App() {
 									<AdminList columns={productsColumns} type='products' />
 								}
 							/>
-							<Route path=':productId'>
+							<Route path=':id'>
 								<Route index element={<Single type='products' />} />
 								<Route path='edit' element={<AdminEdit type='products' />} />
 							</Route>
@@ -110,7 +112,7 @@ function App() {
 									<AdminList columns={categoriesColumns} type='categories' />
 								}
 							/>
-							<Route path=':categoryId'>
+							<Route path=':id'>
 								<Route index element={<Single type='categories' />} />
 								<Route path='edit' element={<AdminEdit type='categories' />} />
 							</Route>
@@ -125,7 +127,7 @@ function App() {
 								index
 								element={<AdminList columns={brandsColumns} type='brands' />}
 							/>
-							<Route path=':brandtId'>
+							<Route path=':id'>
 								<Route index element={<Single type='brands' />} />
 								<Route path='edit' element={<AdminEdit type='brands' />} />
 							</Route>
@@ -140,7 +142,7 @@ function App() {
 								index
 								element={<AdminList columns={ordersColumns} type='orders' />}
 							/>
-							<Route path=':orderId'>
+							<Route path=':id'>
 								<Route index element={<Single type='orders' />} />
 								<Route path='edit' element={<AdminEdit type='orders' />} />
 							</Route>

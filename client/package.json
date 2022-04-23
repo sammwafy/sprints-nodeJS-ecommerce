@@ -38,6 +38,7 @@
 		"react-icons": "^4.3.1",
 		"react-images-uploading": "^3.1.6",
 		"react-multi-carousel": "^2.8.0",
+		"react-rater": "^6.0.1",
 		"react-redux": "^7.2.8",
 		"react-router-dom": "^6.3.0",
 		"react-scripts": "5.0.0",

@@ -27,6 +27,8 @@ const authRoute = require("./routes/authentication");
 const ProductRoute = require("./routes/product");
 const CartRoute = require("./routes/cart");
 const OrderRoute = require("./routes/order");
+const CopounRoute = require("./routes/copoun")
+
 
 
 dotenv.config();
@@ -44,6 +46,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/products", ProductRoute);
 app.use("/api/carts", CartRoute);
 app.use("/api/orders", OrderRoute);
+app.use("/api/copouns",CopounRoute)
 
 
 app.listen(5009, () => {

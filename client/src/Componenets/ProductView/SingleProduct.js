@@ -1,74 +1,78 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import { SingleProductWrapper } from "./styles/SingleProduct.styled";
-import { Row, Col, Image,Tab,Tabs } from "react-bootstrap";
+import { Row, Col, Image, Tab, Tabs } from "react-bootstrap";
+import axios from "../../Hooks/axios.js";
 
+import Description from "./productItems/Description";
+import ProductImgs from "./productItems/ProductImgs.js";
+import Specs from "./productItems/Specs.js";
+import ProductTitle from "./productItems/ProductTitle.js";
+import Review from "./Reviews/Review.js";
 
 const SingleProduct = () => {
-  const ProductData = {
-    imgs: [
-      "https://www.journal-theme.com/4/image/cache/catalog/journal3/products/fashion/d2-1100x1376h.jpg",
-      "https://www.journal-theme.com/4/image/cache/catalog/journal3/products/fashion/d1-1100x1376h.jpg",
-      "https://www.journal-theme.com/4/image/cache/catalog/journal3/products/fashion/additional/tee4-1100x1376h.jpg",
-      "https://www.journal-theme.com/4/image/cache/catalog/journal3/products/fashion/additional/tee5-1100x1376h.jpg",
-      "https://www.journal-theme.com/4/image/cache/catalog/journal3/products/fashion/b1-1100x1376h.jpg",
-      "https://www.journal-theme.com/4/image/cache/catalog/journal3/products/fashion/additional/te-1100x1376h.jpg",
-    ],
-  };
+  const [product, setProduct] = useState({});
 
-  const [mainImg, setMainImg] = useState("");
-  const [mainImgPosition, setMainImgPosition] = useState("0 0");
 
-  const mainImgHandler = (img) => {
-    setMainImg(img);
-  };
+  const productId = "62611311d23d2e0dfa47cb31";
 
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } = e.target.getBoundingClientRect();
-    const x = ((e.pageX - left) / width) * 100;
-    const y = ((e.pageY - top) / height) * 100;
-    setMainImgPosition(`${x}% ${y}%`);
-  };
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(`/api/products/find/${productId}`);
+        console.log(res?.data)
+        setProduct(res?.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProduct();
+  }, []);
+
+
+  console.log(product);
   return (
     <SingleProductWrapper>
+      <ProductTitle title={product?.title} />
       <Container>
-        <Row>
-          <Col className="leftView">
-            <Row>
-              <Col lg={2} className="thumbImgs">
-                {ProductData?.imgs?.map((img) => (
-                  <Image src={img} onClick={() => mainImgHandler(img)} />
-                ))}
-              </Col>
-              <Col
-                lg={10}
-                className="mainImg"
-                style={{
-                  backgroundImage: `url(${mainImg})`,
-                  backgroundPosition: mainImgPosition,
-                }}
-                onMouseMove={handleMouseMove}
-              ></Col>
-            </Row>
-          </Col>
-          <Col className="rightView">
-            <Tabs
-              defaultActiveKey="description"
-              id="uncontrolled-tab-example"
-              className="mb-3"
-            >
-              <Tab eventKey="description" title="DESCRIPTION">
-                
-              </Tab>
-              <Tab eventKey="specifications" title="SPECIFICATIONS">
-                
-              </Tab>
-              <Tab eventKey="reviews" title="REVIEWS" >
-                
-              </Tab>
-            </Tabs>
-          </Col>
-        </Row>
+        {product && (
+          <Row>
+            <Col className="leftView">
+              <ProductImgs
+                mainImg={product?.featuredImg}
+                imgs={product?.image}
+              />
+            </Col>
+            <Col className="rightView">
+              <Tabs
+                defaultActiveKey="description"
+                id="uncontrolled-tab-example"
+                className="mb-3"
+              >
+                <Tab eventKey="description" title="DESCRIPTION">
+                  <Description
+                    data={{
+                      price: product?.price,
+                      description: product?.description,
+                      quantity: product?.quantity,
+                      category: 'sofa'
+                    }}
+                  />
+                </Tab>
+                <Tab eventKey="specifications" title="SPECIFICATIONS">
+                  <Specs data={{
+                    size: product?.size,
+                    color: product?.color
+
+                  }} />
+                </Tab>
+                <Tab eventKey="reviews" title="REVIEWS">
+                  <Review/>
+                </Tab>
+              </Tabs>
+            </Col>
+          </Row>
+        )}
       </Container>
     </SingleProductWrapper>
   );

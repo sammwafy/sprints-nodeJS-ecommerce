@@ -13,10 +13,11 @@ import TopBar from "./TopBar";
 import styled from "styled-components";
 import logo from "../../Assets/imgs/sprints.png";
 import useAuth from "../../Hooks/useAuth.js";
+import { Link, useLocation } from "react-router-dom";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const { auth } = useAuth();
-
+  const location = useLocation();
 	return (
 		<TopWrapper>
 			<TopBar />
@@ -37,9 +38,9 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 							</li>
 						) : (
 							<li className='signIn'>
-								<a href='/login'>
+							<Link to='/login' state={{ from: location }} replace >
 									<FaSignInAlt /> SIGN IN
-								</a>
+								</Link>
 							</li>
 						)}
 					</ul>

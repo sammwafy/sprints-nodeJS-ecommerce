@@ -30,3 +30,4 @@ client/src/Pages/AdminHome/Test.jsx
 node_modules/
 .env
 
+client/yarn.lock

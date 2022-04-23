@@ -6,12 +6,17 @@ export const LoginWrapper = styled.div`
     padding: 50px 0;
   }
   .container {
-    width: calc(100vw / 2.2);
+    width: calc(100vw / 2.4);
     margin: 0 auto;
     background: white;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 8px;
-    padding: 15px 5.4rem;
+    padding: 15px 4.4rem;
+
+    @media screen and (max-width: 1024px){
+      width: calc(100vw / 1.4);
+      padding: 15px 1.1rem;
+    }
     @media screen and (max-width: 482px){
       width: 90vw;
       padding: 15px 1.1rem;

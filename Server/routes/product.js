@@ -1,3 +1,5 @@
+/** @format */
+
 const {
   verifyToken,
   verifyTokenAndAuthorization,
@@ -42,7 +44,7 @@ const upload = multer({
 router.post(
   "/",
   verifyTokenAndAdmin,
-  upload.array("productImg",6),
+  upload.array("productImg", 6),
   async (req, res) => {
     const url = req.protocol + "://" + req.get("host");
     const imgArray = req.files.map((file) => url + "/Imgs/" + file.filename);
@@ -60,18 +62,43 @@ router.post(
   }
 );
 //UPDATE
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.put(
+  "/:id",
+  verifyTokenAndAdmin,
+  upload.array("productImg", 6),
+  async (req, res) => {
+    const url = req.protocol + "://" + req.get("host");
+    const imgArray = req.files.map((file) => url + "/Imgs/" + file.filename);
+    const data = {
+      ...req.body,
+      image: imgArray,
+    };
+    try {
+      const updatedProduct = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: data,
+        },
+        { new: true }
+      );
+      res.status(200).json(updatedProduct);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
+);
+// Review
+router.put("/review/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
+    const updatedProduct = await Product.findOneAndUpdate(
+      { _id: req.params.id },
       {
-        $set: req.body,
-      },
-      { new: true }
+        reviews: req.body,
+      }
     );
     res.status(200).json(updatedProduct);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 //DELETE
@@ -80,7 +107,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     await Product.findByIdAndDelete(req.params.id);
     res.status(200).json("product has been deleted");
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 //GET PRODUCT
@@ -89,7 +116,7 @@ router.get("/find/:id", async (req, res) => {
     const product = await Product.findById(req.params.id);
     res.status(200).json(product);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -112,7 +139,49 @@ router.get("/", async (req, res) => {
     }
     res.status(200).json(products);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
+//PRODUCT SEARCH
+router.post("/search", async (req, res) => {
+  const qsearch = req.query.search
+  const page = Number (req.query.page )|| 1
+  const limit = Number (req.query.limit)|| 20
+  const skip = (page-1)*limit
+  try {
+    let products
+    if (qsearch) {
+      products = await Product.find({
+        $or: [{ title: { $in: qsearch } },
+        {
+          categories: {
+            $in: [qsearch],
+          }
+        }]
+      }).skip(skip).limit(limit);
+    }
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
+// AVERAGE NUMBER OF REVIEWS
+router.get("/average" , async (req,res)=>{
+  try{
+    const data = await Product.aggregate([
+      // {$project:{reviews:[{
+      //   rating : {$avg : "$rating"}
+      // }]}},
+       {
+        $group: {
+            _id: "$reviews.rating",
+            total: { $avg : "$reviews.rating" }
+        }
+    }
+    ])
+    res.status(200).json(data)
+  }catch (err) {
+    res.status(500).json(err);
+  }
+})
 module.exports = router;
