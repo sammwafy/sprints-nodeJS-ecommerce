@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./cart.scss";
-import { AiOutlineCaretUp, AiFillCaretDown } from "react-icons/ai";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
 export default function Quantity() {
   const [count, setCount] = useState(1);
@@ -14,13 +14,13 @@ export default function Quantity() {
 
   return (
     <div className="quantity">
-      <p> {count < 1 ? 1 : count} </p>
+      <p>{count < 1 ? 1 : count}</p>
       <div className="quantity-buttons">
         <button className="small-button" onClick={increament}>
-          <AiOutlineCaretUp />
+          <BsChevronUp className="up" />
         </button>
         <button className="small-button" onClick={decreament}>
-          <AiFillCaretDown />
+          <BsChevronDown className="up" />
         </button>
       </div>
     </div>

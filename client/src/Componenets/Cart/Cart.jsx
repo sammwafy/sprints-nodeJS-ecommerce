@@ -110,40 +110,46 @@ export default function Cart() {
           </TableContainer>
         </div>
         <div className="to-do-next">
-          <p> WHAT WOULD YOU LIKE TO DO NEXT? </p>
-          <h3> ــــــــــــــــــــــ </h3>
-          <div
-            className="coupon"
-            onClick={() => setOpen(!open)}
-            aria-controls="example-collapse-text"
-            aria-expanded={open}
-          >
-            <p> USE COUPON CODE</p>
-            <div className="arrow">
-              {open ? <BsArrowDown /> : <BsArrowRight />}
-            </div>
-          </div>
-          <Collapse in={open}>
-            <div className="collapse">
-              <p>Enter your coupon here</p>
-              <div className="in-collapse">
-                <input type="text" />
-                <button> APPLY COUPON</button>
+          <p className="title">
+            WHAT WOULD YOU LIKE TO DO NEXT?
+            <p className="line"> ـــــــــــــــــــــــ </p>
+          </p>
+          <div className="coupon">
+            <div
+              className="click-on"
+              onClick={() => setOpen(!open)}
+              aria-controls="example-collapse-text"
+              aria-expanded={open}
+            >
+              <div className="bottom-border">
+                <p className="use-copon">USE COUPON CODE</p>
+                <div className="arrow">
+                  {open ? <BsArrowDown /> : <BsArrowRight />}
+                </div>
               </div>
             </div>
-          </Collapse>
-          <div className="sub-total">
-            Sub-Total: <span>$1,50.00</span>
+            <Collapse in={open} className="col">
+              <div className="collapse">
+                <p>Enter your coupon here</p>
+                <div className="in-collapse">
+                  <input type="text" />
+                  <button> APPLY COUPON</button>
+                </div>
+              </div>
+            </Collapse>
           </div>
-          <div className="total">
-            Total: <span>$1,668.00</span>
+          <div className="sub-total">
+            Sub-Total : <span className="sub-total-num">$ 1,50.00</span>
+          </div>
+          <div className="sub-total">
+            Total : <span className="sub-total-num">$ 1,668.00</span>
           </div>
           <div className="check-continu">
-            <button>
-              <BsArrowLeftShort /> CONTINU SHOPPING
+            <button className="continu">
+              <BsArrowLeftShort className="arow" /> CONTINU SHOPPING
             </button>
-            <button>
-              CHECK OUT <BsArrowRightShort />
+            <button className="check">
+              CHECK OUT <BsArrowRightShort className="arow" />
             </button>
           </div>
         </div>

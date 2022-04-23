@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   height: 45px;
+  padding-top: 10px;
   background-image: radial-gradient(
     circle at center,
     rgb(248, 248, 248),
@@ -29,19 +30,21 @@
   justify-content: center;
   background-color: rgb(41, 41, 43);
   color: cornsilk;
-  margin-top: -13px;
+  margin-top: -10px;
+  padding: 5px;
+  height: 100px;
   //   border: 2px rgb(42, 45, 196) solid;
 }
 
 .cart {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 20px;
   .main-cart {
     flex: 100px;
     margin-right: 15px;
-    border: 2px rgb(9, 197, 106) solid;
+    // border: 2px rgb(9, 197, 106) solid;
     .table-head {
       background-color: rgb(238, 238, 238);
     }
@@ -50,76 +53,205 @@
       width: 100px;
     }
   }
-  .to-do-next {
-    margin: 10px;
-    border: 3px rgb(197, 9, 134) solid;
-  }
-}
 
-.quantity {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .quantity-buttons {
-    flex-direction: column;
+  .quantity {
     display: flex;
     align-items: center;
     justify-content: center;
-    .small-button {
+    p {
       justify-content: center;
-      align-items: center;
       text-align: center;
+      font-size: 18px;
+      margin-top: 16px;
+      border: #000 solid 1px;
+      padding-top: 3px;
+      width: 30px;
+      height: 30px;
+    }
+    .quantity-buttons {
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .small-button {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #222;
+        border-style: none;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 900;
+        outline: none;
+        &:hover,
+        &:focus {
+          background-color: crimson;
+        }
+        height: 15px;
+        width: 15px;
+        .up {
+          margin-left: -5px;
+          margin-bottom: 10px;
+          font-size: smaller;
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+
+  .table-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .butt {
       background-color: #222;
       border-style: none;
       color: #fff;
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 900;
       outline: none;
+      text-align: center;
       &:hover,
       &:focus {
         background-color: crimson;
       }
-      height: 15px;
       width: 30px;
+      height: 30px;
     }
   }
-}
 
-.table-quantity {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .butt {
-    background-color: #222;
-    border-style: none;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 900;
-    outline: none;
-    text-align: center;
-    &:hover,
-    &:focus {
-      background-color: crimson;
+  .to-do-next {
+    padding: 10 px;
+    background-color: rgb(238, 238, 238);
+    height: 350 px;
+    width: 370px;
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: -3px;
+      font-size: medium;
+      margin: 20px;
+      .line {
+        font-size: smaller;
+        color: rgb(196, 8, 8);
+      }
     }
-    width: 30px;
-    height: 30px;
-  }
-  p {
-    margin-top: 16px;
-    border: #000 solid 3px;
-    width: 30px;
-    height: 30px;
-  }
-}
 
-.coupon {
-  display: flex;
-  align-items: flex-start;
-  justify-content: start;
-  p {
-    margin-right: 50px;
-  }
-  .arrow {
-    margin-bottom: 22px;
+    .click-on {
+      display: flex;
+      align-items: flex-start;
+      justify-content: start;
+      font-size: smaller;
+      margin-top: -25px;
+      font-weight: bold;
+      &:hover,
+      &:focus {
+        color: crimson;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .bottom-border {
+        display: flex;
+        margin-left: 20px;
+        margin-right: 150px;
+        border-bottom: rgb(188, 181, 181) solid 1px;
+        .use-copon {
+          margin-right: 100px;
+          margin-bottom: -20px;
+          width: 200px;
+        }
+        .arrow {
+          margin-top: -3px;
+          font-weight: bolder;
+          font-size: medium;
+        }
+      }
+    }
+    .col {
+      // border: rgb(189, 19, 19) solid 4px;
+      margin: 15px;
+      .in-collapse {
+        display: flex;
+        align-items: flex-end;
+        // border: aqua solid 4px;
+
+        input {
+          width: 250px;
+          margin-right: 5px;
+        }
+        button {
+          background-color: #222;
+          border-style: none;
+          color: #fff;
+          font-size: 11px;
+          font-weight: 900;
+          outline: none;
+          text-align: center;
+          &:hover,
+          &:focus {
+            background-color: crimson;
+          }
+          width: 120px;
+          height: 30px;
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .sub-total {
+      margin: 15px;
+      justify-content: center;
+      font-weight: bold;
+      font-size: medium;
+      background-color: rgb(255, 255, 255);
+      height: 30px;
+      padding: 4px;
+
+      .sub-total-num {
+        margin-left: 30px;
+        color: crimson;
+      }
+    }
+    .check-continu {
+      margin: 15px;
+      display: flex;
+      align-items: flex-end;
+      .continu {
+        background-color: #222;
+        border-style: none;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        outline: none;
+        text-align: center;
+        &:hover,
+        &:focus {
+          background-color: crimson;
+        }
+        margin-right: 40px;
+        height: 35px;
+        width: 160px;
+      }
+
+      .check {
+        background-color: #222;
+        border-style: none;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        outline: none;
+        text-align: center;
+        &:hover,
+        &:focus {
+          background-color: crimson;
+        }
+        margin-left: 40px;
+        height: 35px;
+        width: 100px;
+      }
+      .arow {
+        font-size: large;
+      }
+    }
   }
 }
