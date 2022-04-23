@@ -265,7 +265,6 @@ export const FooterWrapper = styled.footer`
   .module-newsletter .input-group .input-group-btn .btn {
     background: rgb(41,41,43);
     border-color: rgb(114,118,132);
-    
   }
 
   .input-group {
@@ -276,19 +275,10 @@ export const FooterWrapper = styled.footer`
     width: 100%;
   }
 
-  .input-group .form-control {
-    position: relative;
-    z-index: 2;
-    float: left;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    margin-bottom: 0;
-  }
-
   .input-group-btn {
     width: auto;
     height: 100%;
+    display: inline-block;
   }
 
   .input-group-btn .btn:hover {
