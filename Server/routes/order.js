@@ -56,7 +56,7 @@ router.get("/status", verifyTokenAndAdmin, async (req, res) => {
             {
                 $match: {
                     status: {
-                        $in: ["pending", "in review", "in progress", "on the way", "deliverd"]
+                        $in: ["pending", "in review", "in progress", "on the way", "delivered"]
                     }
                 }
             },

@@ -7,7 +7,7 @@ const {
 const router = require("express").Router();
 //CREATE
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
-	const date = new Date(req.body.expiresIn)
+	const date = new Date(req.body.expiresIn).setHours(2, 0, 0, 0)
 	req.body.expiresIn = date
 	const newCopoun = new Copoun(req.body);
 	try {
@@ -21,7 +21,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 //UPDATE COPOUN
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
 	if (req.body.expiresIn) {
-		const date = new Date(req.body.expiresIn)
+		const date = new Date(req.body.expiresIn).setHours(2, 0, 0, 0)
 		req.body.expiresIn = date
 	}
 	try {
