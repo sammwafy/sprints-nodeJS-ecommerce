@@ -6,41 +6,47 @@ const {
 } = require("./verifyToken");
 const router = require("express").Router();
 //CREATE
-router.post("/",verifyTokenAndAdmin,async (req, res) => {
-	  const newCopoun = new Copoun(req.body);
-	  try {
+router.post("/", verifyTokenAndAdmin, async (req, res) => {
+	const date = new Date(req.body.expiresIn)
+	req.body.expiresIn = date
+	const newCopoun = new Copoun(req.body);
+	try {
 		const savedCopoun = await newCopoun.save();
 		res.status(200).json(savedCopoun);
-	  } catch (err) {
+	} catch (err) {
 		res.status(500).json(err);
-	  }
 	}
-  );
+}
+);
 //UPDATE COPOUN
-router.put("/:id",verifyTokenAndAdmin,async (req, res) => {
-	  try {
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+	if (req.body.expiresIn) {
+		const date = new Date(req.body.expiresIn)
+		req.body.expiresIn = date
+	}
+	try {
 		const updatedCopoun = await Copoun.findByIdAndUpdate(
-		  req.params.id,
-		  {
-			$set: req.body,
-		  },
-		  { new: true }
+			req.params.id,
+			{
+				$set: req.body,
+			},
+			{ new: true }
 		);
 		res.status(200).json(updatedCopoun);
-	  } catch (err) {
+	} catch (err) {
 		return res.status(500).json(err);
-	  }
 	}
-  );
+}
+);
 //DELETE COPOUN
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 	try {
-	  await Copoun.findByIdAndDelete(req.params.id);
-	  res.status(200).json("Copoun has been deleted");
+		await Copoun.findByIdAndDelete(req.params.id);
+		res.status(200).json("Copoun has been deleted");
 	} catch (err) {
-	  return res.status(500).json(err);
+		return res.status(500).json(err);
 	}
-  });
+});
 //GET COPOUN
 router.get("/copoun/:id", verifyTokenAndAdmin, async (req, res) => {
 	try {
