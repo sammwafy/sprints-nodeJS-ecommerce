@@ -26,7 +26,7 @@ const CategoryCarousel = ({ interval }) => {
       },
       laptop: {
          breakpoint: { max: 1366, min: 768 },
-         items: 3,
+         items: 2,
          paritialVisibilityGutter: 20,
       },
       tablet: {
