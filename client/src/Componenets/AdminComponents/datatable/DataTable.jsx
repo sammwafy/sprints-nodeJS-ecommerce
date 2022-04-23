@@ -1,6 +1,5 @@
 import "./datatable.scss";
 import { DataGrid } from '@mui/x-data-grid';
-
 import { Link, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -8,12 +7,14 @@ import axios from "axios"
 import { productActions } from "../../../store/productsSlice"
 import { useCookies } from "react-cookie";
 import { usersActions } from "../../../store/usersSlice";
+import { useState } from "react";
 
 const DataTable = ({ columns, type }) => {
     const [cookies, setCookie] = useCookies(["token", "id"]);
     const dispatch = useDispatch()
     const products = useSelector(state => state.products)
     const users = useSelector(state => state.users.users)
+    const [orders, setOrders] = useState([])
     //delete action
     const handleClick = (id) => {
         const confirm = window.confirm("Are you sure you want to delete this");
@@ -100,6 +101,28 @@ const DataTable = ({ columns, type }) => {
                         console.log(error);
                     });
                 break;
+
+            case "orders":
+                axios
+                    .get(`/api/orders`, {
+                        headers: {
+                            token: "Bearer " + cookies.token,
+
+                            "Content-Type": "application/json",
+                        },
+                        withCredentials: true,
+                    }
+                    )
+                    .then(function (response) {
+                        // handle success
+                        console.log(response.data);
+                        setOrders(response.data)
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    });
+                break;
             default: return
 
         }
@@ -108,19 +131,24 @@ const DataTable = ({ columns, type }) => {
 
     //get data from redux
 
+
+
+
     // fill table rows from database
     let rows
     switch (type) {
+        //fill user table
         case "users": rows =
             users.map(user => {
                 return { id: user._id, username: user.username, email: user.email, status: user.status }
             })
             break;
+        //fill product table
         case "products": rows = products.map(product => {
             return { id: product._id, avatar: product.image[product?.featuredImg ? product?.featuredImg : 0], title: product.title, stock: product.quantity, price: product.price }
         })
             break;
-
+        //fill categories table
         case "categories": rows = [
             {
                 id: "2",
@@ -131,6 +159,7 @@ const DataTable = ({ columns, type }) => {
         ]
             break;
 
+        //fill brand table
         case "brands": rows = [
             {
                 id: "2",
@@ -140,20 +169,40 @@ const DataTable = ({ columns, type }) => {
             },
         ]
             break;
-        case "orders": rows = [{
-            id: "Snow",
+
+        //fill order table
+        case "orders": rows = orders.map(order => ({
+            id: order._id,
             custumer:
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-            date: "Jon@gmail.com",
-            total: " $35",
-            payment: "Active",
-            status: "approved",
-        }]
+                order.userId,
+            date: order.createdAt,
+            total: order.amount,
+            payment: "cash dummy",
+            status: order.status,
+        }))
+
             break;
+
+        case "coupons": rows = orders.map(order => ({
+            id: order._id,
+            custumer:
+                order.userId,
+            date: order.createdAt,
+            total: order.amount,
+            payment: "cash dummy",
+            status: order.status,
+        }))
+
+            break;
+
+
+
 
 
         default: { }
     }
+
+
     //create buttons for table rows
     const actionColumns = [
         {
@@ -171,9 +220,6 @@ const DataTable = ({ columns, type }) => {
                         </Link>
 
                         <div className="deleteButton" onClick={() => handleClick(params.row.id)}>Delete</div>
-
-
-
                     </div >
                 )
             }
