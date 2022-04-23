@@ -1,11 +1,11 @@
-import SingleProduct from "../../Componenets/ProductView/SingleProduct";
-
+import ShopHome from "../../Componenets/ProductView/ShopHome.js";
 import Layout from "../../Componenets/Layout/Layout";
+import { Navigate } from "react-router-dom";
 
 const Shop = () => {
   return (
     <Layout>
-      <SingleProduct />
+      <ShopHome />
     </Layout>
   );
 };

@@ -21,6 +21,13 @@ const ErrorPage = () => {
                     <p>You cannot access this page.</p>
                     <Button href="/">Go To Home</Button>
                   </>
+                ) : location?.state?.product ? (
+                  <>
+                    <h1>404</h1>
+                    <h3>Sorry, Product Page doesn't exist</h3>
+                    <p>The product page you requested cannot be found</p>
+                    <Button href="/shop">Go To Shop</Button>
+                  </>
                 ) : (
                   <>
                     <h1>404</h1>
