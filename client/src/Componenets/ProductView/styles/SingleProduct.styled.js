@@ -112,11 +112,11 @@ export const SingleProductWrapper = styled.div`
       margin: 26px 0;
     }
 
-    .inStock{
-      color:green;
+    .inStock {
+      color: green;
     }
-    .outStock{
-      color:red;
+    .outStock {
+      color: red;
     }
   }
 
@@ -125,7 +125,7 @@ export const SingleProductWrapper = styled.div`
     .userInfo {
       display: flex;
       align-items: center;
-      img {
+      svg {
         width: 50px;
         border-radius: 50%;
       }
@@ -136,8 +136,17 @@ export const SingleProductWrapper = styled.div`
     }
     .react-rater {
       margin: 6px 0;
-      .react-rater-star.is-active {
+      .react-rater-star.is-active,
+      .react-rater-star.will-be-active {
         color: #f5ad1e;
+      }
+    }
+  }
+  /** new Review form */
+  .newReview {
+    .react-rater {
+      .react-rater-star {
+        font-size: 2rem;
       }
     }
   }

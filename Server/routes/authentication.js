@@ -24,7 +24,9 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    !user && res.status(401).json("Worng Credentials");
+    if (!user) {
+      return res.status(401).json("Worng Credentials");
+    }
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
       process.env.PASS_SEC
@@ -44,7 +46,7 @@ router.post("/login", async (req, res) => {
     const { password, isAdmin, ...others } = user._doc;
     res.status(200).json({ ...others, accessToken });
   } catch (err) {
-    return res.status(500).json(err);
+    res.status(500).json(err);
   }
 });
 module.exports = router;

@@ -24,7 +24,6 @@ const SignIn = ({ user }) => {
   const [password, setPassword] = useState("sameh");
   const [errorMsg, setErrorMsg] = useState("");
   const [succesMsg, setSuccessMsg] = useState("");
-
   // redirection
   const navigate = useNavigate();
   const location = useLocation();
