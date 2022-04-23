@@ -150,7 +150,7 @@ router.post("/search", async (req, res) => {
   const limit = Number(req.query.limit) || 20
   const skip = (page - 1) * limit
   try {
-    let products
+    let products , total , queryProducts
     if (qsearch) {
       products = await Product.find({
         $or: [{ title: { $in: qsearch } },
@@ -160,9 +160,18 @@ router.post("/search", async (req, res) => {
           }
         }]
       }).skip(skip).limit(limit);
+       total = await Product.find({
+        $or: [{ title: { $in: qsearch } },
+        {
+          categories: {
+            $in: [qsearch],
+          }
+        }]
+      })
     }
-    res.status(200).json(products);
+    res.status(200).json({total:total.length , products});
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 })
