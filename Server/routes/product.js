@@ -9,7 +9,11 @@ const Product = require("../models/Product");
 const router = require("express").Router();
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+<<<<<<< HEAD
+const mongoose = require("mongoose");
+=======
 const mongoose = require("mongoose")
+>>>>>>> ea2931cf12987ac3c5765f1e603e1ca9abdc2cfa
 const ObjectId = mongoose.Types.ObjectId;
 // handle file upload
 const storage = multer.diskStorage({
@@ -88,18 +92,26 @@ router.put(
     }
   }
 );
-// Review
-router.put("/review/:id", verifyTokenAndAuthorization, async (req, res) => {
+// Review 
+router.put("/review/:id", verifyToken, async (req, res) => {
   try {
-    const updatedProduct = await Product.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        reviews: req.body,
+    const updatedProduct = await Product.findOne({ _id: req.params.id }).then(
+      (HasReViews) => {
+        let user = HasReViews.reviews.find((r) => r.userId === req.headers.id);
+        if (!user) {
+          return Product.findOneAndUpdate(
+            { _id: req.params.id },
+            { $push: { reviews: req.body } },
+            { safe: true, upsert: true }
+          );
+        } else {
+          res.status(401).json("you have already add a review");
+        }
       }
     );
-    res.status(200).json(updatedProduct);
+    res.status(200).json("review received");
   } catch (err) {
-    return res.status(500).json(err);
+     res.status(500).json(err);
   }
 });
 //DELETE
@@ -174,10 +186,12 @@ router.post("/search", async (req, res) => {
     console.log(err)
     res.status(500).json(err);
   }
-})
+});
+
 // AVERAGE NUMBER OF REVIEWS
 router.post("/average/:id", async (req, res) => {
   try {
+   
     const data = await Product.aggregate([
       { $match: { _id: { $eq: ObjectId(req.params.id) } } },
       { $unwind: "$reviews" },
@@ -192,5 +206,5 @@ router.post("/average/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-})
+});
 module.exports = router;

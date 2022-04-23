@@ -25,18 +25,18 @@ const CategoryCarousel = ({ interval }) => {
          paritialVisibilityGutter: 60,
       },
       laptop: {
-         breakpoint: { max: 1366, min: 1024 },
-         items: 3,
+         breakpoint: { max: 1366, min: 768 },
+         items: 2,
          paritialVisibilityGutter: 20,
       },
       tablet: {
-         breakpoint: { max: 1024, min: 464 },
-         items: 3,
+         breakpoint: { max: 768, min: 576 },
+         items: 2,
          paritialVisibilityGutter: 20,
       },
       mobile: {
-         breakpoint: { max: 482, min: 0 },
-         items: 2,
+         breakpoint: { max: 576, min: 0 },
+         items: 1,
          paritialVisibilityGutter: 15,
       },
    };
@@ -54,16 +54,16 @@ const CategoryCarousel = ({ interval }) => {
          >
             {images.slice().map((item) => {
                return (
-                  <div>
-                     <a href="#">
+                  <a href="#">
+                     <div className="hoverEffect">
                         <div className="backG">
                            <Image draggable={false} src={item.imgSrc} />
                         </div>
                         <div className="text">
                            <h3 className="m-0 h3">{item.name}</h3>
                         </div>
-                     </a>
-                  </div>
+                     </div>
+                  </a>
                )
             })}
          </Carousel>
