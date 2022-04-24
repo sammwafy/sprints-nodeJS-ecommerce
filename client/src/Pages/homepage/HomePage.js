@@ -29,22 +29,19 @@ const HomePage = () => {
   ];
   const fullscreenCarouselItems = [
     {
-      imgSrc:
-        "https://images.unsplash.com/photo-1593708797232-4c87f1f4bda9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      imgSrc: "intro1.jpeg",
       header: "Beauty & Brains",
       text: "Sprints take your desgin skills to a new level",
     },
     {
-      imgSrc:
-        "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80",
-      header: "Simply Prada",
-      text: "Discover our wonderful Prada new items",
+      imgSrc: "intro2.jpg",
+      header: "Simply styles",
+      text: "Discover our wonderful new items",
     },
     {
-      imgSrc:
-        "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=780&q=80",
-      header: "Summer dress collection",
-      text: "This summer is different and so is our collection!",
+      imgSrc: "intro3.jpg",
+      header: "make your world wonderfull",
+      text: "with our collection!",
     },
   ];
 
@@ -83,7 +80,6 @@ const HomePage = () => {
         <Carousel type="category" />
         <CardContainer />
         <CardContainer2 />
-        <Cart />
         <TestimonialsContainter>
           <Container>
             <Carousel
