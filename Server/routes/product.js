@@ -9,11 +9,7 @@ const Product = require("../models/Product");
 const router = require("express").Router();
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
-<<<<<<< HEAD
-const mongoose = require("mongoose");
-=======
 const mongoose = require("mongoose")
->>>>>>> ea2931cf12987ac3c5765f1e603e1ca9abdc2cfa
 const ObjectId = mongoose.Types.ObjectId;
 // handle file upload
 const storage = multer.diskStorage({
