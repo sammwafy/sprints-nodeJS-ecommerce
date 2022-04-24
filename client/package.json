@@ -29,6 +29,8 @@
 		"json-server": "^0.17.0",
 		"lightgallery": "^2.4.0",
 		"loadash": "^1.0.0",
+		"moment": "^2.29.3",
+		"momentjs": "^2.0.0",
 		"node-sass": "^7.0.1",
 		"ra-data-simple-rest": "^3.19.11",
 		"react": "^18.0.0",

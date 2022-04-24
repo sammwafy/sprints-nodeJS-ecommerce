@@ -11,13 +11,20 @@ import TableList from '../../Componenets/AdminComponents/table/TableList'
 import Widget from "../../Componenets/AdminComponents/widgets/Widget"
 import axios from '../../Hooks/axios'
 import "./home.scss"
-import CreditCardIcon from '@mui/icons-material/CreditCard';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 
 const Home = () => {
 
-  const [inputs, setInputs] = useState(null)
+  const [inputs, setInputs] = useState([])
   const [cookies, setCookie] = useCookies(["token", "id"]);
+
+  //users status Widgets status
+  const [users, setUsers] = useState([])
+
+  //orders status Widgets status
+  const [orders, setOrders] = useState([])
+
   useEffect(() => {
 
     axios.get(`/api/orders/status`, {
@@ -26,7 +33,29 @@ const Home = () => {
       }
     }).then(response => setInputs(response.data)).catch(err => console.log(err))
 
+    //get users number by status
+    axios.get(`/api/users/status`, {
+      headers: {
+        token: "Bearer " + cookies.token
+      }
+    }).then(response => {
+      console.log("user staus numbers", response.data);
+      setUsers(response.data)
+      console.log(response.data);
+    }).catch(err => console.log(err))
+
+    axios.get(`/api/orders/status`, {
+      headers: {
+        token: "Bearer " + cookies.token
+      }
+    }).then(response => {
+      console.log("user staus numbers", response.data);
+      setOrders(response.data)
+      console.log(response.data);
+    }).catch(err => console.log(err))
+
   }, [])
+
   console.log(inputs);
 
   return (
@@ -35,23 +64,24 @@ const Home = () => {
       <div className="home-container">
         <NavBar />
         <div className="home-widgets-wrapper">
-          <div className="widgets">
-            {/* new user today */}
-            <Widget type="allUsers" />
 
-            <Widget type="todayOrders" />
+          <div className="widgets">
+            {/* new users today */}
+            <Widget type="allUsers" />
+            {/* total orders number */}
+            <Widget type="order today count" />
             {/* total income last 7 days */}
             <Widget type="income" />
-            {/* Get the orders number in the same day */}
-            <Widget type="userStatusNo" />
           </div>
 
-          {/* <div className="widgets">
-            {inputs.map(input => (<WidgetCustum title={input._id} count={input.total} icon={(<CreditCardIcon className="icon" style={{
-              color: "orangered", backgroundColor: 'rgba(255, 68, 0, 0.324)'
-            }} />)} />))}
-          </div> */}
+          {/* users status widgets */}
+          <div className="widgets">
+            {users.map(user => (<WidgetCustum title={user._id} value={user.total} icon={<PersonOutlineIcon className="icon" style={{ color: "red", backgroundColor: 'rgba(255, 0, 0, 0.284)' }} />} type="Users" />))}
+          </div>
 
+          <div className="widgets">
+            {orders.map(order => (<WidgetCustum title={order._id} value={order.total} icon={<PersonOutlineIcon className="icon" style={{ color: "red", backgroundColor: 'rgba(255, 0, 0, 0.284)' }} />} type="Orders" />))}
+          </div>
         </div>
 
 

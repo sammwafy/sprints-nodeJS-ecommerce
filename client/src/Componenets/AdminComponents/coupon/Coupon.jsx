@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-
+import moment from 'moment';
 
 const Coupon = () => {
     const [open, setOpen] = useState(false);
@@ -49,9 +49,9 @@ const Coupon = () => {
             })
     }, [])
 
-    //table grid row
+    //table grid rows
 
-    const rows = coupons.map(coupon => ({
+    const rows = coupons.reverse().map(coupon => ({
         id: coupon._id,
         name: coupon.name,
         amount: coupon.amount,
@@ -68,8 +68,7 @@ const Coupon = () => {
         })
 
     }
-    console.log(inputs);
-    console.log(value);
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -88,8 +87,8 @@ const Coupon = () => {
             )
             .then(function (response) {
                 // handle success
+                window.location.reload(false)
 
-                console.log(response.data);
             })
 
 
@@ -103,6 +102,7 @@ const Coupon = () => {
 
 
     }
+
 
     return (
         <div>
@@ -148,8 +148,9 @@ const Coupon = () => {
                                 label="Year, month and date"
                                 value={value}
                                 onChange={(newValue) => {
-                                    setValue(newValue);
-                                    setInputs(prev => ({ ...prev, expiresIn: newValue }))
+
+                                    setValue(new Date(newValue).toISOString().split('T')[0]);
+                                    setInputs(prev => ({ ...prev, expiresIn: new Date(newValue).toISOString().split('T')[0] }))
                                 }}
                                 renderInput={(params) => <TextField {...params} helperText={null} />}
                             />

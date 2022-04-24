@@ -35,6 +35,7 @@ import ErrorPage from "./Pages/404/404.js";
 import CartPage from "./Pages/cart/CartPage";
 import Register from "./Pages/Register/Register.js";
 import SingleProduct from "./Componenets/ProductView/SingleProduct.js";
+import CouponPage from "./Pages/coupon/CouponPage";
 
 function App() {
 	const { auth } = useAuth();
@@ -79,6 +80,7 @@ function App() {
 					<Route path='admin'>
 						<Route index element={<Home />} />
 						<Route path='underConstruc' element={<UnderConstruc />} />
+						<Route path='coupons' element={<CouponPage />} />
 
 						<Route path='users'>
 							<Route
