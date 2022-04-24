@@ -16,7 +16,7 @@ const Footer = () => {
                         <p>123 Main St. NY, NY, 11220</p>
                         <p></p>
                      </div>
-                  </div> 
+                  </div>
                </div>
                <div className="container-fluid">
                   <div className="social-row">
@@ -61,7 +61,7 @@ const Footer = () => {
 
                <div className="container-fluid">
                   <div className="row">
-                     <div className="col-3">
+                     <div className="col-12 col-sm-6 col-md-3 pb-5">
                         <div className="links-menu links-col">
                            <h3 className="module-title">About Us</h3>
                            <ul className="module-body">
@@ -92,7 +92,7 @@ const Footer = () => {
                            </ul>
                         </div>
                      </div>
-                     <div className="col-3">
+                     <div className="col-12 col-sm-6 col-md-3 pb-5">
                         <div className="links-menu links-col">
                            <h3 className="module-title">Customer Service</h3>
                            <ul className="module-body">
@@ -129,7 +129,7 @@ const Footer = () => {
                            </ul>
                         </div>
                      </div>
-                     <div className="col-3">
+                     <div className="col-12 col-sm-6 col-md-3 pb-5">
                         <div className="links-menu links-col">
                            <h3 className="module-title">My Account</h3>
                            <ul className="module-body">
@@ -166,7 +166,7 @@ const Footer = () => {
                            </ul>
                         </div>
                      </div>
-                     <div className="col-3">
+                     <div className="col-12 col-sm-6 col-md-3 pb-5">
                         <div className="module module-newsletter links-col">
                            <h3 className="module-title">Newsletter</h3>
                            <div className="module-body">
@@ -175,18 +175,18 @@ const Footer = () => {
                                  <form action="" method="post" enctype="multipart/form-data" className="form-horizontal">
                                     <div className="input-group">
                                        <input type="text" name="email" placeholder="Your email" className="form-control" />
-                                       <div className="checkbox">
-                                          <label>
-                                             <input type="checkbox" name="agree" value="1" />
-                                             I have read and agree to the <a href="/"><b>Privacy Policy</b></a>
-                                          </label>
-                                       </div>
-                                       <span className="input-group-btn">
+                                       <span className="input-group-btn input-group-append">
                                           <button type="submit" className="btn btn-primary" data-loading-text="<span>Send</span>">
                                              <i className="fa-solid fa-envelope"></i>
                                              <span> Send</span>
                                           </button>
                                        </span>
+                                       <div className="checkbox w-100">
+                                          <label>
+                                             <input type="checkbox" name="agree" value="1" />
+                                             I have read and agree to the <a href="/"><b>Privacy Policy</b></a>
+                                          </label>
+                                       </div>
                                     </div>
                                  </form>
                               </div>

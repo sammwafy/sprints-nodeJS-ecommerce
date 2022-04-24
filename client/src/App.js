@@ -2,7 +2,6 @@
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/homepage/HomePage";
-import { useEffect, useState } from "react";
 import Home from "./Pages/AdminHome/Home";
 import New from "./Pages/AdminNew/New";
 import AdminList from "./Pages/AdminListComp/AdminList";
@@ -17,7 +16,7 @@ import {
 	ordersColumns,
 	categoriesColumns,
 	brandsColumns,
-} from "./dummy data/user";
+} from "./export data/DataTableFields";
 
 //shop
 import Shop from "./Pages/shop/Shop";
@@ -35,6 +34,7 @@ import useAuth from "./Hooks/useAuth.js";
 import ErrorPage from "./Pages/404/404.js";
 import CartPage from "./Pages/cart/CartPage";
 import Register from "./Pages/Register/Register.js";
+import SingleProduct from "./Componenets/ProductView/SingleProduct.js";
 
 function App() {
 	const { auth } = useAuth();
@@ -70,7 +70,10 @@ function App() {
 				<Route path='/logout' element={<Logout />} />
 				<Route path='/404' element={<ErrorPage />} />
 				<Route path='/cart' element={<CartPage />} />
-				<Route path='/shop' element={<Shop />} />
+				<Route path='shop'>
+					<Route index element={<Shop />} />
+					<Route path=':id' element={<SingleProduct />}></Route>
+				</Route>
 
 				<Route element={<ProtectedAdminRoute role='SuperUser' />}>
 					<Route path='admin'>
@@ -149,6 +152,7 @@ function App() {
 						</Route>
 					</Route>
 				</Route>
+				<Route path='*' element={<ErrorPage />} />
 			</Routes>
 		</Router>
 	);
