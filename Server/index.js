@@ -28,6 +28,7 @@ const ProductRoute = require("./routes/product");
 const CartRoute = require("./routes/cart");
 const OrderRoute = require("./routes/order");
 const CopounRoute = require("./routes/copoun")
+const StripeRoute = require("./routes/stripe")
 
 
 
@@ -47,6 +48,7 @@ app.use("/api/products", ProductRoute);
 app.use("/api/carts", CartRoute);
 app.use("/api/orders", OrderRoute);
 app.use("/api/copouns",CopounRoute)
+app.use("/api/stripe",StripeRoute)
 
 
 app.listen(5009, () => {
