@@ -3,5 +3,5 @@
 import axios from "axios";
 
 export default axios.create({
-	baseURL: "http://localhost:5009",
+	baseURL: "https://sprints-ecommerce-server.herokuapp.com/",
 });
