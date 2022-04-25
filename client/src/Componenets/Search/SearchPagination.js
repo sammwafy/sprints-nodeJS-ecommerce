@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { Pagination } from "react-bootstrap";
 
-const ReviewPagination = ({
+const SearchPagination = ({
   totalItems,
   itemsPerPage,
   currentPage,
   onPageChange,
 }) => {
   const [totalPages, setTotalPages] = useState(0);
-console.log(totalItems)
+
   useEffect(() => {
     if (totalItems > 0 && itemsPerPage > 0)
       setTotalPages(Math.ceil(totalItems / itemsPerPage));
@@ -31,10 +31,9 @@ console.log(totalItems)
   }, [totalPages, currentPage, onPageChange]);
 
   if (totalPages === 0) return null;
-  console.log(totalItems)
-  console.log(totalPages)
+console.log(totalPages)
   return (
-    <Pagination>
+    <Pagination style={{margin: '15px 0'}}>
       <Pagination.Prev
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -48,4 +47,4 @@ console.log(totalItems)
   );
 };
 
-export default ReviewPagination;
+export default SearchPagination;

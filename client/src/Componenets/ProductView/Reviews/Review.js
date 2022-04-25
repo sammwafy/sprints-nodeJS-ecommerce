@@ -32,7 +32,6 @@ const Review = () => {
   const [comment, setComment] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [rate, setRate] = useState(null);
-  const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [errorMsg, setErrorMsg] = useState("");
   const [prevReview, setPrevReview] = useState("");
@@ -40,6 +39,7 @@ const Review = () => {
   const [newReview, setNewReview] = useState(false);
   const [reviews, setReviews] = useState({});
   const { id } = useParams();
+
 
   const productId = id;
 
@@ -70,6 +70,7 @@ const Review = () => {
           }
         );
         setSuccessMsg(res?.data);
+
         setTimeout(() => {
           setHasReviewed(true);
           setNewReview(false);
@@ -228,7 +229,7 @@ console.log(prevReview)
               </>
             ))}
             <ReviewPagination
-              totalItems={reviewsArr?.length}
+              totalItems={reviews?.length}
               itemsPerPage={5}
               currentPage={currentPage}
               onPageChange={(page) => setCurrentPage(page)}
