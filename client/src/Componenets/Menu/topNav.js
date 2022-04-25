@@ -17,7 +17,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const { auth } = useAuth();
-  const location = useLocation();
+	const location = useLocation();
 	return (
 		<TopWrapper>
 			<TopBar />
@@ -28,8 +28,12 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 							onClick={() => MenuOpenHadler(!isMenuOpen)}
 							style={{ cursor: "pointer" }}
 						>
-							<FaBars /> SHOP
+							<FaBars />
 						</li>
+						<Link to='/shop'>
+							<li>SHOP</li>
+						</Link>
+
 						{auth?.username ? (
 							<li className='logout'>
 								<a href='/logout'>
@@ -38,7 +42,7 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 							</li>
 						) : (
 							<li className='signIn'>
-							<Link to='/login' state={{ from: location }} replace >
+								<Link to='/login' state={{ from: location }} replace>
 									<FaSignInAlt /> SIGN IN
 								</Link>
 							</li>
