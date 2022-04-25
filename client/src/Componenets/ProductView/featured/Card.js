@@ -2,12 +2,11 @@ import { Button, Card } from "react-bootstrap";
 import styled from "styled-components";
 const ItemCard = ({ title, img, text, buttonTxt, link }) => {
   return (
-    <CardWrapper className="theCardWrapper image-item">
+    <CardWrapper className="theCardWrapper card-item">
       <Card>
         <Card.Img variant="top" src={img} />
         <Card.Body>
           <Card.Title>{title}</Card.Title>
-          <Card.Text>{text}</Card.Text>
           <Button href={`/shop/${link}`} variant="primary">
             {buttonTxt}
           </Button>
