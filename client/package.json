@@ -1,6 +1,6 @@
 {
 	"name": "client",
-	"proxy": "https://sprints-ecommerce-server.herokuapp.com/",
+	"proxy": "https://tiny-gaufre-f204ae.netlify.app",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
