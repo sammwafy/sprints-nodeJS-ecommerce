@@ -62,6 +62,7 @@ router.post(
 		}
 	}
 );
+
 //UPDATE
 router.put(
 	"/:id",
@@ -151,6 +152,7 @@ router.get("/", async (req, res) => {
 		return res.status(500).json(err);
 	}
 });
+
 //PRODUCT SEARCH
 router.post("/search", async (req, res) => {
 	const qsearch = req.query.search;

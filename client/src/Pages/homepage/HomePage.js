@@ -8,6 +8,7 @@ import Layout from "../../Componenets/Layout/Layout";
 import CardContainer from "../../Componenets/cardContainer/CardContainer";
 import Cart from "../../Componenets/Cart/Cart";
 import CardContainer2 from "../../Componenets/cardContainer/CardContainer2";
+import WhyUs from "./whyUs.js";
 
 const HomePage = () => {
 	const NavMenuItems = [
@@ -29,22 +30,19 @@ const HomePage = () => {
 	];
 	const fullscreenCarouselItems = [
 		{
-			imgSrc:
-				"https://images.unsplash.com/photo-1593708797232-4c87f1f4bda9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+			imgSrc: "intro1.jpeg",
 			header: "Beauty & Brains",
 			text: "Sprints take your desgin skills to a new level",
 		},
 		{
-			imgSrc:
-				"https://images.unsplash.com/photo-1540932239986-30128078f3c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
-			header: "Simply Prada",
-			text: "Discover our wonderful Prada new items",
+			imgSrc: "intro2.jpg",
+			header: "Simply styles",
+			text: "Discover our wonderful new items",
 		},
 		{
-			imgSrc:
-				"https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=780&q=80",
-			header: "Summer dress collection",
-			text: "This summer is different and so is our collection!",
+			imgSrc: "intro3.jpg",
+			header: "make your world wonderfull",
+			text: "with our collection!",
 		},
 	];
 
@@ -83,7 +81,6 @@ const HomePage = () => {
 				<Carousel type='category' />
 				<CardContainer />
 				<CardContainer2 />
-				<Cart />
 				<TestimonialsContainter>
 					<Container>
 						<Carousel
@@ -93,6 +90,9 @@ const HomePage = () => {
 						/>
 					</Container>
 				</TestimonialsContainter>
+
+				<WhyUs />
+
 				<Carousel type='brands' />
 			</Layout>
 		</>

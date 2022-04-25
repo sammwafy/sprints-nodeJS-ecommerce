@@ -14,12 +14,20 @@ import styled from "styled-components";
 import logo from "../../Assets/imgs/sprints.png";
 import useAuth from "../../Hooks/useAuth.js";
 import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import SearchModal from "../Search/SearchModal.js";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const { auth } = useAuth();
 	const location = useLocation();
+
+	const [showSearch, setShowshowSearch] = useState(false);
+
+	const handleClose = () => setShowshowSearch(false);
+	const handleShow = () => setShowshowSearch(true);
 	return (
 		<TopWrapper>
+			<SearchModal show={showSearch} close={handleClose} />
 			<TopBar />
 			<TopNavWrapper>
 				<div className='leftTopNav'>
@@ -61,10 +69,8 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 								hi <span>{auth?.username}</span>
 							</li>
 						)}
-						<li>
-							<FaRegHeart />
-						</li>
-						<li>
+
+						<li onClick={handleShow} style={{ cursor: "pointer" }}>
 							<FaSearch />
 						</li>
 						<li>
