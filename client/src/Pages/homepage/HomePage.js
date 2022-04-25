@@ -8,6 +8,7 @@ import Layout from "../../Componenets/Layout/Layout";
 import CardContainer from "../../Componenets/cardContainer/CardContainer";
 import Cart from "../../Componenets/Cart/Cart";
 import CardContainer2 from "../../Componenets/cardContainer/CardContainer2";
+import WhyUs from "./whyUs.js";
 
 const HomePage = () => {
   const NavMenuItems = [
@@ -93,6 +94,9 @@ const HomePage = () => {
             />
           </Container>
         </TestimonialsContainter>
+        
+        <WhyUs />
+        
         <Carousel type="brands" />
       </Layout>
     </>
