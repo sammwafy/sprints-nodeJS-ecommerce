@@ -3,6 +3,8 @@ import { ShopHomeWrapper } from "./styles/ShopHome.styled.js";
 import { Col, Container, Image, Row } from "react-bootstrap";
 import { FaBoxOpen, FaReply, FaShieldAlt, FaTruck } from "react-icons/fa";
 import FeaturedCategory from "./featured/FeaturedCategory.js";
+import FeaturedProducts from "./featured/FeaturedProducts.js";
+import BrandsCarousel from "../Carousels/brands-carousel.js";
 
 const ShopHome = () => {
   const CarouselItems = [
@@ -85,13 +87,21 @@ const ShopHome = () => {
           </Row>
         </Container>
       </div>
-      
+
       <div className="featuredCat">
-      <h1>Featured Category</h1>
-      <Container className="FeaturedCatWrapper">
-        <FeaturedCategory />
-      </Container>
+        <h1>Latest Products</h1>
+        <Container className="FeaturedCatWrapper">
+          <FeaturedProducts />
+        </Container>
+
+        <h1>Featured Category</h1>
+        <Container className="FeaturedCatWrapper">
+          <FeaturedCategory />
+        </Container>
+
+        <h1>Our Brands</h1>
       </div>
+      <BrandsCarousel />
     </ShopHomeWrapper>
   );
 };
