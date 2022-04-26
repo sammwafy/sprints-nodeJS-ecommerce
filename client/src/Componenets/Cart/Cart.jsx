@@ -16,13 +16,6 @@ import Paper from "@mui/material/Paper";
 import Quantity from "./Quantity";
 import { useState } from "react";
 import { Collapse } from "react-bootstrap";
-<<<<<<< HEAD
-=======
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "../../Hooks/axios";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
->>>>>>> f54ccfebecb94e54e1314d88688b59915cf1aa52
 
 function createData(image, productName, model, quantity, unitPrice, total) {
   return { image, productName, model, quantity, unitPrice, total };
