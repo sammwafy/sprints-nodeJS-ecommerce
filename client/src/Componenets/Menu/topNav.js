@@ -16,6 +16,7 @@ import useAuth from "../../Hooks/useAuth.js";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import SearchModal from "../Search/SearchModal.js";
+import { useSelector } from "react-redux";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const { auth } = useAuth();
@@ -25,6 +26,11 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 
 	const handleClose = () => setShowshowSearch(false);
 	const handleShow = () => setShowshowSearch(true);
+
+	//get number of cart items
+	const cartItems = useSelector((state) => state.cart);
+	let sum = cartItems.reduce((acc, product) => acc + product.quantity, 0);
+
 	return (
 		<TopWrapper>
 			<SearchModal show={showSearch} close={handleClose} />
@@ -73,9 +79,14 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 						<li onClick={handleShow} style={{ cursor: "pointer" }}>
 							<FaSearch />
 						</li>
-						<li>
-							<FaShoppingBag />
-						</li>
+
+						<Link to='/cart' state={{ from: location }} replace>
+							<li className='badgeContainer'>
+								{sum > 0 && <span className='badge'>{sum}</span>}
+								<FaShoppingBag style={{ color: "black" }} />
+							</li>
+						</Link>
+
 						<li className='signInIconOnly'>
 							<FaSignInAlt />
 						</li>

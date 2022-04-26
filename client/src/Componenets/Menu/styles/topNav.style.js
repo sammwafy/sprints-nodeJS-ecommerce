@@ -69,6 +69,23 @@ export const TopNavWrapper = styled.div`
 			color: rgba(208, 30, 36, 1);
 		}
 	}
+	.rightTopNav ul .badgeContainer {
+		position: relative;
+	}
+	.rightTopNav ul .badgeContainer .badge {
+		width: 15px;
+		height: 15px;
+		border-radius: 50%;
+		background-color: red;
+		color: white;
+		font-weight: bold;
+		position: absolute;
+		top: -5px;
+		right: -8px;
+		justify-content: center;
+		display: flex;
+		align-items: center;
+	}
 	.signInIconOnly {
 		display: none;
 	}

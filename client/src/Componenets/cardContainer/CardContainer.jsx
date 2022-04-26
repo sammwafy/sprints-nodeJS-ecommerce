@@ -5,16 +5,18 @@ import { useState } from "react";
 import { productActions } from "../../store/productsSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+
 export default function CardContainer() {
   const [products, setProducts] = useState([])
   const dispatch = useDispatch()
   useEffect(() => {
-    axios.get(`api/products/`).then(res => {
-      setProducts(res.data)(
-        dispatch(productActions.getProducts(res.data)))
+    axios.get(`/api/products/?new=true`).then(res => {
+      setProducts(res.data)
+      dispatch(productActions.getProducts(res.data))
+      console.log(res.data);
     }
     ).catch(err => console.log(err))
-  }, [products])
+  }, [])
 
 
 
@@ -36,10 +38,8 @@ export default function CardContainer() {
       </div>
       <div className="cards-list">
 
+        {products.slice(0, 3).map(product => <Card title={product.title} price={product.price} id={product._id} />)}
 
-        {/* <Card title={product.title} price={product.price} />
-        <Card />
-        <Card /> */}
       </div>
     </div>
   );
