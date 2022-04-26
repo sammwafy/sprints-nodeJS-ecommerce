@@ -30,6 +30,7 @@ export default function Card({ title, price, id }) {
     }
   }
 
+export default function Card() {
   return (
     <div className="card">
       <div className="flip-card">
@@ -49,16 +50,16 @@ export default function Card({ title, price, id }) {
             />
 
             <div className="icons">
-              <button className="add" onClick={addToCart}> ADD TO CART </button>
+              <button className="add"> ADD TO CART </button>
               <button className="wish-list"> ❤ </button>
             </div>
           </div>
         </div>
       </div>
       <div className="card-title">
-        <h3> {title} </h3>
+        <h3> crystal light </h3>
 
-        <h4> {price}$</h4>
+        <h4> 550$ </h4>
       </div>
     </div>
   );
