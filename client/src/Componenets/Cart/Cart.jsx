@@ -26,7 +26,7 @@ function createData(image, productName, model, quantity, unitPrice, total) {
 }
 
 
-
+//comment
 // const rows = [
 // createData(
 //   <img src="a1.jpg" alt="productImg" />,
