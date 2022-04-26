@@ -21,7 +21,14 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const { auth } = useAuth();
   const location = useLocation();
 
-  const [showSearch, setShowshowSearch] = useState(false);
+	const [showSearch, setShowshowSearch] = useState(false);
+
+	const handleClose = () => setShowshowSearch(false);
+	const handleShow = () => setShowshowSearch(true);
+
+	//get number of cart items
+	const cartItems = useSelector((state) => state.cart);
+	let sum = cartItems.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
 
   const handleClose = () => setShowshowSearch(false);
   const handleShow = () => setShowshowSearch(true);
