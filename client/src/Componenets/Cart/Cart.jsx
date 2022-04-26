@@ -17,6 +17,9 @@ import Quantity from "./Quantity";
 import { useState } from "react";
 import { Collapse } from "react-bootstrap";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import axios from "../../Hooks/axios";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function createData(image, productName, model, quantity, unitPrice, total) {
   return { image, productName, model, quantity, unitPrice, total };
@@ -24,44 +27,44 @@ function createData(image, productName, model, quantity, unitPrice, total) {
 
 
 
-const rows = [
-  createData(
-    <img src="a1.jpg" alt="productImg" />,
-    <div>
-      <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>
-    </div>,
-    <p>model num</p>,
-    <div className="table-quantity">
-      <Quantity />
-      <button className="butt">
-        <AiOutlineSync />
-      </button>
-      <button className="butt">
-        <AiOutlineClose />
-      </button>
-    </div>,
-    <p>unit price</p>,
-    <p>total</p>
-  ),
-  createData(
-    <img src="a1.jpg" alt="productImg" />,
-    <div>
-      <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>{" "}
-    </div>,
-    <p>model num</p>,
-    <div className="table-quantity">
-      <Quantity />
-      <button className="butt">
-        <AiOutlineSync />
-      </button>
-      <button className="butt">
-        <AiOutlineClose />
-      </button>
-    </div>,
-    <p>unit price</p>,
-    <p>total</p>
-  ),
-];
+// const rows = [
+// createData(
+//   <img src="a1.jpg" alt="productImg" />,
+//   <div>
+//     <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>
+//   </div>,
+//   <p>model num</p>,
+//   <div className="table-quantity">
+//     <Quantity />
+//     <button className="butt">
+//       <AiOutlineSync />
+//     </button>
+//     <button className="butt">
+//       <AiOutlineClose />
+//     </button>
+//   </div>,
+//   <p>unit price</p>,
+//   <p>total</p>
+// ),
+//   createData(
+//     <img src="a1.jpg" alt="productImg" />,
+//     <div>
+//       <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>{" "}
+//     </div>,
+//     <p>model num</p>,
+//     <div className="table-quantity">
+//       <Quantity />
+//       <button className="butt">
+//         <AiOutlineSync />
+//       </button>
+//       <button className="butt">
+//         <AiOutlineClose />
+//       </button>
+//     </div>,
+//     <p>unit price</p>,
+//     <p>total</p>
+//   ),
+// ];
 
 export default function Cart() {
   const [open, setOpen] = useState(false);
@@ -72,6 +75,7 @@ export default function Cart() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
   //continue shopping
   const continuShopping = () => {
     from
@@ -81,7 +85,39 @@ export default function Cart() {
 
 
   //get items to cart rows
-  // cartItems.forEach((item) => )
+  const cartItems = useSelector(state => state.cart)
+  console.log(cartItems);
+  const [rows, setRows] = useState([])
+  useEffect(() => {
+
+    const rows = cartItems.map((item) => {
+      console.log(item.id);
+      axios.get(`api/products/find/${item.productId}`)
+        .then(res => {
+          console.log(res.data);
+          setRows(rows => rows.push(createData(
+            <img src="a1.jpg" alt="productImg" />,
+            <div>
+              <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>
+            </div>,
+            <p>model num</p>,
+            <div className="table-quantity">
+              <Quantity />
+              <button className="butt">
+                <AiOutlineSync />
+              </button>
+              <button className="butt">
+                <AiOutlineClose />
+              </button>
+            </div>,
+            <p>unit price</p>,
+            <p>total</p>
+          )))
+        })
+        .catch(err => console.log(err))
+
+    })
+  }, [])
 
   return (
     <div className="cart-container">
