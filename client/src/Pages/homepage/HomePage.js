@@ -30,7 +30,8 @@ const HomePage = () => {
   ];
   const fullscreenCarouselItems = [
     {
-      imgSrc: "intro1.jpeg",
+      imgSrc:
+        "https://images.unsplash.com/photo-1606744824163-985d376605aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80",
       header: "Beauty & Brains",
       text: "Sprints take your desgin skills to a new level",
     },
@@ -90,9 +91,9 @@ const HomePage = () => {
             />
           </Container>
         </TestimonialsContainter>
-        
+
         <WhyUs />
-        
+
         <Carousel type="brands" />
       </Layout>
     </>
