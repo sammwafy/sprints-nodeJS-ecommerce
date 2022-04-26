@@ -16,18 +16,24 @@ import useAuth from "../../Hooks/useAuth.js";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import SearchModal from "../Search/SearchModal.js";
+import { useSelector } from "react-redux";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const { auth } = useAuth();
-  const location = useLocation();
+	const location = useLocation();
 
-  const [showSearch, setShowshowSearch] = useState(false);
+	const [showSearch, setShowshowSearch] = useState(false);
 
-  const handleClose = () => setShowshowSearch(false);
-  const handleShow = () => setShowshowSearch(true);
+	const handleClose = () => setShowshowSearch(false);
+	const handleShow = () => setShowshowSearch(true);
+
+	//get number of cart items
+	const cartItems = useSelector((state) => state.cart);
+	let sum = cartItems.reduce((acc, product) => acc + product.quantity, 0);
+
 	return (
 		<TopWrapper>
-      <SearchModal  show={showSearch} close={handleClose}/>
+			<SearchModal show={showSearch} close={handleClose} />
 			<TopBar />
 			<TopNavWrapper>
 				<div className='leftTopNav'>
@@ -36,8 +42,12 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 							onClick={() => MenuOpenHadler(!isMenuOpen)}
 							style={{ cursor: "pointer" }}
 						>
-							<FaBars /> SHOP
+							<FaBars />
 						</li>
+						<Link to='/shop'>
+							<li>SHOP</li>
+						</Link>
+
 						{auth?.username ? (
 							<li className='logout'>
 								<a href='/logout'>
@@ -46,7 +56,7 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 							</li>
 						) : (
 							<li className='signIn'>
-							<Link to='/login' state={{ from: location }} replace >
+								<Link to='/login' state={{ from: location }} replace>
 									<FaSignInAlt /> SIGN IN
 								</Link>
 							</li>
@@ -66,12 +76,17 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 							</li>
 						)}
 
-						<li onClick={handleShow} style={{cursor: 'pointer'}}>
+						<li onClick={handleShow} style={{ cursor: "pointer" }}>
 							<FaSearch />
 						</li>
-						<li>
-							<FaShoppingBag />
-						</li>
+
+						<Link to='/cart' state={{ from: location }} replace>
+							<li className='badgeContainer'>
+								{sum > 0 && <span className='badge'>{sum}</span>}
+								<FaShoppingBag style={{ color: "black" }} />
+							</li>
+						</Link>
+
 						<li className='signInIconOnly'>
 							<FaSignInAlt />
 						</li>
