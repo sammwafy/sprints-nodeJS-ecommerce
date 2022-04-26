@@ -29,7 +29,7 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 
 	//get number of cart items
 	const cartItems = useSelector((state) => state.cart);
-	let sum = cartItems.reduce((acc, product) => acc + product.quantity, 0);
+	let sum = cartItems.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
 
 	return (
 		<TopWrapper>

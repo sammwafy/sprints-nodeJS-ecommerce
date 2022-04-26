@@ -14,13 +14,18 @@ export default function Card({ title, price, id }) {
   const cartItems = useSelector(state => state.cart)
 
   console.log(cartItems);
+
   const addToCart = () => {
+
     const cartItemsClone = [...cartItems]
     const inThecart = cartItemsClone.filter(item => item.productId === id)
+    console.log(inThecart);
     if (inThecart.length > 0) {
       const newCartItems = cartItemsClone.filter(item => item.productId !== id)
-      console.log();
-      const modifiedProduct = { ...inThecart[0], quantity: 2 }
+      console.log(newCartItems);
+      console.log(inThecart[0].quantity);
+
+      const modifiedProduct = { ...inThecart[0], quantity: inThecart[0].quantity + 1 }
       console.log(modifiedProduct);
       newCartItems.push(modifiedProduct)
 

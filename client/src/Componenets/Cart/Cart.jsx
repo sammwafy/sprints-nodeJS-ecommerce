@@ -22,6 +22,8 @@ function createData(image, productName, model, quantity, unitPrice, total) {
   return { image, productName, model, quantity, unitPrice, total };
 }
 
+
+
 const rows = [
   createData(
     <img src="a1.jpg" alt="productImg" />,
@@ -77,6 +79,9 @@ export default function Cart() {
       : setTimeout(() => navigate("/"), 2000);
   }
 
+
+  //get items to cart rows
+  // cartItems.forEach((item) => )
 
   return (
     <div className="cart-container">
