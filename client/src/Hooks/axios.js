@@ -3,5 +3,13 @@
 import axios from "axios";
 
 export default axios.create({
-	baseURL: "http://localhost:5009",
+  baseURL: "https://sprints-ecommerce-server.herokuapp.com/",
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "https://tiny-gaufre-f204ae.netlify.app",
+    "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+    'Access-Control-Allow-Credentials': true,
+    "Access-Control-Allow-Headers":
+      "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
+  },
 });

@@ -2,7 +2,9 @@
 
 import "./card.scss";
 
-export default function Card() {
+export default function Card({ title, price }) {
+
+
   return (
     <div className="card">
       <div className="flip-card">
@@ -29,9 +31,9 @@ export default function Card() {
         </div>
       </div>
       <div className="card-title">
-        <h3> crystal light </h3>
+        <h3> {title} </h3>
 
-        <h4> 550$ </h4>
+        <h4> {price}$</h4>
       </div>
     </div>
   );

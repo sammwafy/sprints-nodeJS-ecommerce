@@ -9,15 +9,23 @@ import axios from "../../Hooks/axios";
 import ScrollToTopOnMount from "../../Componenets/ScrollToTopOnMount";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useCookies } from 'react-cookie'
+import UserCard from "../../Componenets/AdminComponents/ItemCard/UserCard";
+import ProductCard from "../../Componenets/AdminComponents/ItemCard/ProductCard";
 
 const Single = ({ type }) => {
+  const [cookies, setCookie] = useCookies(["token", "id"]);
   const { id } = useParams();
   console.log(id);
   const [data, setData] = useState({})
   console.log(type);
   useEffect(() => {
 
-    axios.get(`api/${type}/find/${id}`).then((response) => setData(response.data)).catch(err => console.log(err));
+    axios.get(`api/${type}/find/${id}`, {
+      headers: {
+        token: "Bearer " + cookies.token
+      }
+    }).then((response) => setData(response.data)).catch(err => console.log(err));
 
   }, [id, type])
 
@@ -32,16 +40,17 @@ const Single = ({ type }) => {
           <div className="view-details">
             <div className="top">
               <div className="left">
-                <ItemCard input={data} />
+                {type === "users" && <UserCard data={data} />}
+                {type === "products" && <ProductCard data={data} />}
+
+                {(type !== "users" && type !== "products") && <ItemCard input={data} />}
               </div>
-              <div className="right">
-                <Chart aspect={3 / 1} title="Last 6 months spendings" />
-              </div>
+
             </div>
-            <div className="bottom">
+            {/* <div className="bottom">
               <h1 className="title">Last Transactions</h1>
               <TableList />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

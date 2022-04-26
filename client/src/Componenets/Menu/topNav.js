@@ -14,12 +14,20 @@ import styled from "styled-components";
 import logo from "../../Assets/imgs/sprints.png";
 import useAuth from "../../Hooks/useAuth.js";
 import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import SearchModal from "../Search/SearchModal.js";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const { auth } = useAuth();
-  const location = useLocation();
+	const location = useLocation();
+
+	const [showSearch, setShowshowSearch] = useState(false);
+
+	const handleClose = () => setShowshowSearch(false);
+	const handleShow = () => setShowshowSearch(true);
 	return (
 		<TopWrapper>
+			<SearchModal show={showSearch} close={handleClose} />
 			<TopBar />
 			<TopNavWrapper>
 				<div className='leftTopNav'>
@@ -28,8 +36,12 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 							onClick={() => MenuOpenHadler(!isMenuOpen)}
 							style={{ cursor: "pointer" }}
 						>
-							<FaBars /> SHOP
+							<FaBars />
 						</li>
+						<Link to='/shop'>
+							<li>SHOP</li>
+						</Link>
+
 						{auth?.username ? (
 							<li className='logout'>
 								<a href='/logout'>
@@ -38,7 +50,7 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 							</li>
 						) : (
 							<li className='signIn'>
-							<Link to='/login' state={{ from: location }} replace >
+								<Link to='/login' state={{ from: location }} replace>
 									<FaSignInAlt /> SIGN IN
 								</Link>
 							</li>
@@ -57,10 +69,8 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 								hi <span>{auth?.username}</span>
 							</li>
 						)}
-						<li>
-							<FaRegHeart />
-						</li>
-						<li>
+
+						<li onClick={handleShow} style={{ cursor: "pointer" }}>
 							<FaSearch />
 						</li>
 						<li>
