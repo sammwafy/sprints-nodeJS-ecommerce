@@ -20,8 +20,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "../../Hooks/axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
-
+import useAuth from "../../Hooks/useAuth";
 function createData(image, productName, quantity, unitPrice, total) {
   return { image, productName, quantity, unitPrice, total };
 }
@@ -29,8 +28,7 @@ function createData(image, productName, quantity, unitPrice, total) {
 
 export default function Cart() {
   const [open, setOpen] = useState(false);
-  //use Cookies
-  const [cookies, setCookie] = useCookies([])
+  const { auth } = useAuth()
 
 
 
@@ -48,6 +46,7 @@ export default function Cart() {
 
 
   //get items in cart slice
+
   const cartItems = useSelector(state => state.cart)
 
   const [products, setProducts] = useState([])
@@ -63,16 +62,32 @@ export default function Cart() {
   console.log(cartItems);
 
   useEffect(() => {
-    setCookie("cart", cartItems)
 
+    localStorage.setItem("cart", JSON.stringify(cartItems))
+    if (auth?.username) {
+
+      axios.post(`/api/carts/`, {
+        userId: auth?.id,
+        products: [...cartItems]
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            token: `Bearer ${auth?.token}`
+          },
+          withCredentials: true,
+        }).then(res => console.log(res.data))
+        .catch(err => console.log(err))
+    }
 
   }, [cartItems])
 
 
-  console.log(cookies.cart);
-
+  let totalPrice = 0
   const rows = products && products.map((product) => {
     let qty = cartItems.filter((item) => item.productId === product._id)[0]
+    let price = qty?.quantity * product?.price
+    totalPrice += price
     return createData(
       <img src={product?.image[0]} alt="product?Img" />,
       <div>
@@ -88,9 +103,15 @@ export default function Cart() {
         </button>
       </div>,
       <p>{product?.price}</p>,
-      <p>{product?.price * qty.quantity}</p>
+      <p>{product?.price * qty.quantity}</p>,
+
     )
   })
+  // let arrayOfTotal = products && products.map((product) => {
+  //   let qty = cartItems.filter((item) => item.productId === product._id)[0]
+  //   return qty.quantity * product.price
+  // })
+  // const total = arrayOfTotal.reduce((acc, ele) => acc + ele, 0)
   console.log(rows);
 
   return (
@@ -169,10 +190,10 @@ export default function Cart() {
             </Collapse>
           </div>
           <div className="sub-total">
-            Sub-Total : <span className="sub-total-num">$ 1,50.00</span>
+            Sub-Total : <span className="sub-total-num">{`$ ${totalPrice}`}</span>
           </div>
           <div className="sub-total">
-            Total : <span className="sub-total-num">$ 1,668.00</span>
+            Total : <span className="sub-total-num">{`$ ${totalPrice}`}</span>
           </div>
           <div className="check-continu">
             <button className="continu" onClick={continuShopping}>
