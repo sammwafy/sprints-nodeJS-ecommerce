@@ -19,15 +19,24 @@ const cartSlice = createSlice({
       const targetIndex = state.findIndex(
         (item) => item.productId === action.payload.id
       );
+      return state.map((item, i) =>
+        i === targetIndex
+          ? {
+              ...item,
+              quantity: action.payload.count,
+            }
+          : item
+      );
 
-      return [
-        ...state.slice(0, targetIndex),
-        {
-          ...state[targetIndex],
-          quantity: action.payload.count,
-        },
-        ...state.slice(targetIndex + 1),
-      ];
+      /** using slice instead of map */
+      // return [
+      //   ...state.slice(0, targetIndex),
+      //   {
+      //     ...state[targetIndex],
+      //     quantity: action.payload.count,
+      //   },
+      //   ...state.slice(targetIndex + 1),
+      // ];
     },
   },
 });
