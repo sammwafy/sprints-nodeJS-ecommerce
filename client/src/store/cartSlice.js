@@ -5,28 +5,31 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialValue = [];
 
 const cartSlice = createSlice({
-	name: "cart",
-	initialState: initialValue,
-	reducers: {
-		addtoCart(state, action) {
-			state.push(action.payload);
-		},
-		setCart(state, action) {
-			return (state = action.payload);
-		},
-		updateCart(state, action) {
-			console.log(action.payload);
+  name: "cart",
+  initialState: initialValue,
+  reducers: {
+    addtoCart(state, action) {
+      state.push(action.payload);
+    },
+    setCart(state, action) {
+      return (state = action.payload);
+    },
+    updateCart(state, action) {
+      console.log(action.payload);
+      const targetIndex = state.findIndex(
+        (item) => item.productId === action.payload.id
+      );
 
-			const newState = { ...state };
-			state.map((item) => {
-				item.productId === action.payload.id;
-			});
-			state.push({
-				productId: action.payload.id,
-				quantity: action.payload.count,
-			});
-		},
-	},
+      return [
+        ...state.slice(0, targetIndex),
+        {
+          ...state[targetIndex],
+          quantity: action.payload.count,
+        },
+        ...state.slice(targetIndex + 1),
+      ];
+    },
+  },
 });
 
 export const cartActions = cartSlice.actions;
