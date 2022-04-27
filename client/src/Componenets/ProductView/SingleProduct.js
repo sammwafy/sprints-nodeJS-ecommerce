@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import { SingleProductWrapper } from "./styles/SingleProduct.styled";
 import { Row, Col, Image, Tab, Tabs } from "react-bootstrap";
@@ -10,13 +10,19 @@ import ProductImgs from "./productItems/ProductImgs.js";
 import Specs from "./productItems/Specs.js";
 import ProductTitle from "./productItems/ProductTitle.js";
 import Review from "./Reviews/Review.js";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const SingleProduct = () => {
+  const location = useLocation();
   const [product, setProduct] = useState({});
   const { id } = useParams();
-	const navigate = useNavigate();
+  const navigate = useNavigate();
   const productId = id;
+  const productRef = useRef();
+
+  useLayoutEffect(() => {
+    productRef?.current?.focus();
+  }, [location.pathname]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -49,6 +55,7 @@ const SingleProduct = () => {
   return (
     <SingleProductWrapper>
       <Layout>
+        <div tabIndex="0" id="focus" ref={productRef}></div>
         <ProductTitle title={product?.title} />
         <Container>
           {product && (

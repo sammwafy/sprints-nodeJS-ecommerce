@@ -71,11 +71,12 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/404" element={<ErrorPage />} />
         <Route path="/cart" element={<CartPage />} />
+     
         <Route path="shop">
           <Route index element={<Shop />} />
           <Route path=":id" element={<SingleProduct />}></Route>
         </Route>
-
+      
         <Route element={<ProtectedAdminRoute role="SuperUser" />}>
           <Route path="admin">
             <Route index element={<Home />} />
