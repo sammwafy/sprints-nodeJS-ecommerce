@@ -35,6 +35,7 @@ const Single = ({ type }) => {
   }, []);
 
   console.log(data);
+  console.log(data);
   console.log(type);
   return (
     data && (
