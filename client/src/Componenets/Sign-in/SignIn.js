@@ -58,16 +58,28 @@ const SignIn = ({ user }) => {
       const username = response?.data?.username;
       const userID = response?.data?._id;
       if (username && password && accessToken) {
-        setAuth(response?.data);
-        setCookie("token", accessToken);
-        setCookie("id", userID);
-        setCookie("username", username);
         setSuccessMsg(true);
         setEmail("");
         setPassword("");
-        from
-          ? setTimeout(() => navigate(from, { replace: true }))
-          : setTimeout(() => navigate("/"), 3600);
+        if (userID) {
+       
+          axios
+            .get(`/api/carts/find/${userID}`, {
+              headers: {
+                "Content-Type": "application/json",
+                token: `Bearer ${accessToken}`,
+              },
+              withCredentials: true,
+            })
+            .then((res) => {
+              localStorage.setItem("cart", JSON.stringify(res.data));
+              setAuth(response?.data);
+              setCookie("token", accessToken);
+              setCookie("id", userID);
+              setCookie("username", username);
+            })
+            .catch((err) => console.log(err));
+        }
       }
     } catch (err) {
       if (!err?.response) {

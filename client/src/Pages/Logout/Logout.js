@@ -9,19 +9,27 @@ import checkCircle from "../../Assets/imgs/checkCircle.gif";
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthProvider";
+import { useDispatch } from "react-redux";
+import { reset } from "../../store/reset";
 
 const Logout = () => {
   const [cookies, _, removeCookie] = useCookies(["token", "id"]);
   const navigate = useNavigate();
   const { setAuth } = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    localStorage.removeItem("cart");
+    localStorage.removeItem("cartBadge");
+
+    dispatch(reset());
     removeCookie("token");
     removeCookie("id");
     removeCookie("username");
     setAuth();
+
     if (!cookies.id && !cookies.token) {
-      setTimeout(() => navigate("/login"), 3600);
+      setTimeout(() => navigate("/login", { replace: false }), 3600);
     }
   }, [cookies]);
 

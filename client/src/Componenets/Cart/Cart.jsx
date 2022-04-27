@@ -25,12 +25,9 @@ function createData(image, productName, quantity, unitPrice, total) {
   return { image, productName, quantity, unitPrice, total };
 }
 
-
 export default function Cart() {
   const [open, setOpen] = useState(false);
-  const { auth } = useAuth()
-
-
+  const { auth } = useAuth();
 
   // redirection
   const navigate = useNavigate();
@@ -42,84 +39,95 @@ export default function Cart() {
     from
       ? setTimeout(() => navigate(from, { replace: true }))
       : setTimeout(() => navigate("/"), 2000);
-  }
-
+  };
 
   //get items in cart slice
 
-  const cartItems = useSelector(state => state.cart)
+  const cartItems = useSelector((state) => state.cart);
 
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     //get products by id from backend
-    cartItems.length > 0 && Promise.all(cartItems.map(item =>
-      axios.get(`/api/products/find/${item.productId}`).then(res => setProducts(prev => [...prev, res.data])).catch(err => console.log(err))
-    ))
-  }, [])
+    cartItems.length > 0 &&
+      Promise.all(
+        cartItems.map((item) =>
+          axios
+            .get(`/api/products/find/${item.productId}`)
+            .then((res) => setProducts((prev) => [...prev, res.data]))
+            .catch((err) => console.log(err))
+        )
+      );
+  }, []);
 
 
-  // useEffect(() => {
-  //   if (auth?.username) {
-  //     axios.get(`/api/carts/find/${auth?.id}`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           "token": `Bearer ${auth?.token}`
-  //         },
-  //         withCredentials: true,
-  //       }).then(res => localStorage.setItem("cart", JSON.stringify(res.data)))
-  //       .catch(err => console.log(err))
-  //   } else {
-  //     localStorage.setItem("cart", JSON.stringify(cartItems))
-  //   }
+  useEffect(() => {
+    let newArr = [];
+    newArr = JSON.parse(localStorage.getItem("cart")) || [];
+    newArr.products = cartItems;
+ 
+    localStorage.setItem("cart", JSON.stringify(newArr));
 
-
-
-
-    //   axios.put(`/api/carts/${auth?.id}`, {
-    //     userId: auth?.id,
-    //     products: []
-    //   },
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         "token": `Bearer ${auth?.token}`
-    //       },
-    //       withCredentials: true,
-    //     }).then(res => console.log(res.data))
-    //     .catch(err => console.log(err))
-    // }
+    if (auth?.username && cartItems.length > 0) {
+      axios
+        .put(
+          `/api/carts/${auth?.id}`,
+          {
+            userId: auth?.id,
+            products: cartItems,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              token: `Bearer ${auth?.token}`,
+            },
+            withCredentials: true,
+          }
+        )
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
+    }
 
     /** get user cart for admin */
+    //     axios.get(`/api/carts/find/${auth?.id}`,
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           "token": `Bearer ${auth?.token}`
+    //         },
+    //         withCredentials: true,
+    //       }).then(res => localStorage.setItem("cart", JSON.stringify(res.data)))
+    //       .catch(err => console.log(err))
+    //   } else {
+    //     localStorage.setItem("cart", JSON.stringify(cartItems))
+    //   }
+  }, [cartItems]);
 
-  // }, [])
-
-
-  let totalPrice = 0
-  const rows = products && products.map((product) => {
-    let qty = cartItems.filter((item) => item.productId === product._id)[0]
-    let price = qty?.quantity * product?.price
-    totalPrice += price
-    return createData(
-      <img src={product?.image[0]} alt="product?Img" />,
-      <div>
-        <p>{product?.title}</p> <p>{product?.categories[0]}</p>
-      </div>,
-      <div className="table-quantity">
-        <Quantity quantity={qty.quantity} id={qty.productId} />
-        <button className="butt">
-          <AiOutlineSync />
-        </button>
-        <button className="butt">
-          <AiOutlineClose />
-        </button>
-      </div>,
-      <p>{product?.price}</p>,
-      <p>{product?.price * qty.quantity}</p>,
-
-    )
-  })
+  let totalPrice = 0;
+  const rows =
+    products &&
+    products.map((product) => {
+      let qty = cartItems.filter((item) => item.productId === product._id)[0];
+      let price = qty?.quantity * product?.price;
+      totalPrice += price;
+      return createData(
+        <img src={product?.image[0]} alt="product?Img" />,
+        <div>
+          <p>{product?.title}</p> <p>{product?.categories[0]}</p>
+        </div>,
+        <div className="table-quantity">
+          <Quantity quantity={qty.quantity} id={qty.productId} />
+          <button className="butt">
+            <AiOutlineSync />
+          </button>
+          <button className="butt">
+            <AiOutlineClose />
+          </button>
+        </div>,
+        <p>{product?.price}</p>,
+        <p>{product?.price * qty.quantity}</p>
+      );
+    });
   // let arrayOfTotal = products && products.map((product) => {
   //   let qty = cartItems.filter((item) => item.productId === product._id)[0]
   //   return qty.quantity * product.price
@@ -204,7 +212,8 @@ export default function Cart() {
             </Collapse>
           </div>
           <div className="sub-total">
-            Sub-Total : <span className="sub-total-num">{`$ ${totalPrice}`}</span>
+            Sub-Total :{" "}
+            <span className="sub-total-num">{`$ ${totalPrice}`}</span>
           </div>
           <div className="sub-total">
             Total : <span className="sub-total-num">{`$ ${totalPrice}`}</span>

@@ -23,41 +23,35 @@ import { useEffect } from "react";
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
   const { auth } = useAuth();
   const location = useLocation();
-  const [sum, setSum] = useState(0);
+  // const [sum, setSum] = useState(0);
 
   const [showSearch, setShowshowSearch] = useState(false);
 
   const handleClose = () => setShowshowSearch(false);
   const handleShow = () => setShowshowSearch(true);
 
+  //get number of cart items
+  const cartItems = useSelector((state) => state.cart);
+  const cart = localStorage.getItem("cart");
   useEffect(() => {
-    if (auth?.username) {
-      axios
-        .get(`/api/carts/find/${auth?.id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            token: `Bearer ${auth?.token}`,
-          },
-          withCredentials: true,
-        })
-        .then((res) => localStorage.setItem("cart", JSON.stringify(res.data)))
-        .catch((err) => console.log(err));
-    } else {
-      localStorage.setItem("cart", JSON.stringify(cartItems));
+    let sumNum = cartItems.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
+
+    localStorage.setItem("cartBadge", JSON.stringify(sumNum));
+  }, [cartItems]);
+  useEffect(() => {
+    if (cart) {
+      let sumNum = cartItems.reduce(
+        (acc, product) => acc + product.quantity,
+        0
+      ); //get cart items + quantity
+
+      localStorage.setItem("cartBadge", JSON.stringify(sumNum));
     }
   }, []);
 
-  //get number of cart items
-  const cartItems = useSelector((state) => state.cart);
-  console.log(cartItems);
-  useEffect(() => {
-    setSum(
-      cartItems.lenght > 0 &&
-        cartItems.reduce((acc, product) => acc + product.quantity, 0) //get cart items + quantity
-    );
-  }, [cartItems]);
+  const sum = JSON.parse(localStorage.getItem("cartBadge"));
 
-  console.log(auth);
+  console.log(sum);
   return (
     <TopWrapper>
       <SearchModal show={showSearch} close={handleClose} />

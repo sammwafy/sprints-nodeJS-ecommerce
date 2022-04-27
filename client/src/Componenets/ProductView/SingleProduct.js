@@ -79,6 +79,7 @@ const SingleProduct = () => {
                         description: product?.description,
                         quantity: product?.quantity,
                         category: "sofa",
+                        id: product._id
                       }}
                     />
                   </Tab>

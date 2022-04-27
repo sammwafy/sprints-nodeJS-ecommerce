@@ -15,9 +15,10 @@ export default function Card({ title, price, id }) {
   const cartItems = useSelector((state) => state.cart);
 
   const addToCart = () => {
+    console.log(cartItems)
+
     const cartItemsClone = [...cartItems];
     const inThecart = cartItemsClone.filter((item) => item.productId === id);
-    console.log(inThecart);
     if (inThecart.length > 0) {
       const newCartItems = cartItemsClone.filter(
         (item) => item.productId !== id
@@ -27,7 +28,9 @@ export default function Card({ title, price, id }) {
         quantity: inThecart[0].quantity + 1,
       };
       newCartItems.push(modifiedProduct);
+    
       dispatch(cartActions.setCart(newCartItems));
+
     } else {
       dispatch(
         cartActions.addtoCart({
@@ -40,7 +43,7 @@ export default function Card({ title, price, id }) {
 
   return (
     <div className="card">
-      <Link to={`/shop/${id}`}>
+      {/* <Link to={`/shop/${id}`}> */}
         <div className="flip-card">
           <div className="flip-card-inner">
             <div className="flip-card-front">
@@ -67,7 +70,7 @@ export default function Card({ title, price, id }) {
             </div>
           </div>
         </div>
-      </Link>
+      {/* </Link> */}
       <div className="card-title">
         <h3> {title} </h3>
 
