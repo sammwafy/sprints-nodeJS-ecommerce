@@ -20,6 +20,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "../../Hooks/axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 function createData(image, productName, quantity, unitPrice, total) {
   return { image, productName, quantity, unitPrice, total };
@@ -28,6 +29,8 @@ function createData(image, productName, quantity, unitPrice, total) {
 
 export default function Cart() {
   const [open, setOpen] = useState(false);
+  //use Cookies
+  const [cookies, setCookie] = useCookies([])
 
 
 
@@ -59,7 +62,14 @@ export default function Cart() {
   console.log(products);
   console.log(cartItems);
 
+  useEffect(() => {
+    setCookie("cart", cartItems)
 
+
+  }, [cartItems])
+
+
+  console.log(cookies.cart);
 
   const rows = products && products.map((product) => {
     let qty = cartItems.filter((item) => item.productId === product._id)[0]
@@ -86,9 +96,9 @@ export default function Cart() {
   return (
     <div className="cart-container">
       <div className="cart-nav">
-        <a href="/">
+        <Link to="/">
           <AiOutlineHome />
-        </a>
+        </Link>
         <p>
           <span> &#47; </span> shopping cart
         </p>
