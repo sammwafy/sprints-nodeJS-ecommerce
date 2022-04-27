@@ -58,18 +58,16 @@ export default function Cart() {
     ))
   }, [])
 
-  console.log(products);
-  console.log(cartItems);
 
   useEffect(() => {
 
     localStorage.setItem("cart", JSON.stringify(cartItems))
-    
+
     if (auth?.username) {
 
       axios.put(`/api/carts/${auth?.id}`, {
         userId: auth?.id,
-        products: []   
+        products: []
       },
         {
           headers: {
@@ -79,7 +77,7 @@ export default function Cart() {
           withCredentials: true,
         }).then(res => console.log(res.data))
         .catch(err => console.log(err))
-    }   
+    }
 
     /** get user cart for admin */
     //   axios.get(`/api/carts/find/${auth?.id}`,
@@ -126,6 +124,7 @@ export default function Cart() {
   // })
   // const total = arrayOfTotal.reduce((acc, ele) => acc + ele, 0)
   console.log(rows);
+  console.log(cartItems);
 
   return (
     <div className="cart-container">

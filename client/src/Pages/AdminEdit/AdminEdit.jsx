@@ -11,6 +11,7 @@ import { useEffect, useId } from "react";
 import ImageUploading from "react-images-uploading";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import UserCard from "../../Componenets/AdminComponents/ItemCard/UserCard";
 
 const AdminEdit = ({ type }) => {
   const { id } = useParams();
@@ -243,28 +244,29 @@ const AdminEdit = ({ type }) => {
 
   return (
     <AdminLayout>
-      <div className="newItem">
+
+      {type !== "users" && <div className="newItem">
         <div className="top">
           <h1 className="title">{`Edit ${type}`} </h1>
         </div>
         <div className="bottom">
-          {/* <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
-              }
-              alt=""
-              className="image"
-            /> */}
+          <img
+            src={
+              file
+                ? URL.createObjectURL(file)
+                : "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+            }
+            alt=""
+            className="image"
+          />
 
           <form onSubmit={handleSubmit}>
             <div className="left">
               <div className="form-input">
-                {/* <label htmlFor="image" className="label">
+                <label htmlFor="image" className="label">
                   Add Images
                   <AddPhotoAlternateIcon style={{ marginLeft: "10px" }} />
-                </label> */}
+                </label>
                 <div className="App">
                   <ImageUploading
                     multiple
@@ -416,7 +418,9 @@ const AdminEdit = ({ type }) => {
             </div>
           </form>
         </div>
-      </div>
+      </div>}
+
+      {type === "users" && <UserCard />}
     </AdminLayout>
   );
 };

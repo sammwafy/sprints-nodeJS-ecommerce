@@ -16,11 +16,8 @@
 			.left {
 				flex: 2;
 				padding: 10px;
-        height: fit-content;
+				height: fit-content;
 				@extend %shadow;
-			}
-			.right {
-				flex: 5;
 			}
 		}
 		.bottom {

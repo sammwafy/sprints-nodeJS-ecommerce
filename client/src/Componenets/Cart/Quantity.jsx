@@ -12,23 +12,16 @@ export default function Quantity({ quantity, id }) {
   const dispatch = useDispatch()
 
   //update qty of cart item
-  console.log(count);
   useEffect(() => {
-
     dispatch(cartActions.updateCart({ id: id, count: count }))
   }, [count])
-
-  console.log(cartItems);
-
 
 
   const increament = () => {
     setCount(count => count + 1);
-    console.log(count);
   };
   const decreament = () => {
-    setCount(count => count - 1);
-    console.log(count);
+    setCount(count => count > 1 ? count - 1 : count);
   };
 
   return (

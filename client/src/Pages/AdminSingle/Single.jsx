@@ -51,9 +51,9 @@ const Single = ({ type }) => {
                   {type === "users" && <UserCard data={data} />}
                   {type === "products" && <ProductCard data={data} />}
 
-                  {type !== "users" && type !== "products" && (
+                  {/* {(type !== "users" && type !== "products") &&
                     <ItemCard input={data} />
-                  )}
+                  } */}
                 </div>
               </div>
               {/* <div className="bottom">
