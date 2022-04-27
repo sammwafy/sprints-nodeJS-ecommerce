@@ -30,7 +30,7 @@ const HomePage = () => {
   ];
   const fullscreenCarouselItems = [
     {
-      imgSrc: "intro1.jpeg",
+      imgSrc: "intro1.jpg",
       header: "Beauty & Brains",
       text: "Sprints take your desgin skills to a new level",
     },

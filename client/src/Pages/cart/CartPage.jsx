@@ -1,13 +1,9 @@
-import Cart from "../../Componenets/Cart/Cart";
-import Layout from "../../Componenets/Layout/Layout";
+import React from 'react'
 
 const CartPage = () => {
-  return (
-    <Layout>
-      {" "}
-      <Cart />{" "}
-    </Layout>
-  );
-};
+    return (
+        <div>CartPage</div>
+    )
+}
 
-export default CartPage;
+export default CartPage
