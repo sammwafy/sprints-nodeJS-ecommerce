@@ -16,6 +16,10 @@ import Paper from "@mui/material/Paper";
 import Quantity from "./Quantity";
 import { useState } from "react";
 import { Collapse } from "react-bootstrap";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import axios from "../../Hooks/axios";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function createData(image, productName, quantity, unitPrice, total) {
   return { image, productName, quantity, unitPrice, total };
@@ -40,13 +44,12 @@ export default function Cart() {
   }
 
 
-  //get items in cart slice
+  //get items to cart rows
   const cartItems = useSelector(state => state.cart)
 
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    //get products by id from backend
     Promise.all(cartItems.map(item =>
       axios.get(`/api/products/find/${item.productId}`).then(res => setProducts(prev => [...prev, res.data])).catch(err => console.log(err))
     ))
@@ -54,8 +57,6 @@ export default function Cart() {
 
   console.log(products);
   console.log(cartItems);
-
-
 
   const rows = products && products.map((product) => {
     let qty = cartItems.filter((item) => item.productId === product._id)[0]
@@ -100,12 +101,12 @@ export default function Cart() {
                 <TableRow>
                   <TableCell align="center">IMAGE</TableCell>
                   <TableCell align="center">PRODUCT NAME</TableCell>
-                  <TableCell align="center">MODEL</TableCell>
                   <TableCell align="center">QUANTITY</TableCell>
                   <TableCell align="center">UNIT PRICE</TableCell>
                   <TableCell align="center">TOTAL</TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
                 {rows.map((row) => (
                   <TableRow
@@ -116,7 +117,6 @@ export default function Cart() {
                       {row?.image}
                     </TableCell>
                     <TableCell align="center">{row.productName}</TableCell>
-                    <TableCell align="center">{row.model}</TableCell>
                     <TableCell align="center">{row.quantity}</TableCell>
                     <TableCell align="center">{row.unitPrice}</TableCell>
                     <TableCell align="center">{row.total}</TableCell>
@@ -162,7 +162,7 @@ export default function Cart() {
             Total : <span className="sub-total-num">$ 1,668.00</span>
           </div>
           <div className="check-continu">
-            <button className="continu">
+            <button className="continu" onClick={continuShopping}>
               <BsArrowLeftShort className="arow" /> CONTINU SHOPPING
             </button>
             <button className="check">

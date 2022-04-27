@@ -19,7 +19,7 @@ const cartSlice = createSlice({
 
 			const newState = { ...state };
 			state.map((item) => {
-				item.productId === action.payload.id;
+				// item.productId === action.payload.id;
 			});
 			state.push({
 				productId: action.payload.id,
