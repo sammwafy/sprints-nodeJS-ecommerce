@@ -2,8 +2,8 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialValue = JSON.parse(localStorage.getItem("cart")) || [];
-
+const initialValue = JSON.parse(localStorage.getItem("cart")).products || [];
+console.log(initialValue)
 const cartSlice = createSlice({
 	name: "cart",
 	initialState: initialValue,

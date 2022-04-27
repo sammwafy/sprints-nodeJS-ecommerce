@@ -59,20 +59,20 @@ export default function Cart() {
   }, [])
 
 
-  useEffect(() => {
-    if (auth?.username) {
-      axios.get(`/api/carts/find/${auth?.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "token": `Bearer ${auth?.token}`
-          },
-          withCredentials: true,
-        }).then(res => localStorage.setItem("cart", JSON.stringify(res.data)))
-        .catch(err => console.log(err))
-    } else {
-      localStorage.setItem("cart", JSON.stringify(cartItems))
-    }
+  // useEffect(() => {
+  //   if (auth?.username) {
+  //     axios.get(`/api/carts/find/${auth?.id}`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "token": `Bearer ${auth?.token}`
+  //         },
+  //         withCredentials: true,
+  //       }).then(res => localStorage.setItem("cart", JSON.stringify(res.data)))
+  //       .catch(err => console.log(err))
+  //   } else {
+  //     localStorage.setItem("cart", JSON.stringify(cartItems))
+  //   }
 
 
 
@@ -93,7 +93,7 @@ export default function Cart() {
 
     /** get user cart for admin */
 
-  }, [])
+  // }, [])
 
 
   let totalPrice = 0

@@ -1,13 +1,14 @@
 /** @format */
 
 import { TopNavWrapper } from "./styles/topNav.style";
+import axios from "../../Hooks/axios";
 import {
-	FaBars,
-	FaSignInAlt,
-	FaSignOutAlt,
-	FaRegHeart,
-	FaSearch,
-	FaShoppingBag,
+  FaBars,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaRegHeart,
+  FaSearch,
+  FaShoppingBag,
 } from "react-icons/fa";
 import TopBar from "./TopBar";
 import styled from "styled-components";
@@ -20,102 +21,119 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
-	const { auth } = useAuth();
-	const location = useLocation();
-	const [sum, setSum] = useState(0);
+  const { auth } = useAuth();
+  const location = useLocation();
+  const [sum, setSum] = useState(0);
 
-	const [showSearch, setShowshowSearch] = useState(false);
+  const [showSearch, setShowshowSearch] = useState(false);
 
-	const handleClose = () => setShowshowSearch(false);
-	const handleShow = () => setShowshowSearch(true);
+  const handleClose = () => setShowshowSearch(false);
+  const handleShow = () => setShowshowSearch(true);
 
-	//get number of cart items
-	const cartItems = useSelector((state) => state.cart);
+  useEffect(() => {
+    if (auth?.username) {
+      axios
+        .get(`/api/carts/find/${auth?.id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            token: `Bearer ${auth?.token}`,
+          },
+          withCredentials: true,
+        })
+        .then((res) => localStorage.setItem("cart", JSON.stringify(res.data)))
+        .catch((err) => console.log(err));
+    } else {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    }
+  }, []);
 
-	useEffect(() => {
-		setSum(
-			cartItems.lenght > 0 &&
-				cartItems.reduce((acc, product) => acc + product.quantity, 0) //get cart items + quantity
-		);
-	}, [cartItems]);
+  //get number of cart items
+  const cartItems = useSelector((state) => state.cart);
+  console.log(cartItems);
+  useEffect(() => {
+    setSum(
+      cartItems.lenght > 0 &&
+        cartItems.reduce((acc, product) => acc + product.quantity, 0) //get cart items + quantity
+    );
+  }, [cartItems]);
 
-	console.log(auth);
-	return (
-		<TopWrapper>
-			<SearchModal show={showSearch} close={handleClose} />
-			<TopBar />
-			<TopNavWrapper>
-				<div className='leftTopNav'>
-					<ul>
-						<li
-							onClick={() => MenuOpenHadler(!isMenuOpen)}
-							style={{ cursor: "pointer" }}
-						>
-							<FaBars />
-						</li>
-						<Link to='/shop'>
-							<li>SHOP</li>
-						</Link>
+  console.log(auth);
+  return (
+    <TopWrapper>
+      <SearchModal show={showSearch} close={handleClose} />
+      <TopBar />
+      <TopNavWrapper>
+        <div className="leftTopNav">
+          <ul>
+            <li
+              onClick={() => MenuOpenHadler(!isMenuOpen)}
+              style={{ cursor: "pointer" }}
+            >
+              <FaBars />
+            </li>
+            <Link to="/shop">
+              <li>SHOP</li>
+            </Link>
 
-						{auth?.username ? (
-							<li className='logout'>
-								<a href='/logout'>
-									<FaSignOutAlt /> Logout
-								</a>
-							</li>
-						) : (
-							<li className='signIn'>
-								<Link to='/login' state={{ from: location }} replace>
-									<FaSignInAlt /> SIGN IN
-								</Link>
-							</li>
-						)}
-					</ul>
-				</div>
-				<div className='middleTopNav'>
-					<a href='/'>
-						<img src={logo} alt='logo' />
-					</a>
-				</div>
-				<div className='rightTopNav'>
-					<ul>
-						{auth?.username && (
-							<li className='helloMSG'>
-								hi <span>{auth?.username}</span>
-							</li>
-						)}
+            {auth?.username ? (
+              <li className="logout">
+                <a href="/logout">
+                  <FaSignOutAlt /> Logout
+                </a>
+              </li>
+            ) : (
+              <li className="signIn">
+                <Link to="/login" state={{ from: location }} replace>
+                  <FaSignInAlt /> SIGN IN
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
+        <div className="middleTopNav">
+          <a href="/">
+            <img src={logo} alt="logo" />
+          </a>
+        </div>
+        <div className="rightTopNav">
+          <ul>
+            {auth?.username && (
+              <li className="helloMSG">
+                hi <span>{auth?.username}</span>
+              </li>
+            )}
 
-						<li onClick={handleShow} style={{ cursor: "pointer" }}>
-							<FaSearch />
-						</li>
+            <li onClick={handleShow} style={{ cursor: "pointer" }}>
+              <FaSearch />
+            </li>
 
-						<Link to='/cart' state={{ from: location }} replace>
-							<li className='badgeContainer'>
-								{sum > 0 && <span className='badge'>{sum}</span>}
-								<FaShoppingBag style={{ color: "black" }} />
-							</li>
-						</Link>
+            <Link to="/cart" state={{ from: location }} replace>
+              <li className="badgeContainer">
+                {sum > 0 && <span className="badge">{sum}</span>}
+                <FaShoppingBag style={{ color: "black" }} />
+              </li>
+            </Link>
 
-						<li className='signInIconOnly'>
-							<FaSignInAlt />
-						</li>
-					</ul>
-				</div>
-			</TopNavWrapper>
-		</TopWrapper>
-	);
+            <li className="signInIconOnly">
+              <FaSignInAlt />
+            </li>
+          </ul>
+        </div>
+      </TopNavWrapper>
+    </TopWrapper>
+  );
 };
 
 export default TopNav;
 
 const TopWrapper = styled.div`
-	height: 10vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-	/** small laptops up to 13 inch */
-	@media screen and (min-width: 1024px) and (max-width: 1336px) {
-		height: 12vh;
-	}
+  /** small laptops up to 13 inch */
+  @media screen and (min-width: 1024px) and (max-width: 1336px) {
+    height: 12vh;
+  }
 `;
