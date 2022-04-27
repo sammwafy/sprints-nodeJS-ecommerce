@@ -21,50 +21,10 @@ import axios from "../../Hooks/axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
-function createData(image, productName, model, quantity, unitPrice, total) {
-  return { image, productName, model, quantity, unitPrice, total };
+function createData(image, productName, quantity, unitPrice, total) {
+  return { image, productName, quantity, unitPrice, total };
 }
 
-
-
-// const rows = [
-// createData(
-//   <img src="a1.jpg" alt="productImg" />,
-//   <div>
-//     <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>
-//   </div>,
-//   <p>model num</p>,
-//   <div className="table-quantity">
-//     <Quantity />
-//     <button className="butt">
-//       <AiOutlineSync />
-//     </button>
-//     <button className="butt">
-//       <AiOutlineClose />
-//     </button>
-//   </div>,
-//   <p>unit price</p>,
-//   <p>total</p>
-// ),
-//   createData(
-//     <img src="a1.jpg" alt="productImg" />,
-//     <div>
-//       <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>{" "}
-//     </div>,
-//     <p>model num</p>,
-//     <div className="table-quantity">
-//       <Quantity />
-//       <button className="butt">
-//         <AiOutlineSync />
-//       </button>
-//       <button className="butt">
-//         <AiOutlineClose />
-//       </button>
-//     </div>,
-//     <p>unit price</p>,
-//     <p>total</p>
-//   ),
-// ];
 
 export default function Cart() {
   const [open, setOpen] = useState(false);
@@ -84,40 +44,44 @@ export default function Cart() {
   }
 
 
-  //get items to cart rows
+  //get items in cart slice
   const cartItems = useSelector(state => state.cart)
-  console.log(cartItems);
-  const [rows, setRows] = useState([])
+
+  const [products, setProducts] = useState([])
+
   useEffect(() => {
-
-    const rows = cartItems.map((item) => {
-      console.log(item.id);
-      axios.get(`api/products/find/${item.productId}`)
-        .then(res => {
-          console.log(res.data);
-          setRows(rows => rows.push(createData(
-            <img src="a1.jpg" alt="productImg" />,
-            <div>
-              <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>
-            </div>,
-            <p>model num</p>,
-            <div className="table-quantity">
-              <Quantity />
-              <button className="butt">
-                <AiOutlineSync />
-              </button>
-              <button className="butt">
-                <AiOutlineClose />
-              </button>
-            </div>,
-            <p>unit price</p>,
-            <p>total</p>
-          )))
-        })
-        .catch(err => console.log(err))
-
-    })
+    //get products by id from backend
+    Promise.all(cartItems.map(item =>
+      axios.get(`/api/products/find/${item.productId}`).then(res => setProducts(prev => [...prev, res.data])).catch(err => console.log(err))
+    ))
   }, [])
+
+  console.log(products);
+  console.log(cartItems);
+
+
+
+  const rows = products && products.map((product) => {
+    let qty = cartItems.filter((item) => item.productId === product._id)[0]
+    return createData(
+      <img src={product?.image[0]} alt="product?Img" />,
+      <div>
+        <p>{product?.title}</p> <p>{product?.categories[0]}</p>
+      </div>,
+      <div className="table-quantity">
+        <Quantity quantity={qty.quantity} id={qty.productId} />
+        <button className="butt">
+          <AiOutlineSync />
+        </button>
+        <button className="butt">
+          <AiOutlineClose />
+        </button>
+      </div>,
+      <p>{product?.price}</p>,
+      <p>{product?.price * qty.quantity}</p>
+    )
+  })
+  console.log(rows);
 
   return (
     <div className="cart-container">
@@ -153,7 +117,7 @@ export default function Cart() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="center" component="th" scope="row">
-                      {row.image}
+                      {row?.image}
                     </TableCell>
                     <TableCell align="center">{row.productName}</TableCell>
                     <TableCell align="center">{row.quantity}</TableCell>
