@@ -53,34 +53,34 @@ export default function Cart() {
 
   useEffect(() => {
     //get products by id from backend
-    Promise.all(cartItems.map(item =>
+    cartItems.length > 0 && Promise.all(cartItems.map(item =>
       axios.get(`/api/products/find/${item.productId}`).then(res => setProducts(prev => [...prev, res.data])).catch(err => console.log(err))
     ))
   }, [])
 
 
   useEffect(() => {
-
-    localStorage.setItem("cart", JSON.stringify(cartItems))
-
     if (auth?.username) {
-
-      axios.put(`/api/carts/${auth?.id}`, {
-        userId: auth?.id,
-        products: []
-      },
+      axios.get(`/api/carts/find/${auth?.id}`,
         {
           headers: {
             "Content-Type": "application/json",
             "token": `Bearer ${auth?.token}`
           },
           withCredentials: true,
-        }).then(res => console.log(res.data))
+        }).then(res => localStorage.setItem("cart", JSON.stringify(res.data)))
         .catch(err => console.log(err))
+    } else {
+      localStorage.setItem("cart", JSON.stringify(cartItems))
     }
 
-    /** get user cart for admin */
-    //   axios.get(`/api/carts/find/${auth?.id}`,
+
+
+
+    //   axios.put(`/api/carts/${auth?.id}`, {
+    //     userId: auth?.id,
+    //     products: []
+    //   },
     //     {
     //       headers: {
     //         "Content-Type": "application/json",
@@ -91,7 +91,9 @@ export default function Cart() {
     //     .catch(err => console.log(err))
     // }
 
-  }, [cartItems])
+    /** get user cart for admin */
+
+  }, [])
 
 
   let totalPrice = 0

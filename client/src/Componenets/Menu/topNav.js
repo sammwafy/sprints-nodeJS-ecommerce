@@ -17,10 +17,12 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import SearchModal from "../Search/SearchModal.js";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const { auth } = useAuth();
 	const location = useLocation();
+	const [sum, setSum] = useState(0);
 
 	const [showSearch, setShowshowSearch] = useState(false);
 
@@ -29,8 +31,14 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 
 	//get number of cart items
 	const cartItems = useSelector((state) => state.cart);
-	let sum =
-		cartItems && cartItems.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
+
+	useEffect(() => {
+		setSum(
+			cartItems.lenght > 0 &&
+				cartItems.reduce((acc, product) => acc + product.quantity, 0) //get cart items + quantity
+		);
+	}, [cartItems]);
+
 	console.log(auth);
 	return (
 		<TopWrapper>
