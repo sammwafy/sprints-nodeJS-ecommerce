@@ -14,7 +14,7 @@ const ItemCard = ({ input }) => {
                     <img src={input?.image} alt="hi" />
                 </div>
                 <div className="info">
-                    {Object.entries(input).map(([key, value]) => (
+                    {Object.entries(input)?.map(([key, value]) => (
                         <div className="item-detail" key={key}>
                             <span className="key">{key}</span>
                             <span className="key-value">{value}</span>

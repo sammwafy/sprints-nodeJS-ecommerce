@@ -1,15 +1,27 @@
 import { useState } from "react";
 import "./cart.scss";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../store/cartSlice";
+import { useEffect } from "react";
 
-export default function Quantity() {
-  const [count, setCount] = useState(1);
+export default function Quantity({ quantity, id }) {
+  const [count, setCount] = useState(quantity);
+  const cartItems = useSelector(state => state.cart)
+  const dispatch = useDispatch()
+
+  //update qty of cart item
+  useEffect(() => {
+    dispatch(cartActions.updateCart({ id: id, count: count }))
+  }, [count])
+
 
   const increament = () => {
-    setCount(count + 1);
+    setCount(count => count + 1);
   };
   const decreament = () => {
-    setCount(count - 1);
+    setCount(count => count > 1 ? count - 1 : count);
   };
 
   return (

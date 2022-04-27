@@ -1,6 +1,7 @@
 /** @format */
 
 import { TopNavWrapper } from "./styles/topNav.style";
+import axios from "../../Hooks/axios";
 import {
   FaBars,
   FaSignInAlt,
@@ -17,10 +18,12 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import SearchModal from "../Search/SearchModal.js";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
   const { auth } = useAuth();
   const location = useLocation();
+  const [sum, setSum] = useState(0);
 
   const [showSearch, setShowshowSearch] = useState(false);
 
@@ -29,8 +32,22 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 
   //get number of cart items
   const cartItems = useSelector((state) => state.cart);
-  let sum = cartItems.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
+  const cart = localStorage.getItem("cart");
 
+  console.log(cartItems);
+
+  useEffect(() => {
+    if (cart) {
+      let sumNum = cartItems.reduce(
+        (acc, product) => acc + product.quantity,
+        0
+      ); //get cart items + quantity
+      localStorage.setItem("cartBadge", JSON.stringify(sumNum));
+      setSum(sumNum);
+    }
+  }, [cartItems]);
+
+  console.log(sum);
   return (
     <TopWrapper>
       <SearchModal show={showSearch} close={handleClose} />
@@ -77,15 +94,13 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
             )}
 
             <li onClick={handleShow} style={{ cursor: "pointer" }}>
-              <FaSearch className="search" />
+              <FaSearch />
             </li>
 
             <Link to="/cart" state={{ from: location }} replace>
               <li className="badgeContainer">
                 {sum > 0 && <span className="badge">{sum}</span>}
-                <FaShoppingBag
-                  style={{ color: "black", marginBottom: "-10px" }}
-                />
+                <FaShoppingBag style={{ color: "black" }} />
               </li>
             </Link>
 
@@ -102,7 +117,7 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 export default TopNav;
 
 const TopWrapper = styled.div`
-  height: 12vh;
+  height: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

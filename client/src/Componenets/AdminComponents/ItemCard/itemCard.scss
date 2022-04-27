@@ -3,6 +3,15 @@
 .item-card {
 	position: relative;
 	padding: 20px;
+	box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+
+	.review {
+		box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+		-webkit-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+		-moz-box-shadow: 0px 2px 19px -5px rgba(0, 0, 0, 0.4);
+	}
 	.edit {
 		padding: 2px 5px;
 		position: absolute;
