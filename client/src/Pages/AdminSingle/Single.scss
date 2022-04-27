@@ -16,7 +16,7 @@
 			.left {
 				flex: 2;
 				padding: 10px;
-
+        height: fit-content;
 				@extend %shadow;
 			}
 			.right {

@@ -1,7 +1,27 @@
 import "./cardContainer.scss";
 import Card from "../card/Card";
+import axios from "../../Hooks/axios"
+import { useState } from "react";
+import { productActions } from "../../store/productsSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function CardContainer() {
+  const [products, setProducts] = useState([])
+  const dispatch = useDispatch()
+  useEffect(() => {
+    axios.get(`/api/products/?new=true`).then(res => {
+      setProducts(res.data)
+      dispatch(productActions.getProducts(res.data))
+      console.log(res.data);
+    }
+    ).catch(err => console.log(err))
+  }, [])
+
+
+
+
+
   return (
     <div className="cards-container">
       <div className="cards-info">
@@ -17,9 +37,9 @@ export default function CardContainer() {
         <button> SEE ALL PRODUCTS </button>
       </div>
       <div className="cards-list">
-        <Card />
-        <Card />
-        <Card />
+
+        {products.slice(0, 3).map(product => <Card title={product.title} price={product.price} id={product._id} />)}
+
       </div>
     </div>
   );

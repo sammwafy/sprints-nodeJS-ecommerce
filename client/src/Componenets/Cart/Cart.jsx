@@ -16,54 +16,19 @@ import Paper from "@mui/material/Paper";
 import Quantity from "./Quantity";
 import { useState } from "react";
 import { Collapse } from "react-bootstrap";
-
-function createData(image, productName, model, quantity, unitPrice, total) {
-  return { image, productName, model, quantity, unitPrice, total };
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import axios from "../../Hooks/axios";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import useAuth from "../../Hooks/useAuth";
+function createData(image, productName, quantity, unitPrice, total) {
+  return { image, productName, quantity, unitPrice, total };
 }
 
 
-//comment
-// const rows = [
-// createData(
-//   <img src="a1.jpg" alt="productImg" />,
-//   <div>
-//     <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>
-//   </div>,
-//   <p>model num</p>,
-//   <div className="table-quantity">
-//     <Quantity />
-//     <button className="butt">
-//       <AiOutlineSync />
-//     </button>
-//     <button className="butt">
-//       <AiOutlineClose />
-//     </button>
-//   </div>,
-//   <p>unit price</p>,
-//   <p>total</p>
-// ),
-//   createData(
-//     <img src="a1.jpg" alt="productImg" />,
-//     <div>
-//       <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>{" "}
-//     </div>,
-//     <p>model num</p>,
-//     <div className="table-quantity">
-//       <Quantity />
-//       <button className="butt">
-//         <AiOutlineSync />
-//       </button>
-//       <button className="butt">
-//         <AiOutlineClose />
-//       </button>
-//     </div>,
-//     <p>unit price</p>,
-//     <p>total</p>
-//   ),
-// ];
-
 export default function Cart() {
   const [open, setOpen] = useState(false);
+  const { auth } = useAuth()
 
 
 
@@ -80,47 +45,94 @@ export default function Cart() {
   }
 
 
-  //get items to cart rows
+  //get items in cart slice
+
   const cartItems = useSelector(state => state.cart)
+
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    //get products by id from backend
+    Promise.all(cartItems.map(item =>
+      axios.get(`/api/products/find/${item.productId}`).then(res => setProducts(prev => [...prev, res.data])).catch(err => console.log(err))
+    ))
+  }, [])
+
+  console.log(products);
   console.log(cartItems);
-  const [rows, setRows] = useState([])
+
   useEffect(() => {
 
-    const rows = cartItems.map((item) => {
-      console.log(item.id);
-      axios.get(`api/products/find/${item.productId}`)
-        .then(res => {
-          console.log(res.data);
-          setRows(rows => rows.push(createData(
-            <img src="a1.jpg" alt="productImg" />,
-            <div>
-              <a href="/">product name</a> <p> discripe 1</p> <p>discripe 2</p>
-            </div>,
-            <p>model num</p>,
-            <div className="table-quantity">
-              <Quantity />
-              <button className="butt">
-                <AiOutlineSync />
-              </button>
-              <button className="butt">
-                <AiOutlineClose />
-              </button>
-            </div>,
-            <p>unit price</p>,
-            <p>total</p>
-          )))
-        })
-        .catch(err => console.log(err))
+    localStorage.setItem("cart", JSON.stringify(cartItems))
+    
+    if (auth?.username) {
 
-    })
-  }, [])
+      axios.put(`/api/carts/${auth?.id}`, {
+        userId: auth?.id,
+        products: []   
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "token": `Bearer ${auth?.token}`
+          },
+          withCredentials: true,
+        }).then(res => console.log(res.data))
+        .catch(err => console.log(err))
+    }   
+
+    /** get user cart for admin */
+    //   axios.get(`/api/carts/find/${auth?.id}`,
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         "token": `Bearer ${auth?.token}`
+    //       },
+    //       withCredentials: true,
+    //     }).then(res => console.log(res.data))
+    //     .catch(err => console.log(err))
+    // }
+
+  }, [cartItems])
+
+
+  let totalPrice = 0
+  const rows = products && products.map((product) => {
+    let qty = cartItems.filter((item) => item.productId === product._id)[0]
+    let price = qty?.quantity * product?.price
+    totalPrice += price
+    return createData(
+      <img src={product?.image[0]} alt="product?Img" />,
+      <div>
+        <p>{product?.title}</p> <p>{product?.categories[0]}</p>
+      </div>,
+      <div className="table-quantity">
+        <Quantity quantity={qty.quantity} id={qty.productId} />
+        <button className="butt">
+          <AiOutlineSync />
+        </button>
+        <button className="butt">
+          <AiOutlineClose />
+        </button>
+      </div>,
+      <p>{product?.price}</p>,
+      <p>{product?.price * qty.quantity}</p>,
+
+    )
+  })
+  // let arrayOfTotal = products && products.map((product) => {
+  //   let qty = cartItems.filter((item) => item.productId === product._id)[0]
+  //   return qty.quantity * product.price
+  // })
+  // const total = arrayOfTotal.reduce((acc, ele) => acc + ele, 0)
+  console.log(rows);
 
   return (
     <div className="cart-container">
       <div className="cart-nav">
-        <a href="/">
+        <Link to="/">
           <AiOutlineHome />
-        </a>
+        </Link>
         <p>
           <span> &#47; </span> shopping cart
         </p>
@@ -136,12 +148,12 @@ export default function Cart() {
                 <TableRow>
                   <TableCell align="center">IMAGE</TableCell>
                   <TableCell align="center">PRODUCT NAME</TableCell>
-                  <TableCell align="center">MODEL</TableCell>
                   <TableCell align="center">QUANTITY</TableCell>
                   <TableCell align="center">UNIT PRICE</TableCell>
                   <TableCell align="center">TOTAL</TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
                 {rows.map((row) => (
                   <TableRow
@@ -149,10 +161,9 @@ export default function Cart() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="center" component="th" scope="row">
-                      {row.image}
+                      {row?.image}
                     </TableCell>
                     <TableCell align="center">{row.productName}</TableCell>
-                    <TableCell align="center">{row.model}</TableCell>
                     <TableCell align="center">{row.quantity}</TableCell>
                     <TableCell align="center">{row.unitPrice}</TableCell>
                     <TableCell align="center">{row.total}</TableCell>
@@ -192,13 +203,13 @@ export default function Cart() {
             </Collapse>
           </div>
           <div className="sub-total">
-            Sub-Total : <span className="sub-total-num">$ 1,50.00</span>
+            Sub-Total : <span className="sub-total-num">{`$ ${totalPrice}`}</span>
           </div>
           <div className="sub-total">
-            Total : <span className="sub-total-num">$ 1,668.00</span>
+            Total : <span className="sub-total-num">{`$ ${totalPrice}`}</span>
           </div>
           <div className="check-continu">
-            <button className="continu">
+            <button className="continu" onClick={continuShopping}>
               <BsArrowLeftShort className="arow" /> CONTINU SHOPPING
             </button>
             <button className="check">

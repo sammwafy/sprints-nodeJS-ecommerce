@@ -362,7 +362,7 @@ const AdminEdit = ({ type }) => {
               </div>
             </div>
             <div className="right">
-              {inputs.map((input) => (
+              {inputs?.map((input) => (
                 <div className="form-input" key={input.id}>
                   <label>{input.label}</label>
                   <input
