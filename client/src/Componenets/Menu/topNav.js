@@ -23,7 +23,7 @@ import { useEffect } from "react";
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
   const { auth } = useAuth();
   const location = useLocation();
-  // const [sum, setSum] = useState(0);
+  const [sum, setSum] = useState(0);
 
   const [showSearch, setShowshowSearch] = useState(false);
 
@@ -33,23 +33,23 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
   //get number of cart items
   const cartItems = useSelector((state) => state.cart);
   const cart = localStorage.getItem("cart");
-  useEffect(() => {
-    let sumNum = cartItems.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
 
-    localStorage.setItem("cartBadge", JSON.stringify(sumNum));
-  }, [cartItems]);
+  console.log(cartItems);
+
+
   useEffect(() => {
     if (cart) {
       let sumNum = cartItems.reduce(
         (acc, product) => acc + product.quantity,
         0
       ); //get cart items + quantity
-
       localStorage.setItem("cartBadge", JSON.stringify(sumNum));
+      setSum(sumNum);
+     
     }
-  }, []);
+  }, [cartItems]);
 
-  const sum = JSON.parse(localStorage.getItem("cartBadge"));
+
 
   console.log(sum);
   return (
