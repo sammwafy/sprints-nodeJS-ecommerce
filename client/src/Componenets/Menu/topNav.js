@@ -2,12 +2,12 @@
 
 import { TopNavWrapper } from "./styles/topNav.style";
 import {
-	FaBars,
-	FaSignInAlt,
-	FaSignOutAlt,
-	FaRegHeart,
-	FaSearch,
-	FaShoppingBag,
+  FaBars,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaRegHeart,
+  FaSearch,
+  FaShoppingBag,
 } from "react-icons/fa";
 import TopBar from "./TopBar";
 import styled from "styled-components";
@@ -19,94 +19,96 @@ import SearchModal from "../Search/SearchModal.js";
 import { useSelector } from "react-redux";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
-	const { auth } = useAuth();
-	const location = useLocation();
+  const { auth } = useAuth();
+  const location = useLocation();
 
-	const [showSearch, setShowshowSearch] = useState(false);
+  const [showSearch, setShowshowSearch] = useState(false);
 
-	const handleClose = () => setShowshowSearch(false);
-	const handleShow = () => setShowshowSearch(true);
+  const handleClose = () => setShowshowSearch(false);
+  const handleShow = () => setShowshowSearch(true);
 
-	//get number of cart items
-	const cartItems = useSelector((state) => state.cart);
-	let sum = cartItems.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
+  //get number of cart items
+  const cartItems = useSelector((state) => state.cart);
+  let sum = cartItems.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
 
-	return (
-		<TopWrapper>
-			<SearchModal show={showSearch} close={handleClose} />
-			<TopBar />
-			<TopNavWrapper>
-				<div className='leftTopNav'>
-					<ul>
-						<li
-							onClick={() => MenuOpenHadler(!isMenuOpen)}
-							style={{ cursor: "pointer" }}
-						>
-							<FaBars />
-						</li>
-						<Link to='/shop'>
-							<li>SHOP</li>
-						</Link>
+  return (
+    <TopWrapper>
+      <SearchModal show={showSearch} close={handleClose} />
+      <TopBar />
+      <TopNavWrapper>
+        <div className="leftTopNav">
+          <ul>
+            <li
+              onClick={() => MenuOpenHadler(!isMenuOpen)}
+              style={{ cursor: "pointer" }}
+            >
+              <FaBars />
+            </li>
+            <Link to="/shop">
+              <li>SHOP</li>
+            </Link>
 
-						{auth?.username ? (
-							<li className='logout'>
-								<a href='/logout'>
-									<FaSignOutAlt /> Logout
-								</a>
-							</li>
-						) : (
-							<li className='signIn'>
-								<Link to='/login' state={{ from: location }} replace>
-									<FaSignInAlt /> SIGN IN
-								</Link>
-							</li>
-						)}
-					</ul>
-				</div>
-				<div className='middleTopNav'>
-					<a href='/'>
-						<img src={logo} alt='logo' />
-					</a>
-				</div>
-				<div className='rightTopNav'>
-					<ul>
-						{auth?.username && (
-							<li className='helloMSG'>
-								hi <span>{auth?.username}</span>
-							</li>
-						)}
+            {auth?.username ? (
+              <li className="logout">
+                <a href="/logout">
+                  <FaSignOutAlt /> Logout
+                </a>
+              </li>
+            ) : (
+              <li className="signIn">
+                <Link to="/login" state={{ from: location }} replace>
+                  <FaSignInAlt /> SIGN IN
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
+        <div className="middleTopNav">
+          <a href="/">
+            <img src={logo} alt="logo" />
+          </a>
+        </div>
+        <div className="rightTopNav">
+          <ul>
+            {auth?.username && (
+              <li className="helloMSG">
+                hi <span>{auth?.username}</span>
+              </li>
+            )}
 
-						<li onClick={handleShow} style={{ cursor: "pointer" }}>
-							<FaSearch />
-						</li>
+            <li onClick={handleShow} style={{ cursor: "pointer" }}>
+              <FaSearch className="search" />
+            </li>
 
-						<Link to='/cart' state={{ from: location }} replace>
-							<li className='badgeContainer'>
-								{sum > 0 && <span className='badge'>{sum}</span>}
-								<FaShoppingBag style={{ color: "black" }} />
-							</li>
-						</Link>
+            <Link to="/cart" state={{ from: location }} replace>
+              <li className="badgeContainer">
+                {sum > 0 && <span className="badge">{sum}</span>}
+                <FaShoppingBag
+                  style={{ color: "black", marginBottom: "-10px" }}
+                />
+              </li>
+            </Link>
 
-						<li className='signInIconOnly'>
-							<FaSignInAlt />
-						</li>
-					</ul>
-				</div>
-			</TopNavWrapper>
-		</TopWrapper>
-	);
+            <li className="signInIconOnly">
+              <FaSignInAlt />
+            </li>
+          </ul>
+        </div>
+      </TopNavWrapper>
+    </TopWrapper>
+  );
 };
 
 export default TopNav;
 
 const TopWrapper = styled.div`
-	height: 10vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  height: 12vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-	/** small laptops up to 13 inch */
-	@media screen and (min-width: 1024px) and (max-width: 1336px) {
-		height: 12vh;
-	}
+  /** small laptops up to 13 inch */
+  @media screen and (min-width: 1024px) and (max-width: 1336px) {
+    height: 12vh;
+  }
 `;
