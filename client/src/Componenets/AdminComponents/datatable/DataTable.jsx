@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import axios from "axios";
+import axios from "../../../Hooks/axios.js";
 import { productActions } from "../../../store/productsSlice";
 import { useCookies } from "react-cookie";
 import { usersActions } from "../../../store/usersSlice";
