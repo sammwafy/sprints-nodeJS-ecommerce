@@ -1,6 +1,6 @@
 {
 	"name": "client",
-	"proxy": "http://localhost:5009",
+  "proxy": "https://sprints-ecommerce-server.herokuapp.com",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
