@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Link, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import axios from "axios"
+import axios from "../../../Hooks/axios"
 import { productActions } from "../../../store/productsSlice"
 import { useCookies } from "react-cookie";
 import { usersActions } from "../../../store/usersSlice";
@@ -15,6 +15,7 @@ const DataTable = ({ columns, type }) => {
     const products = useSelector(state => state.products)
     const users = useSelector(state => state.users.users)
     const [orders, setOrders] = useState([])
+    console.log(users);
     //delete action
     const handleClick = (id) => {
         const confirm = window.confirm("Are you sure you want to delete this");
@@ -67,10 +68,9 @@ const DataTable = ({ columns, type }) => {
         switch (type) {
             case "products":
                 axios
-                    .get(`/api/products`)
+                    .get(`/api/products/`)
                     .then(function (response) {
                         // handle success
-
                         dispatch(productActions.getProducts(response.data));
                     })
                     .catch(function (error) {
@@ -80,7 +80,7 @@ const DataTable = ({ columns, type }) => {
                 break;
             case "users":
                 axios
-                    .get(`/api/users`, {
+                    .get(`/api/users/`, {
                         headers: {
                             token: "Bearer " + cookies.token,
 
@@ -104,7 +104,7 @@ const DataTable = ({ columns, type }) => {
 
             case "orders":
                 axios
-                    .get(`/api/orders`, {
+                    .get(`/api/orders/`, {
                         headers: {
                             token: "Bearer " + cookies.token,
 
@@ -144,7 +144,7 @@ const DataTable = ({ columns, type }) => {
             })
             break;
         //fill product table
-        case "products": rows = products.map(product => {
+        case "products": rows = (products.length > 0) && products.map(product => {
             return { id: product._id, avatar: product.image[product?.featuredImg ? product?.featuredImg : 0], title: product.title, stock: product.quantity, price: product.price }
         })
             break;
