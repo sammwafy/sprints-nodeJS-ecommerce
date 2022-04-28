@@ -293,6 +293,7 @@ client
  ┗ 📜ProtectedRoute.js
 ```
 
+```
 server
 |-- package.json
 📦Server
@@ -313,6 +314,6 @@ server
  ┣ 📜stripe.js
  ┣ 📜user.js
  ┗ 📜verifyToken.js
- 
+ ```
 ## license
 This Project is based on MIT License
