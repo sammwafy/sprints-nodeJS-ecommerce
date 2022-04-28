@@ -1,5 +1,3 @@
-/** @format */
-
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -7,7 +5,7 @@ const bodyParser = require('body-parser')
 
 // app.use(bodyParser.urlencoded({ extended:true  }));
 const corsOptions = {
-  origin: "https://tiny-gaufre-f204ae.netlify.app/",
+  origin: "http://localhost:3000",
   credentials: true, //allow-credentials
   optionSuccessStatus: 200,
 };
