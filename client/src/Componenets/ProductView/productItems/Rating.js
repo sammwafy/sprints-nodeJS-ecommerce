@@ -4,6 +4,7 @@ import "react-rater/lib/react-rater.css";
 import React, { useEffect, useState } from "react";
 import axios from "../../../Hooks/axios.js";
 
+
 const Rating = ({ id }) => {
 	const [review, setReview] = useState(0);
 
