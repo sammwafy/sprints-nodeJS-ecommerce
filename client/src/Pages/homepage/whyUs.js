@@ -17,29 +17,35 @@ const WhyUs = () => {
             <Image src={why1} />
           </Col>
           <Col>
-            &#123; Affordable furniture with the best material quality &#125;
+            <p>Affordable furniture with the best material quality</p>
           </Col>
         </Row>
-        <hr />
+
         <Row className="whyRow flex-row-reverse">
           <Col className="whyIMG">
             <Image src={why2} />
           </Col>
-          <Col>&#123; Superior logistics system we deliver anywhere &#125;</Col>
+          <Col>
+            <p> Superior logistics system we deliver anywhere </p>
+          </Col>
         </Row>
-        <hr />
+
         <Row className="whyRow">
           <Col className="whyIMG">
             <Image src={why3} />
           </Col>
-          <Col>&#123; Dream home inspiration, it's a big studio &#125;</Col>
+          <Col>
+            <p>Dream home inspiration, it's a big studio</p>
+          </Col>
         </Row>
-        <hr />
+
         <Row className="whyRow flex-row-reverse">
           <Col className="whyIMG">
             <Image src={why4} />
           </Col>
-          <Col>&#123; Top furniture designers work with us &#125;</Col>
+          <Col>
+            <p> Top furniture designers work with us </p>
+          </Col>
         </Row>
       </Container>
     </WhyUsWrapper>
@@ -55,11 +61,11 @@ const WhyUsWrapper = styled.div`
   }
   .container {
     padding: 20px;
-    border: 1px solid #d5d5d5;
+    // border: 1px solid #d5d5d5;
     border-radius: 12px;
     text-align: center;
     margin: 45px auto;
-    
+
     h1 {
       position: relative;
       padding: 0;
@@ -108,10 +114,11 @@ const WhyUsWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 30px;
       font-size: 1.4rem;
       font-weight: 600;
       white-space: nowrap;
-      @media screen and (max-width:1024px){
+      @media screen and (max-width: 1024px) {
         font-size: 1.2rem;
         white-space: unset;
       }
@@ -119,12 +126,11 @@ const WhyUsWrapper = styled.div`
   }
   .whyIMG {
     img {
-      width: 320px;
+      width: 520px;
     }
   }
 
   @media screen and (max-width: 776px) {
-
     .flex-row-reverse {
       flex-direction: row !important;
     }

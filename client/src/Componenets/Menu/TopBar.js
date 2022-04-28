@@ -12,11 +12,22 @@ const TopBar = () => {
   return (
     <TopBarWrapper>
       <ul>
-        <li><FaFacebookSquare/></li>
-        <li><FaTwitterSquare/></li>
-        <li><FaInstagramSquare/></li>
-        <li><FaPinterestSquare/></li>
-        <li><FaRegEnvelope/></li>
+        <li>
+          <FaFacebookSquare />
+        </li>
+        <li>
+          <FaTwitterSquare />
+        </li>
+        <li>
+          <FaInstagramSquare />
+        </li>
+        <li>
+          <FaPinterestSquare />
+        </li>
+        <li>
+          <FaRegEnvelope />
+        </li>
+        <li className="contact"> CONTACT US</li>
       </ul>
     </TopBarWrapper>
   );
