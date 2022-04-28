@@ -3,7 +3,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://sprints-nodejs-server.vercel.app",
+  baseURL: "https://sprints-nodejs-server.vercel.app/",
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "http://localhost:3000",
