@@ -35,7 +35,7 @@ const Review = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [errorMsg, setErrorMsg] = useState("");
   const [prevReview, setPrevReview] = useState("");
-  const [hasReviewed, setHasReviewed] = useState(true);
+  const [hasReviewed, setHasReviewed] = useState(false);
   const [newReview, setNewReview] = useState(false);
   const [reviews, setReviews] = useState({});
   const { id } = useParams();
@@ -70,7 +70,7 @@ const Review = () => {
           }
         );
         setSuccessMsg(res?.data);
-
+          console.log(res?.data)
         setTimeout(() => {
           setHasReviewed(true);
           setNewReview(false);

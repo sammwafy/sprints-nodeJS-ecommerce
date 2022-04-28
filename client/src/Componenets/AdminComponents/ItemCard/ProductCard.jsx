@@ -11,7 +11,7 @@ const ProductCard = ({ data }) => {
     setReviewsArr(chunk(reviews, 5));
   }, [reviews]);
 
-  console.log('walahi ana t3bt');
+
   return (
     <div className="d-flex justify-content-between flex-wrap ">
       <div className="item-card">

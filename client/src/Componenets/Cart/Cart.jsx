@@ -133,8 +133,6 @@ export default function Cart() {
   //   return qty.quantity * product.price
   // })
   // const total = arrayOfTotal.reduce((acc, ele) => acc + ele, 0)
-  console.log(rows);
-  console.log(cartItems);
 
   return (
     <div className="cart-container">

@@ -64,7 +64,6 @@ const Home = () => {
         token: "Bearer " + cookies.token
       }
     }).then(response => {
-      console.log("users status numbers", response.data);
       setUsers(response.data)
 
     }).catch(err => console.log(err))
@@ -74,9 +73,7 @@ const Home = () => {
         token: "Bearer " + cookies.token
       }
     }).then(response => {
-      console.log("orders status numbers", response.data);
       setOrders(response.data)
-      console.log(response.data);
     }).catch(err => console.log(err))
 
   }, [])

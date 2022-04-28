@@ -7,7 +7,6 @@ import styled from "styled-components";
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
-  console.log(products)
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1366 },

@@ -31,7 +31,6 @@ const SearchPagination = ({
   }, [totalPages, currentPage, onPageChange]);
 
   if (totalPages === 0) return null;
-console.log(totalPages)
   return (
     <Pagination style={{margin: '15px 0'}}>
       <Pagination.Prev

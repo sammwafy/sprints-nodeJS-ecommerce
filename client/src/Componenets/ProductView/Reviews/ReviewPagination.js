@@ -8,7 +8,6 @@ const ReviewPagination = ({
   onPageChange,
 }) => {
   const [totalPages, setTotalPages] = useState(0);
-console.log(totalItems)
   useEffect(() => {
     if (totalItems > 0 && itemsPerPage > 0)
       setTotalPages(Math.ceil(totalItems / itemsPerPage));
@@ -31,8 +30,6 @@ console.log(totalItems)
   }, [totalPages, currentPage, onPageChange]);
 
   if (totalPages === 0) return null;
-  console.log(totalItems)
-  console.log(totalPages)
   return (
     <Pagination>
       <Pagination.Prev

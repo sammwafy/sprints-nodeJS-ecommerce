@@ -17,7 +17,6 @@ const New = ({ title, type }) => {
   const maxNumber = 6;
   const onImgsChange = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList);
     setImages(imageList);
   };
 
@@ -68,7 +67,6 @@ const New = ({ title, type }) => {
               withCredentials: true,
             }
           );
-          console.log(res);
         } catch (err) {
           console.log(err);
         }
@@ -94,7 +92,6 @@ const New = ({ title, type }) => {
               withCredentials: true,
             }
           );
-          console.log(res);
         } catch (err) {
           console.log(err);
         }
@@ -119,7 +116,6 @@ const New = ({ title, type }) => {
               withCredentials: true,
             }
           );
-          console.log(res);
         } catch (err) {
           console.log(err);
         }

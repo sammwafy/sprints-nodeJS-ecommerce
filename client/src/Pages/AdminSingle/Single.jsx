@@ -28,15 +28,12 @@ const Single = ({ type }) => {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data);
         setData(response.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(data);
-  console.log(data);
-  console.log(type);
+
   return (
     data && (
       <>

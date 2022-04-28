@@ -34,7 +34,6 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
   const cartItems = useSelector((state) => state.cart);
   const cart = localStorage.getItem("cart");
 
-  console.log(cartItems);
 
   useEffect(() => {
     if (cart) {
@@ -47,7 +46,6 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
     }
   }, [cartItems]);
 
-  console.log(sum);
   return (
     <TopWrapper>
       <SearchModal show={showSearch} close={handleClose} />

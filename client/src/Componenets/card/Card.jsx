@@ -15,7 +15,6 @@ export default function Card({ title, price, id }) {
   const cartItems = useSelector((state) => state.cart);
 
   const addToCart = () => {
-    console.log(cartItems)
 
     const cartItemsClone = [...cartItems];
     const inThecart = cartItemsClone.filter((item) => item.productId === id);

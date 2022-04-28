@@ -5,7 +5,7 @@ const ProtectedRoute = () => {
   const location = useLocation();
 
   const { auth } = useAuth();
-  console.log(auth)
+
   return auth?.username ? (
     <Outlet />
   ) : (

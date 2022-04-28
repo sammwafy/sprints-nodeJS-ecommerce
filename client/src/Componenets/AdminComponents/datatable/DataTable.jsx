@@ -93,7 +93,7 @@ const DataTable = ({ columns, type }) => {
                     )
                     .then(function (response) {
                         // handle success
-                        console.log(response.data);
+                  
                         dispatch(usersActions.getUsers(response.data));
                     })
                     .catch(function (error) {
@@ -115,7 +115,7 @@ const DataTable = ({ columns, type }) => {
                     )
                     .then(function (response) {
                         // handle success
-                        console.log(response.data);
+               
                         setOrders(response.data)
                     })
                     .catch(function (error) {
