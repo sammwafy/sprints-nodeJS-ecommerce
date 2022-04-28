@@ -4,9 +4,9 @@ Sprints is an ecommerce app build using MERN STACK
 using React 18 🖤 for the frontend, NodeJS/expressJS for 
 the backend and mongo/mongose for the database
 
-demo :- https://tiny-gaufre-f204ae.netlify.app/
+demo :- https://sprints-node-js-ecommerce.vercel.app
 
-admin Dashboard :- https://tiny-gaufre-f204ae.netlify.app/admin
+admin Dashboard :- https://sprints-node-js-ecommerce.vercel.app/admin
 
 admin login details
 
