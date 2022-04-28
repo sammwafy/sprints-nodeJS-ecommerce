@@ -21,7 +21,7 @@ const Rating = ({ id }) => {
 			};
 			getReview();
 		}
-	}, [id]);
+	}, []);
 	console.log(review);
 	return <Rater total={5} rating={review || 1} interactive={false} />;
 };
