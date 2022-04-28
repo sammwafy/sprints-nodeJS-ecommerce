@@ -6,7 +6,7 @@ import {
   FaBars,
   FaSignInAlt,
   FaSignOutAlt,
-  FaRegHeart,
+  FaStore,
   FaSearch,
   FaShoppingBag,
 } from "react-icons/fa";
@@ -59,7 +59,8 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
             >
               <FaBars />
             </li>
-            <Link to="/shop">
+            <Link to="/shop" style={{display: 'flex'}}>
+              <FaStore className="shopIcon"/>
               <li>SHOP</li>
             </Link>
 

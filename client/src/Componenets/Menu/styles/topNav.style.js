@@ -7,7 +7,7 @@ export const TopNavWrapper = styled.div`
   justify-content: space-between;
   height: 50px;
   padding: 15px 20px;
-
+  .shopIcon{display: none;}
   .leftTopNav ul {
     display: flex;
     padding: 0;
@@ -65,6 +65,9 @@ export const TopNavWrapper = styled.div`
     display: flex;
     padding: 0;
     align-items: center;
+    @media screen and (max-width: 482px){
+      margin-top: 7px; 
+    }
   }
   .rightTopNav ul li {
     list-style-type: none;
@@ -120,11 +123,11 @@ export const TopNavWrapper = styled.div`
 
   /** mobile */
   @media screen and (max-width: 482px) {
-    .signIn {
-      display: none;
-    }
-    .signInIconOnly {
-      display: block;
-    }
+.shopIcon{
+  display: block;
+  font-size: .8rem;
+  margin-right: 8px;
+    align-self: center;
+}
   }
 `;
