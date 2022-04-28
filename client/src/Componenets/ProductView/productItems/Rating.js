@@ -13,7 +13,7 @@ const Rating = ({ id }) => {
 			const getReview = async () => {
 				try {
 					const res = await axios.post(`/api/products/average/${id}`);
-	console.log(res?.data);
+
 					setReview(res?.data[0]?.average);
 				} catch (err) {
 					console.log(err);
