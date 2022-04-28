@@ -1,5 +1,8 @@
 # sprints nodeJS ecommerce
-This is an ecommerce app build using MERN STACK
+Sprints is an ecommerce app build using MERN STACK
+
+using React 18 🖤 for the frontend, NodeJS/expressJS for 
+the backend and mongo/mongose for the database
 
 demo :- https://tiny-gaufre-f204ae.netlify.app/
 admin Dashboard :- https://tiny-gaufre-f204ae.netlify.app/admin
@@ -10,14 +13,25 @@ admin: admin@gmail.com
 pass: 123456
 **/
 
-using React 18 for the frontend, NodeJS/expressJS for the backend and mongo/mongose for the database
+What guest can do ?
+- guest can navigate website
+- guest can see shop page
+- guest can add products to cart
+- guest can view cart
+- guest can register a new account
 
-- user can login / register
+What user can do ?
+- user can login
 - user can add items to cart
 - user can view the cart / update items / discard items / change items quanitity
-- admin dashboard
+- user can checkout
+- user can track product status and track delivery
+
+What admin can do ?
+- admin can access admin dashboard
 - admin can add new products / edit products / edits or delete users 
 - admin can change orders status / edit or delete orders
+- admin can add coupons / edite or delete
 
 
 ** Auth is provided based on JWT Token authentication **
