@@ -1,6 +1,6 @@
 {
 	"name": "client",
-  	 "proxy": "https://sprints-nodejs-server.vercel.app",
+  	 "proxy": "https://sprints-nodejs-server.vercel.app/",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
