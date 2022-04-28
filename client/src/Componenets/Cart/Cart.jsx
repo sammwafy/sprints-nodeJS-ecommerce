@@ -74,7 +74,7 @@ export default function Cart() {
           `/api/carts/${auth?.id}`,
           {
             userId: auth?.id,
-            products: [],
+            products: cartItems,
           },
           {
             headers: {
