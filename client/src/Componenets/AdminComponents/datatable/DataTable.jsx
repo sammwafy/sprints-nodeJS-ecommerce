@@ -119,12 +119,14 @@ const DataTable = ({ columns, type }) => {
   //get data from redux
 
   // fill table rows from database
+  console.log(products)
+  console.log(userse)
   let rows;
   switch (type) {
     //fill user table
     case "users":
       rows =
-        users.length > 0 &&
+        
         users.map((user) => {
           return {
             id: user._id,
