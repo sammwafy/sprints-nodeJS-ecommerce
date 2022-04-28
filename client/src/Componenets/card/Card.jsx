@@ -50,14 +50,15 @@ export default function Card({ title, price, id, img }) {
               style={{ width: "300px", height: "300px" }}
             />
           </div>
-          <div className="flip-card-back">
-            <img
-              src={img[1]}
-              alt="Avatar"
-              style={{ width: "300px", height: "300px" }}
-            />
-
-            <div className="icons">
+          <div className="flip-card-back" style={{zIndex: '-1'}}>
+            <a href={`/shop/${id}`} style={{zIndex: '-1'}}>
+              <img
+                src={img[1]}
+                alt="Avatar"
+                style={{ width: "300px", height: "300px" }}
+              />
+            </a>
+            <div className="icons" style={{zIndex: '999999'}}>
               <button className="add" onClick={addToCart}>
                 {" "}
                 ADD TO CART{" "}
