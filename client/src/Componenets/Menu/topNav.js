@@ -36,7 +36,6 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 
   console.log(cartItems);
 
-
   useEffect(() => {
     if (cart) {
       let sumNum = cartItems.reduce(
@@ -45,11 +44,8 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
       ); //get cart items + quantity
       localStorage.setItem("cartBadge", JSON.stringify(sumNum));
       setSum(sumNum);
-     
     }
   }, [cartItems]);
-
-
 
   console.log(sum);
   return (
