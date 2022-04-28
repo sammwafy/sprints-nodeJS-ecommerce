@@ -7,15 +7,16 @@ import styled from "styled-components";
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
+  console.log(products)
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1366 },
-      items: 4,
+      items: 3,
       paritialVisibilityGutter: 15,
     },
     laptop: {
       breakpoint: { max: 1366, min: 1024 },
-      items: 4,
+      items: 3,
       paritialVisibilityGutter: 20,
     },
     tablet: {
@@ -34,10 +35,11 @@ const FeaturedProducts = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.post(
-          `/api/products/search/?search=1&page=1&limit=5`
+        const res = await axios.get(
+          `/api/products/?new=true`
         );
-        setProducts(res.data.products);
+
+        setProducts(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -50,12 +52,12 @@ const FeaturedProducts = () => {
     <>
       <CardsCarouselWrapper>
         <Carousel
-          containerClass={`w-100`}
+
           partialVisbile
           itemClass="card-item"
           responsive={responsive}
         >
-          {products.length > 0 &&
+          {products?.length > 0 &&
             products.map((product) => (
               <ItemCard
                 img="https://images.unsplash.com/photo-1567016432779-094069958ea5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"

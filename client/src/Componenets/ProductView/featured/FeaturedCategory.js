@@ -62,7 +62,7 @@ const FeaturedCategory = () => {
 			</Card>
 			<CardsCarouselWrapper>
 				<Carousel
-					containerClass={`w-100`}
+					className="caRousela"
 					partialVisbile
 					itemClass='card-item'
 					responsive={responsive}
@@ -84,7 +84,11 @@ const FeaturedCategory = () => {
 };
 
 const CardsCarouselWrapper = styled.div`
-	width: 100%;
+    width:65%;
+  .caRousela{
+
+    ul{width:100%;}
+  }
 	ul.react-multi-carousel-track {
 		width: 100%;
 		li .card-item {

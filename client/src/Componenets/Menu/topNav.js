@@ -104,9 +104,7 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
               </li>
             </Link>
 
-            <li className="signInIconOnly">
-              <FaSignInAlt />
-            </li>
+
           </ul>
         </div>
       </TopNavWrapper>
