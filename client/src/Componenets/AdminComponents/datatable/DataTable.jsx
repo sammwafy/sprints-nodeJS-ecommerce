@@ -120,7 +120,7 @@ const DataTable = ({ columns, type }) => {
 
   // fill table rows from database
   console.log(products)
-  console.log(userse)
+  console.log(users)
   let rows;
   switch (type) {
     //fill user table
