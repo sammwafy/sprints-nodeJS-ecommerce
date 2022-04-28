@@ -70,7 +70,7 @@ const Review = () => {
           }
         );
         setSuccessMsg(res?.data);
-          console.log(res?.data)
+          
         setTimeout(() => {
           setHasReviewed(true);
           setNewReview(false);
@@ -119,7 +119,7 @@ const Review = () => {
     reviewsArr = reviews;
     reviewsArr = chunk(reviewsArr, 5);
   }
-console.log(prevReview)
+
   return (
     <Row>
       <Col className="reviews">
