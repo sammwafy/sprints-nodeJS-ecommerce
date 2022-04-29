@@ -61,209 +61,209 @@ const DataTable = ({ columns, type }) => {
       return
     }
   }
-};
 
-useEffect(() => {
+
+  useEffect(() => {
+    switch (type) {
+      case "products":
+        axios
+          .get(`/api/products`)
+          .then(function (response) {
+            // handle success
+
+            dispatch(productActions.getProducts(response.data));
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          });
+        break;
+      case "users":
+        axios
+          .get(`/api/users`, {
+            headers: {
+              token: "Bearer " + cookies.token,
+
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          })
+          .then(function (response) {
+            // handle success
+
+            dispatch(usersActions.getUsers(response.data));
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          });
+        break;
+
+      case "orders":
+        axios
+          .get(`/api/orders`, {
+            headers: {
+              token: "Bearer " + cookies.token,
+
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          })
+          .then(function (response) {
+            // handle success
+
+            setOrders(response.data);
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          });
+        break;
+      default:
+        return;
+    }
+    // call useEffect every change in type
+  }, [type]);
+
+  //get data from redux
+
+  // fill table rows from database
+  console.log(products)
+  console.log(users)
+  let rows;
   switch (type) {
-    case "products":
-      axios
-        .get(`/api/products`)
-        .then(function (response) {
-          // handle success
-
-          dispatch(productActions.getProducts(response.data));
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        });
-      break;
+    //fill user table
     case "users":
-      axios
-        .get(`/api/users`, {
-          headers: {
-            token: "Bearer " + cookies.token,
+      rows =
 
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        })
-        .then(function (response) {
-          // handle success
-
-          dispatch(usersActions.getUsers(response.data));
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
+        users.map((user) => {
+          return {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            status: user.status,
+          };
         });
       break;
-
-    case "orders":
-      axios
-        .get(`/api/orders`, {
-          headers: {
-            token: "Bearer " + cookies.token,
-
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        })
-        .then(function (response) {
-          // handle success
-
-          setOrders(response.data);
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
+    //fill product table
+    case "products":
+      rows =
+        products.length > 0 &&
+        products.map((product) => {
+          return {
+            id: product._id,
+            avatar:
+              product.image[product?.featuredImg ? product?.featuredImg : 0],
+            title: product.title,
+            stock: product.quantity,
+            price: product.price,
+          };
         });
       break;
-    default:
-      return;
-  }
-  // call useEffect every change in type
-}, [type]);
-
-//get data from redux
-
-// fill table rows from database
-console.log(products)
-console.log(users)
-let rows;
-switch (type) {
-  //fill user table
-  case "users":
-    rows =
-
-      users.map((user) => {
-        return {
-          id: user._id,
-          username: user.username,
-          email: user.email,
-          status: user.status,
-        };
-      });
-    break;
-  //fill product table
-  case "products":
-    rows =
-      products.length > 0 &&
-      products.map((product) => {
-        return {
-          id: product._id,
+    //fill categories table
+    case "categories":
+      rows = [
+        {
+          id: "2",
           avatar:
-            product.image[product?.featuredImg ? product?.featuredImg : 0],
-          title: product.title,
-          stock: product.quantity,
-          price: product.price,
-        };
-      });
-    break;
-  //fill categories table
-  case "categories":
-    rows = [
-      {
-        id: "2",
-        avatar:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-        title: "Cersei@gmail.com",
-      },
-    ];
-    break;
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
+          title: "Cersei@gmail.com",
+        },
+      ];
+      break;
 
-  //fill brand table
-  case "brands":
-    rows = [
-      {
-        id: "2",
-        avatar:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
-        title: "Cersei@gmail.com",
-      },
-    ];
-    break;
+    //fill brand table
+    case "brands":
+      rows = [
+        {
+          id: "2",
+          avatar:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUGCx0Ph3KqbQvFqbXv22NAOKmt--e33mmQ&usqp=CAU",
+          title: "Cersei@gmail.com",
+        },
+      ];
+      break;
 
-  //fill order table
-  case "orders":
-    rows = orders.map((order) => ({
-      id: order._id,
-      custumer: order.userId,
-      date: order.createdAt,
-      total: order.amount,
-      payment: "cash dummy",
-      status: order.status,
-    }));
+    //fill order table
+    case "orders":
+      rows = orders.map((order) => ({
+        id: order._id,
+        custumer: order.userId,
+        date: order.createdAt,
+        total: order.amount,
+        payment: "cash dummy",
+        status: order.status,
+      }));
 
-    break;
+      break;
 
-  case "coupons":
-    rows = orders.map((order) => ({
-      id: order._id,
-      custumer: order.userId,
-      date: order.createdAt,
-      total: order.amount,
-      payment: "cash dummy",
-      status: order.status,
-    }));
+    case "coupons":
+      rows = orders.map((order) => ({
+        id: order._id,
+        custumer: order.userId,
+        date: order.createdAt,
+        total: order.amount,
+        payment: "cash dummy",
+        status: order.status,
+      }));
 
-    break;
+      break;
 
-  default: {
+    default: {
+    }
   }
-}
 
-//create buttons for table rows
-const actionColumns = [
-  {
-    field: "actions",
-    headerName: "Actions",
-    width: 250,
-    renderCell: (params) => {
-      return (
-        <div className="actions">
-          <Link to={`/admin/${type}/${params.row.id}`}>
-            <div className="viewButton">View</div>
-          </Link>
+  //create buttons for table rows
+  const actionColumns = [
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 250,
+      renderCell: (params) => {
+        return (
+          <div className="actions">
+            <Link to={`/admin/${type}/${params.row.id}`}>
+              <div className="viewButton">View</div>
+            </Link>
 
-          <Link to={`/admin/${type}/${params.row.id}/edit`}>
-            <div className="editButton">Edit</div>
-          </Link>
+            <Link to={`/admin/${type}/${params.row.id}/edit`}>
+              <div className="editButton">Edit</div>
+            </Link>
 
-          <div
-            className="deleteButton"
-            onClick={() => handleClick(params.row.id)}
-          >
-            Delete
+            <div
+              className="deleteButton"
+              onClick={() => handleClick(params.row.id)}
+            >
+              Delete
+            </div>
           </div>
-        </div>
-      );
+        );
+      },
     },
-  },
-];
+  ];
 
-return (
-  <>
-    {type !== "users" && type !== "orders" && (
-      <Link className="link" to={`/admin/${type}/new`}>
-        <div className="newButton">
-          <span>{`Add new ${type.slice(0, -1)}`}</span>
+  return (
+    <>
+      {type !== "users" && type !== "orders" && (
+        <Link className="link" to={`/admin/${type}/new`}>
+          <div className="newButton">
+            <span>{`Add new ${type.slice(0, -1)}`}</span>
+          </div>
+        </Link>
+      )}
+      <div className="datatable">
+        <div style={{ height: 400, width: "100%", padding: "10px" }}>
+          <DataGrid
+            rows={rows}
+            columns={columns.concat(actionColumns)}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+          />
         </div>
-      </Link>
-    )}
-    <div className="datatable">
-      <div style={{ height: 400, width: "100%", padding: "10px" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns.concat(actionColumns)}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-        />
       </div>
-    </div>
-  </>
-);
-};
+    </>
+  );
+}
 
 export default DataTable;
