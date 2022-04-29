@@ -21,6 +21,7 @@ import axios from "../../Hooks/axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import useAuth from "../../Hooks/useAuth";
+
 function createData(image, productName, quantity, unitPrice, total) {
   return { image, productName, quantity, unitPrice, total };
 }
@@ -60,12 +61,11 @@ export default function Cart() {
       );
   }, []);
 
-
   useEffect(() => {
     let newArr = [];
     newArr = JSON.parse(localStorage.getItem("cart")) || [];
     newArr.products = cartItems;
- 
+
     localStorage.setItem("cart", JSON.stringify(newArr));
 
     if (auth?.username && cartItems.length > 0) {
