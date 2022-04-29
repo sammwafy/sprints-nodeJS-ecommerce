@@ -12,15 +12,18 @@ import { useCookies } from "react-cookie";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [cookies, setCookie] = useCookies([]);
+	const [cookies, setCookie] = useCookies([]);
 
-  const [auth, setAuth] = useState(cookies);
+	const [auth, setAuth] = useState(cookies);
+	const [cartProducts, setCartProducts] = useState([]);
 
-  return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
-      {children}
-    </AuthContext.Provider>
-  );
+	return (
+		<AuthContext.Provider
+			value={{ auth, setAuth, cartProducts, setCartProducts }}
+		>
+			{children}
+		</AuthContext.Provider>
+	);
 };
 
 export default AuthContext;
