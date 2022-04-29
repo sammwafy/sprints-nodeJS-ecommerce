@@ -9,7 +9,7 @@ const UserCard = ({ data }) => {
   const handleOpen = () => {
     setOpen(!open);
   };
-  console.log(username, email, status);
+
   return Object.keys(data).length > 0 ? (
     <div className="item-card">
       <span className="edit">Edit</span>

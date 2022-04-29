@@ -3,12 +3,21 @@
 import { TopNavWrapper } from "./styles/topNav.style";
 import axios from "../../Hooks/axios";
 import {
+<<<<<<< HEAD
 	FaBars,
 	FaSignInAlt,
 	FaSignOutAlt,
 	FaRegHeart,
 	FaSearch,
 	FaShoppingBag,
+=======
+  FaBars,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaStore,
+  FaSearch,
+  FaShoppingBag,
+>>>>>>> b345347689258478df009940fb39606d22ef909a
 } from "react-icons/fa";
 import TopBar from "./TopBar";
 import styled from "styled-components";
@@ -21,93 +30,94 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
-	const { auth } = useAuth();
-	const location = useLocation();
-	const [sum, setSum] = useState(0);
+  const { auth } = useAuth();
+  const location = useLocation();
+  const [sum, setSum] = useState(0);
 
-	const [showSearch, setShowshowSearch] = useState(false);
+  const [showSearch, setShowshowSearch] = useState(false);
 
-	const handleClose = () => setShowshowSearch(false);
-	const handleShow = () => setShowshowSearch(true);
+  const handleClose = () => setShowshowSearch(false);
+  const handleShow = () => setShowshowSearch(true);
 
-	//get number of cart items
-	const cartItems = useSelector((state) => state.cart);
-	const cart = localStorage.getItem("cart");
+  //get number of cart items
+  const cartItems = useSelector((state) => state.cart);
+  const cart = localStorage.getItem("cart");
 
-	console.log(cartItems);
 
-	useEffect(() => {
-		if (cart) {
-			let sumNum = cartItems.reduce(
-				(acc, product) => acc + product.quantity,
-				0
-			); //get cart items + quantity
-			localStorage.setItem("cartBadge", JSON.stringify(sumNum));
-			setSum(sumNum);
-		}
-	}, [cartItems, auth]);
+  useEffect(() => {
+    if (cart) {
+      let sumNum = cartItems.reduce(
+        (acc, product) => acc + product.quantity,
+        0
+      ); //get cart items + quantity
+      localStorage.setItem("cartBadge", JSON.stringify(sumNum));
+      setSum(sumNum);
+    }
+  }, [cartItems]);
 
-	console.log(sum);
-	return (
-		<TopWrapper>
-			<SearchModal show={showSearch} close={handleClose} />
-			<TopBar />
-			<TopNavWrapper>
-				<div className='leftTopNav'>
-					<ul>
-						<li
-							onClick={() => MenuOpenHadler(!isMenuOpen)}
-							style={{ cursor: "pointer" }}
-						>
-							<FaBars />
-						</li>
-						<Link to='/shop'>
-							<li>SHOP</li>
-						</Link>
+  return (
+    <TopWrapper>
+      <SearchModal show={showSearch} close={handleClose} />
+      <TopBar />
+      <TopNavWrapper>
+        <div className="leftTopNav">
+          <ul>
+            <li
+              onClick={() => MenuOpenHadler(!isMenuOpen)}
+              style={{ cursor: "pointer" }}
+            >
+              <FaBars />
+            </li>
+            <Link to="/shop" style={{display: 'flex'}}>
+              <FaStore className="shopIcon"/>
+              <li>SHOP</li>
+            </Link>
 
-						{auth?.username ? (
-							<li className='logout'>
-								<a href='/logout'>
-									<FaSignOutAlt /> Logout
-								</a>
-							</li>
-						) : (
-							<li className='signIn'>
-								<Link to='/login' state={{ from: location }} replace>
-									<FaSignInAlt /> SIGN IN
-								</Link>
-							</li>
-						)}
-					</ul>
-				</div>
-				<div className='middleTopNav'>
-					<a href='/'>
-						<img src={logo} alt='logo' />
-					</a>
-				</div>
-				<div className='rightTopNav'>
-					<ul>
-						{auth?.username && (
-							<li className='helloMSG'>
-								hi <span>{auth?.username}</span>
-							</li>
-						)}
+            {auth?.username ? (
+              <li className="logout">
+                <a href="/logout">
+                  <FaSignOutAlt /> Logout
+                </a>
+              </li>
+            ) : (
+              <li className="signIn">
+                <Link to="/login" state={{ from: location }} replace>
+                  <FaSignInAlt /> SIGN IN
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
+        <div className="middleTopNav">
+          <a href="/">
+            <img src={logo} alt="logo" />
+          </a>
+        </div>
+        <div className="rightTopNav">
+          <ul>
+            {auth?.username && (
+              <li className="helloMSG">
+                hi <span>{auth?.username}</span>
+              </li>
+            )}
 
-						<li onClick={handleShow} style={{ cursor: "pointer" }}>
-							<FaSearch />
-						</li>
+            <li onClick={handleShow} style={{ cursor: "pointer" }}>
+              <FaSearch />
+            </li>
 
-						<Link to='/cart' state={{ from: location }} replace>
-							<li className='badgeContainer'>
-								{sum > 0 && <span className='badge'>{sum}</span>}
-								<FaShoppingBag style={{ color: "black" }} />
-							</li>
-						</Link>
-					</ul>
-				</div>
-			</TopNavWrapper>
-		</TopWrapper>
-	);
+            <Link to="/cart" state={{ from: location }} replace>
+              <li className="badgeContainer">
+                {sum > 0 && <span className="badge">{sum}</span>}
+                <FaShoppingBag style={{ color: "black" }} />
+              </li>
+            </Link>
+
+
+          </ul>
+        </div>
+      </TopNavWrapper>
+    </TopWrapper>
+  );
 };
 
 export default TopNav;

@@ -7,7 +7,6 @@ import styled from "styled-components";
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
-  console.log(products)
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1366 },
@@ -60,7 +59,7 @@ const FeaturedProducts = () => {
           {products?.length > 0 &&
             products.map((product) => (
               <ItemCard
-                img="https://images.unsplash.com/photo-1567016432779-094069958ea5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                img={product?.image[product?.featuredImg || 0]}
                 title={product.title}
                 buttonTxt="view product"
                 key={product._id}

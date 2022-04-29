@@ -35,7 +35,7 @@ const Review = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [errorMsg, setErrorMsg] = useState("");
 	const [prevReview, setPrevReview] = useState("");
-	const [hasReviewed, setHasReviewed] = useState(true);
+	const [hasReviewed, setHasReviewed] = useState(false);
 	const [newReview, setNewReview] = useState(false);
 	const [reviews, setReviews] = useState({});
 	const { id } = useParams();
@@ -118,14 +118,13 @@ const Review = () => {
 		reviewsArr = reviews;
 		reviewsArr = chunk(reviewsArr, 5);
 	}
-	console.log(prevReview);
 
 	return (
 		<Row>
 			<Col className='reviews'>
 				{}
 				{!newReview &&
-					(!hasReviewed ? (
+					(hasReviewed ? (
 						<div className='d-flex justify-content-between align-items-center p-5'>
 							<h5>you have already reviewed this project</h5>
 						</div>

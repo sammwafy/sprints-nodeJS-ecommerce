@@ -5,6 +5,7 @@ import { useState } from "react";
 import { productActions } from "../../store/productsSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { Button } from "react-bootstrap";
 
 export default function CardContainer() {
   const [products, setProducts] = useState([])
@@ -34,11 +35,11 @@ export default function CardContainer() {
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.{" "}
         </p>
-        <button> SEE ALL PRODUCTS </button>
+        <Button href="/shop" > SEE ALL PRODUCTS </Button>
       </div>
       <div className="cards-list">
 
-        {products.slice(0, 3).map(product => <Card title={product.title} price={product.price} id={product._id} />)}
+        {products.slice(0, 3).map(product => <Card title={product.title} img={product.image} price={product.price} id={product._id} />)}
 
       </div>
     </div>

@@ -24,7 +24,6 @@ const AdminEdit = ({ type }) => {
   const maxNumber = 6;
   const onImgsChange = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList);
     setImages(imageList);
   };
 
@@ -51,7 +50,6 @@ const AdminEdit = ({ type }) => {
 
   const handleFeaturedImg = (e) => {
     setuniqueImgIndex(e.target.value);
-    console.log(uniqueImgIndex);
   };
 
   const handleChange = (e) => {
@@ -66,7 +64,6 @@ const AdminEdit = ({ type }) => {
       case "products":
         const imgsFiles = images.map((image) => image.file);
         const formData = new FormData(e.currentTarget);
-        console.log(Object.fromEntries([...formData]));
 
         for (var i = 0; i < imgsFiles.length; i++) {
           formData.append("productImg", imgsFiles[i]);
@@ -84,7 +81,6 @@ const AdminEdit = ({ type }) => {
               withCredentials: true,
             }
           );
-          console.log(res);
         } catch (err) {
           console.log(err);
         }
@@ -110,7 +106,6 @@ const AdminEdit = ({ type }) => {
               withCredentials: true,
             }
           );
-          console.log(res);
         } catch (err) {
           console.log(err);
         }
@@ -136,7 +131,6 @@ const AdminEdit = ({ type }) => {
               withCredentials: true,
             }
           );
-          console.log(res);
         } catch (err) {
           console.log(err);
         }

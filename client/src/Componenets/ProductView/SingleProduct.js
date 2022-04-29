@@ -28,11 +28,11 @@ const SingleProduct = () => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`/api/products/find/${productId}`);
-        console.log(res?.data);
+
 
         setProduct(res?.data);
       } catch (err) {
-        console.log(err);
+        
         navigate("/404", { state: { product: true } });
       }
     };
@@ -43,15 +43,15 @@ const SingleProduct = () => {
     const fetchReview = async () => {
       try {
         const res = await axios.post(`/api/products/average/${productId}`);
-        console.log(res?.data);
+      
       } catch (err) {
-        console.log(err);
+      
       }
     };
     fetchReview();
   }, []);
 
-  console.log(product);
+  
   return (
     <SingleProductWrapper>
       <Layout>
