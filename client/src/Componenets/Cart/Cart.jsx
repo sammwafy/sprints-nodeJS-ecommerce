@@ -115,36 +115,42 @@ export default function Cart() {
   //dispatch to cart slice
   const dispatch = useDispatch()
   //handle remove from cart buttons
-  const handleDelete = (_, id) => {
-    const filteredProducts = cartItems.filter(item => item.productId !== id)
-    dispatch(cartActions.setCart(filteredProducts))
+  const handleDelete = (e, id) => {
+    const filteredProducts = cartProducts.filter(product => product._id !== id)
+    const filteredCart = cartItems.filter(item => item.productId !== id)
     setCartProducts(filteredProducts)
+    dispatch(cartActions.setCart(filteredCart))
   }
 
   let totalPrice = 0;
   const rows =
     cartProducts.length > 0 &&
     cartProducts.map((product) => {
-      let qty = cartItems.lenght > 0 ? cartItems.filter((item) => item.productId === product._id)[0] : 1;
-      let price = qty?.quantity * product?.price;
-      totalPrice += price;
-      return createData(
-        <img src={product?.image[0]} alt="product?Img" />,
-        <div>
-          <p>{product?.title}</p> <p>{product?.categories[0]}</p>
-        </div>,
-        <div className="table-quantity">
-          <Quantity quantity={qty.quantity} id={qty.productId} />
-          <button className="butt">
-            <AiOutlineSync />
-          </button>
-          <button className="butt" onClick={(e) => handleDelete(e, product._id)}>
-            <AiOutlineClose />
-          </button>
-        </div>,
-        <p>{product?.price}</p>,
-        <p>{product?.price * qty.quantity}</p>
-      );
+      let qty = cartItems.filter((item) => item.productId === product._id)[0]
+      if (qty) {
+        let price = qty?.quantity * product?.price;
+        totalPrice += price;
+        return createData(
+          <img src={product?.image[0]} alt="product?Img" />,
+          <div>
+            <p>{product?.title}</p> <p>{product?.categories[0]}</p>
+          </div>,
+          <div className="table-quantity">
+            <Quantity quantity={qty.quantity} id={qty.productId} />
+            <button className="butt">
+              <AiOutlineSync />
+            </button>
+            <button className="butt" onClick={(e) => handleDelete(e, product._id)}>
+              <AiOutlineClose />
+            </button>
+          </div>,
+          <p>{product?.price}</p>,
+          <p>{product?.price * qty.quantity}</p>
+        );
+      } else {
+        return null
+      }
+
     });
 
 
