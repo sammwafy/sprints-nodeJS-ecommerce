@@ -3,56 +3,65 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import axios from "../../../Hooks/axios.js";
-import { productActions } from "../../../store/productsSlice";
+import axios from "../../../Hooks/axios"
+import { productActions } from "../../../store/productsSlice"
 import { useCookies } from "react-cookie";
 import { usersActions } from "../../../store/usersSlice";
 import { useState } from "react";
 
 const DataTable = ({ columns, type }) => {
   const [cookies, setCookie] = useCookies(["token", "id"]);
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
-  const users = useSelector((state) => state.users.users);
-  const [orders, setOrders] = useState([]);
+  const dispatch = useDispatch()
+  const products = useSelector(state => state.products)
+  const users = useSelector(state => state.users.users)
+  const [orders, setOrders] = useState([])
+  console.log(users);
   //delete action
   const handleClick = (id) => {
     const confirm = window.confirm("Are you sure you want to delete this");
     if (confirm) {
       switch (type) {
         case "users":
-          axios
-            .delete(`/api/users/${id}`, {
+
+          axios.delete(`/api/users/${id}`,
+            {
               headers: {
                 token: "Bearer " + cookies.token,
 
                 "Content-Type": "application/json",
+
+
               },
               withCredentials: true,
-            })
-            .then(window.location.reload(false))
-            .catch((error) => console.log(error));
+            }
+
+
+          ).then(window.location.reload(false)).catch(error => console.log(error))
           break;
         case "products":
-          axios
-            .delete(`/api/products/${id}`, {
+          axios.delete(`/api/products/${id}`,
+            {
               headers: {
                 token: "Bearer " + cookies.token,
 
                 "Content-Type": "application/json",
+
+
               },
               withCredentials: true,
-            })
-            .then(window.location.reload(false))
-            .catch((error) => console.log(error));
+            }
+
+
+          ).then(window.location.reload(false)).catch(error => console.log(error))
           break;
-        default:
-          return;
+        default: return
+
       }
     } else {
-      return;
+      return
     }
-  };
+  }
+
 
   useEffect(() => {
     switch (type) {
@@ -126,7 +135,7 @@ const DataTable = ({ columns, type }) => {
     //fill user table
     case "users":
       rows =
-        
+
         users.map((user) => {
           return {
             id: user._id,
@@ -255,6 +264,6 @@ const DataTable = ({ columns, type }) => {
       </div>
     </>
   );
-};
+}
 
 export default DataTable;

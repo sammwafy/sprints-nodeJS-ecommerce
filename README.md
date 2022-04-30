@@ -4,25 +4,27 @@ Sprints is an ecommerce app build using MERN STACK
 using React 18 🖤 for the frontend, NodeJS/expressJS for 
 the backend and mongo/mongose for the database
 
-demo :- https://tiny-gaufre-f204ae.netlify.app/
+demo :- https://sprints-node-js-ecommerce.vercel.app
 
-admin Dashboard :- https://tiny-gaufre-f204ae.netlify.app/admin
+admin Dashboard :- https://sprints-node-js-ecommerce.vercel.app/admin
 
 admin login details
-/**
+
 admin: admin@gmail.com
+
 pass: 123456
-**/
+
 
 What guest can do ?
-- guest can navigate website
+- guest can navigate website and search products
 - guest can see shop page
 - guest can add products to cart
 - guest can view cart
 - guest can register a new account
 
 What user can do ?
-- user can login
+- user can login 
+- user can search products
 - user can add items to cart
 - user can view the cart / update items / discard items / change items quanitity
 - user can checkout

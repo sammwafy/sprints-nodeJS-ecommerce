@@ -10,7 +10,7 @@ const Description = ({ data }) => {
 		<div className='productDesc'>
 			<div className='price'>${price}</div>
 
-			<Rating id={data?.id}/>
+			<Rating id={data?.id} />
 			<AddToCarts id={data?.id} />
 
 			<p>{data?.description}</p>

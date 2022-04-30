@@ -36,6 +36,9 @@ import CartPage from "./Pages/cart/CartPage";
 import Register from "./Pages/Register/Register.js";
 import SingleProduct from "./Componenets/ProductView/SingleProduct.js";
 import CouponPage from "./Pages/coupon/CouponPage";
+import OrderHistory from "./Componenets/Checkout/OrderHistory";
+import OrderDetails from "./Componenets/Checkout/OrderDetails";
+import CheckOut from "./Pages/checkout/CheckOut";
 
 function App() {
   const { auth } = useAuth();
@@ -49,19 +52,6 @@ function App() {
   // 		},
   // 	};
 
-  // 	if (userID) {
-  // 		axios.get(`/api/users/find/${userID}`, config).then(
-  // 			(res) => {
-  // 				setUser(res.data);
-  // 				setAuth(res.data);
-  // 			},
-  // 			(err) => {
-  // 				console.log(err);
-  // 			}
-  // 		);
-  // 	}
-  // }, []);
-
   return (
     <Router>
       <Routes>
@@ -71,12 +61,15 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/404" element={<ErrorPage />} />
         <Route path="/cart" element={<CartPage />} />
-     
+        <Route path="/checkout" element={<CheckOut />} />
+        <Route path="/order" element={<OrderHistory />} />
+        <Route path="/details" element={<OrderDetails />} />
+
         <Route path="shop">
           <Route index element={<Shop />} />
           <Route path=":id" element={<SingleProduct />}></Route>
         </Route>
-      
+
         <Route element={<ProtectedAdminRoute role="SuperUser" />}>
           <Route path="admin">
             <Route index element={<Home />} />

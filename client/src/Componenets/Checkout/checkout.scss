@@ -1,0 +1,96 @@
+/** @format */
+
+.checkout-wrapper {
+	margin: 10px;
+	.checkout-title {
+		font-weight: bold;
+		font-size: 1em;
+		text-transform: uppercase;
+
+		&:after {
+			width: 80px;
+			height: 2px;
+			display: block;
+			content: "";
+			position: relative;
+			margin-top: 20px;
+			left: 5%;
+			bottom: 10px;
+
+			background-color: #b80000;
+		}
+	}
+	display: flex;
+	flex-direction: column;
+	.chechout-middle {
+		button {
+			margin: 10px;
+			padding: 5px;
+			width: 120px;
+			align-self: flex-end;
+			margin: 5px;
+			background-color: black;
+			&:hover {
+				background-color: crimson;
+			}
+		}
+	}
+	.checkout-top,
+	.chechout-middle {
+		margin: 5px;
+		padding: 5px;
+
+		gap: 0.5em;
+
+		background: rgba(238, 238, 238, 1);
+	}
+
+	.checkout-bottom {
+		margin: 5px;
+		padding: auto;
+
+		display: flex;
+		gap: 0.5em;
+		.checkout-bottom-left {
+			padding: 5px;
+			background: rgba(238, 238, 238, 1);
+			flex: 2;
+		}
+		.checkout-bottom-right {
+			padding: 5px;
+			flex: 4;
+			background: rgba(238, 238, 238, 1);
+			display: flex;
+			flex-direction: column;
+			.checkout-oeder-details {
+				margin: 5px;
+				background: rgb(222, 220, 220);
+				padding: 0.5em;
+			}
+			.checkout-bottom-right-summary {
+				margin: 5px;
+				background: rgb(225, 222, 222);
+				padding: 0.5em;
+				display: flex;
+				flex-direction: column;
+				.checkout-summary-line {
+					justify-content: flex-end;
+					display: flex;
+					gap: 5px;
+					.checkout-summary-title {
+						font-size: 1rem;
+						font-weight: bold;
+					}
+				}
+			}
+			.checkout-button {
+				width: 120px;
+				align-self: flex-end;
+				margin: 5px;
+				&:hover {
+					background-color: crimson;
+				}
+			}
+		}
+	}
+}

@@ -21,31 +21,38 @@ import axios from "../../Hooks/axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import useAuth from "../../Hooks/useAuth";
+
 function createData(image, productName, quantity, unitPrice, total) {
   return { image, productName, quantity, unitPrice, total };
 }
 
 export default function Cart() {
+  //Collapse open close state
   const [open, setOpen] = useState(false);
-  const { auth } = useAuth();
 
   // redirection
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
+  //................................................................
   //continue shopping
   const continuShopping = () => {
     from
       ? setTimeout(() => navigate(from, { replace: true }))
       : setTimeout(() => navigate("/"), 2000);
   };
+  //go checkout page
+  const goCheckout = () => {
+    setTimeout(() => navigate("/checkout"), 2000);
+  };
+  //................................................................
 
-  //get items in cart slice
+  //get glopal info about login user and cartProducts
+  const { auth, cartProducts, setCartProducts } = useAuth();
 
+  //get array of items in cart slice id/quantity
   const cartItems = useSelector((state) => state.cart);
 
-  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     //get products by id from backend
@@ -54,18 +61,17 @@ export default function Cart() {
         cartItems.map((item) =>
           axios
             .get(`/api/products/find/${item.productId}`)
-            .then((res) => setProducts((prev) => [...prev, res.data]))
+            .then((res) => setCartProducts((prev) => [...prev, res.data]))
             .catch((err) => console.log(err))
         )
       );
   }, []);
 
-
   useEffect(() => {
     let newArr = [];
     newArr = JSON.parse(localStorage.getItem("cart")) || [];
     newArr.products = cartItems;
- 
+
     localStorage.setItem("cart", JSON.stringify(newArr));
 
     if (auth?.username && cartItems.length > 0) {
@@ -105,8 +111,8 @@ export default function Cart() {
 
   let totalPrice = 0;
   const rows =
-    products &&
-    products.map((product) => {
+    cartProducts &&
+    cartProducts.map((product) => {
       let qty = cartItems.filter((item) => item.productId === product._id)[0];
       let price = qty?.quantity * product?.price;
       totalPrice += price;
@@ -133,6 +139,9 @@ export default function Cart() {
   //   return qty.quantity * product.price
   // })
   // const total = arrayOfTotal.reduce((acc, ele) => acc + ele, 0)
+  console.log(rows);
+  console.log(cartItems);
+  console.log(cartProducts);
 
   return (
     <div className="cart-container">
@@ -145,7 +154,7 @@ export default function Cart() {
         </p>
       </div>
       <div className="cart-title">
-        <h2> Shopping Cart (0.00kg) </h2>
+        <h2> Shopping Cart </h2>
       </div>
       <div className="cart">
         <div className="main-cart">
@@ -220,7 +229,7 @@ export default function Cart() {
             <button className="continu" onClick={continuShopping}>
               <BsArrowLeftShort className="arow" /> CONTINU SHOPPING
             </button>
-            <button className="check">
+            <button className="check" onClick={goCheckout}>
               CHECK OUT <BsArrowRightShort className="arow" />
             </button>
           </div>
