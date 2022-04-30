@@ -21,6 +21,8 @@ import axios from "../../Hooks/axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import useAuth from "../../Hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../store/cartSlice";
 
 function createData(image, productName, quantity, unitPrice, total) {
   return { image, productName, quantity, unitPrice, total };
@@ -55,7 +57,7 @@ export default function Cart() {
 
 
   useEffect(() => {
-    //get products by id from backend
+    //get products by id from backend and set to cartProducts global state
     cartItems.length > 0 &&
       Promise.all(
         cartItems.map((item) =>
@@ -67,6 +69,8 @@ export default function Cart() {
       );
   }, []);
 
+
+  ////set cart to local and database............
   useEffect(() => {
     let newArr = [];
     newArr = JSON.parse(localStorage.getItem("cart")) || [];
@@ -108,12 +112,20 @@ export default function Cart() {
     //     localStorage.setItem("cart", JSON.stringify(cartItems))
     //   }
   }, [cartItems]);
+  //dispatch to cart slice
+  const dispatch = useDispatch()
+  //handle remove from cart buttons
+  const handleDelete = (_, id) => {
+    const filteredProducts = cartItems.filter(item => item.productId !== id)
+    dispatch(cartActions.setCart(filteredProducts))
+    setCartProducts(filteredProducts)
+  }
 
   let totalPrice = 0;
   const rows =
-    cartProducts &&
+    cartProducts.length > 0 &&
     cartProducts.map((product) => {
-      let qty = cartItems.filter((item) => item.productId === product._id)[0];
+      let qty = cartItems.lenght > 0 ? cartItems.filter((item) => item.productId === product._id)[0] : 1;
       let price = qty?.quantity * product?.price;
       totalPrice += price;
       return createData(
@@ -126,7 +138,7 @@ export default function Cart() {
           <button className="butt">
             <AiOutlineSync />
           </button>
-          <button className="butt">
+          <button className="butt" onClick={(e) => handleDelete(e, product._id)}>
             <AiOutlineClose />
           </button>
         </div>,
@@ -134,6 +146,8 @@ export default function Cart() {
         <p>{product?.price * qty.quantity}</p>
       );
     });
+
+
   // let arrayOfTotal = products && products.map((product) => {
   //   let qty = cartItems.filter((item) => item.productId === product._id)[0]
   //   return qty.quantity * product.price
@@ -171,7 +185,7 @@ export default function Cart() {
               </TableHead>
 
               <TableBody>
-                {rows.map((row) => (
+                {rows && rows.map((row) => (
                   <TableRow
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
