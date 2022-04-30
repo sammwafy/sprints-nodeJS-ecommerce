@@ -7,14 +7,21 @@ export const TopNavWrapper = styled.div`
   justify-content: space-between;
   height: 50px;
   padding: 15px 20px;
-
+  .shopIcon{display: none;}
   .leftTopNav ul {
     display: flex;
     padding: 0;
+
+
   }
   .leftTopNav ul a {
     text-decoration: none;
     color: #212529;
+    @media screen and (max-width: 482px){
+       li {
+        display:none;
+      }
+    }
   }
 
   .leftTopNav ul a:hover {
@@ -38,10 +45,11 @@ export const TopNavWrapper = styled.div`
     img {
       width: 120px;
     }
+    
 
     @media screen and (max-width: 482px) {
       margin-top: -0.3rem;
-      margin-left: -2rem;
+      margin-left: -1rem;
       img {
         width: 90px;
       }
@@ -57,12 +65,18 @@ export const TopNavWrapper = styled.div`
     display: flex;
     padding: 0;
     align-items: center;
+    @media screen and (max-width: 482px){
+      margin-top: 7px; 
+    }
   }
   .rightTopNav ul li {
     list-style-type: none;
     margin-right: 15px;
     font-size: 0.8rem;
     padding-bottom: 5px;
+    @media screen and(max-width: 482px){
+      margin-right: 7px;
+    }
   }
   .rightTopNav .helloMSG {
     font-size: 1rem;
@@ -70,7 +84,11 @@ export const TopNavWrapper = styled.div`
     span {
       color: rgba(208, 30, 36, 1);
     }
-    padding-top: 15px;
+   
+    @media screen and (max-width:482px){
+      text-align: center;
+      padding-top: 15px;
+    }
   }
   .search {
     margin-bottom: -10px;
@@ -105,11 +123,11 @@ export const TopNavWrapper = styled.div`
 
   /** mobile */
   @media screen and (max-width: 482px) {
-    .signIn {
-      display: none;
-    }
-    .signInIconOnly {
-      display: block;
-    }
+.shopIcon{
+  display: block;
+  font-size: .8rem;
+  margin-right: 8px;
+    align-self: center;
+}
   }
 `;

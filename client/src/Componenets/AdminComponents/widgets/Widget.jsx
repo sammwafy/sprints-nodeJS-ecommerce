@@ -46,7 +46,7 @@ const Widget = ({ type }) => {
                         token: "Bearer " + cookies.token
                     }
                 }).then(response => {
-                    console.log("user staus numbers", response.data);
+               
                     setInput(response.data)
                 }).catch(err => console.log(err))
                 break;

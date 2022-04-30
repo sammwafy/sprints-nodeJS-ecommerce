@@ -37,7 +37,6 @@ const AddToCarts = ({ id }) => {
   const addToCart = () => {
     const cartItemsClone = [...cartItems];
     const inThecart = cartItemsClone.filter((item) => item.productId === id);
-    console.log(inThecart);
     if (inThecart.length > 0) {
       const newCartItems = cartItemsClone.filter(
         (item) => item.productId !== id

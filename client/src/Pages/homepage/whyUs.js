@@ -143,6 +143,14 @@ const WhyUsWrapper = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 776px) {
+    .whyIMG {
+      img {
+        width: 180px;
+      }
+    }
+  }
 `;
 
 export default WhyUs;

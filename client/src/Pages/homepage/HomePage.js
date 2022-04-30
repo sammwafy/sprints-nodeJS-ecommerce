@@ -80,7 +80,7 @@ const HomePage = () => {
         />
         <Carousel type="category" />
         <CardContainer />
-        <CardContainer2 />
+
         <TestimonialsContainter>
           <Container>
             <Carousel

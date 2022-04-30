@@ -10,7 +10,7 @@ import { UsersEdit } from "./UsersList";
 import TestChart from "./TestChart";
 
 const AdminPage = () => {
-	console.log(restProvider("http://localhost:3000"));
+	
 	return (
 		<Admin
 			basename='/admin'
