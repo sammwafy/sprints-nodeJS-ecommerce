@@ -97,19 +97,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  width: 300px;
+  height: 400px;
   .card-title {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 15px;
-  }
-
-  h3 {
-    font-weight: bold;
-  }
-  h4 {
-    font-size: 20px;
   }
 }
