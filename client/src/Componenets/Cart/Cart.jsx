@@ -111,48 +111,51 @@ export default function Cart() {
     //   } else {
     //     localStorage.setItem("cart", JSON.stringify(cartItems))
     //   }
-  }, [cartItems]);
+  }, [cartProducts]);
+
   //dispatch to cart slice
   const dispatch = useDispatch()
   //handle remove from cart buttons
-  const handleDelete = (_, id) => {
-    const filteredProducts = cartItems.filter(item => item.productId !== id)
-    dispatch(cartActions.setCart(filteredProducts))
+  const handleDelete = (e, id) => {
+    const filteredProducts = cartProducts.filter(product => product._id !== id)
+    const filteredCart = cartItems.filter(item => item.productId !== id)
     setCartProducts(filteredProducts)
+    dispatch(cartActions.setCart(filteredCart))
   }
+  useEffect(() => {
+
+
+
+  }, [cartProducts])
 
   let totalPrice = 0;
   const rows =
-    cartProducts.length > 0 &&
-    cartProducts.map((product) => {
-      let qty = cartItems.lenght > 0 ? cartItems.filter((item) => item.productId === product._id)[0] : 1;
-      let price = qty?.quantity * product?.price;
+    cartItems.map((item) => {
+      let currentProduct = cartProducts.filter((product) => product._id === item.productId)[0]
+
+      let price = item?.quantity * currentProduct?.price;
       totalPrice += price;
       return createData(
-        <img src={product?.image[0]} alt="product?Img" />,
+        <img src={currentProduct?.image[0]} alt="product?Img" />,
         <div>
-          <p>{product?.title}</p> <p>{product?.categories[0]}</p>
+          <p>{currentProduct?.title}</p> <p>{currentProduct?.categories[0]}</p>
         </div>,
         <div className="table-quantity">
-          <Quantity quantity={qty.quantity} id={qty.productId} />
+          <Quantity quantity={item.quantity} id={item.productId} />
           <button className="butt">
             <AiOutlineSync />
           </button>
-          <button className="butt" onClick={(e) => handleDelete(e, product._id)}>
+          <button className="butt" onClick={(e) => handleDelete(e, currentProduct._id)}>
             <AiOutlineClose />
           </button>
         </div>,
-        <p>{product?.price}</p>,
-        <p>{product?.price * qty.quantity}</p>
+        <p>{currentProduct?.price}</p>,
+        <p>{currentProduct?.price * item.quantity}</p>
       );
+
+
     });
 
-
-  // let arrayOfTotal = products && products.map((product) => {
-  //   let qty = cartItems.filter((item) => item.productId === product._id)[0]
-  //   return qty.quantity * product.price
-  // })
-  // const total = arrayOfTotal.reduce((acc, ele) => acc + ele, 0)
   console.log(rows);
   console.log(cartItems);
   console.log(cartProducts);
