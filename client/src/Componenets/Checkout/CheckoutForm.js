@@ -20,14 +20,17 @@ export default function CheckoutForm() {
 			return;
 		}
 
-		const result = await stripe.confirmCardPayment("{CLIENT_SECRET}", {
-			payment_method: {
-				card: elements.getElement(CardElement),
-				billing_details: {
-					name: "Jenny Rosen",
+		const result = await stripe.confirmCardPayment(
+			"pk_test_51KrrQWERNnu7694sBEo34HNXuroydUbCq2gcmNiC4wXKMUY2SbL2Vo1raLkABeaiQbVXdNMnzAxgC3FbK3zfiSQS00UwbjeDNz",
+			{
+				payment_method: {
+					card: elements.getElement(CardElement),
+					billing_details: {
+						name: "Jenny Rosen",
+					},
 				},
-			},
-		});
+			}
+		);
 
 		if (result.error) {
 			// Show error to your customer (for example, insufficient funds)

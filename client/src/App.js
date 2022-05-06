@@ -43,6 +43,8 @@ import UserList from "./Pages/Admin/users/usersList/UserList";
 import UsersProfile from "./Pages/Admin/users/userProfiles/UsersProfile";
 import ProductsList from "./Pages/Admin/products/productsList/ProductsList";
 
+import { loadStripe } from "@stripe/stripe-js";
+
 function App() {
 	const { auth } = useAuth();
 	// const [user, setUser] = useState({});
