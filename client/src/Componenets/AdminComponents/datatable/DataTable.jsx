@@ -12,8 +12,8 @@ import { useState } from "react";
 const DataTable = ({ columns, type }) => {
   const [cookies, setCookie] = useCookies(["token", "id"]);
   const dispatch = useDispatch()
-  const products = useSelector(state => state.products)
   const users = useSelector(state => state.users.users)
+  const products = useSelector(state => state.products)
   const [orders, setOrders] = useState([])
   console.log(users);
   //delete action
@@ -66,38 +66,9 @@ const DataTable = ({ columns, type }) => {
   useEffect(() => {
     switch (type) {
       case "products":
-        axios
-          .get(`/api/products`)
-          .then(function (response) {
-            // handle success
 
-            dispatch(productActions.getProducts(response.data));
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          });
         break;
-      case "users":
-        axios
-          .get(`/api/users`, {
-            headers: {
-              token: "Bearer " + cookies.token,
 
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
-          })
-          .then(function (response) {
-            // handle success
-
-            dispatch(usersActions.getUsers(response.data));
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          });
-        break;
 
       case "orders":
         axios
@@ -133,19 +104,7 @@ const DataTable = ({ columns, type }) => {
   let rows;
   switch (type) {
     //fill user table
-    case "users":
-      rows =
 
-        users.map((user) => {
-          return {
-            id: user._id,
-            username: user.username,
-            email: user.email,
-            status: user.status,
-          };
-        });
-      break;
-    //fill product table
     case "products":
       rows =
         products.length > 0 &&

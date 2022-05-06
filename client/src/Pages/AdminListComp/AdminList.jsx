@@ -12,6 +12,7 @@ const AdminList = ({ columns, type }) => {
                 <SideBar />
                 <div className="list-page-wrapper">
                     <NavBar />
+                    <h3>{`Table of ${type}`}</h3>
                     <DataTable columns={columns} type={type} />
                 </div>
 

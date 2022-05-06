@@ -6,7 +6,7 @@ const AdminLayout = ({ children }) => {
     return (
         <div style={{ display: 'flex' }}>
             <SideBar />
-            <div className="home" style={{ display: "flex", flexDirection: "column", flex: "6" }}>
+            <div className="home" style={{ display: "flex", flexDirection: "column", flex: "6", width: "100%" }}>
                 <NavBar />
                 {children}
             </div>

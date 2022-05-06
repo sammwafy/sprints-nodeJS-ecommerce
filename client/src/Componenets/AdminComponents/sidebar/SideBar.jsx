@@ -20,7 +20,7 @@ const SideBar = () => {
         <div className="sidebar">
 
             <div className="top">
-                <span className="logo">HomeWare</span>
+                <span className="logo">Home Shop</span>
             </div>
             <hr />
             {/* TODO: center */}
@@ -64,12 +64,12 @@ const SideBar = () => {
                             <span>Orders</span>
                         </li>
                     </Link>
-                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                    {/* <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
                         <li>
                             <LocalShippingIcon className="icon" />
                             <span>Delivery</span>
                         </li>
-                    </Link>
+                    </Link> */}
                     {/* <p className="title">Useful</p>
                     <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
                         <li>
@@ -111,7 +111,7 @@ const SideBar = () => {
                             <span>Profile</span>
                         </li>
                     </Link>
-                    <Link to="/admin/underConstruc" style={{ textDecoration: "none" }}>
+                    <Link to="/logout" style={{ textDecoration: "none" }}>
                         <li>
                             <LogoutIcon className="icon" />
                             <span>Logout</span>
@@ -122,10 +122,10 @@ const SideBar = () => {
                 <Outlet />
             </div>
             {/* TODO: bottom */}
-            <div className="bottom">
+            {/* <div className="bottom">
                 <div className="color-option"></div>
                 <div className="color-option"></div>
-            </div>
+            </div> */}
         </div>
     )
 }

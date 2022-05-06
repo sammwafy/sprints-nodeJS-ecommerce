@@ -1,40 +1,4 @@
 /** @format */
-//product list table
-export const productsColumns = [
-	{ field: "id", headerName: "ID", width: 130 },
-
-	{
-		field: "avatar",
-		headerName: "Avatar",
-		width: 70,
-		renderCell: (params) => {
-			return (
-				<img
-					src={params.row.avatar}
-					alt={`${params.row.title}`}
-					style={{
-						padding: "5px",
-						width: "50px",
-						height: "50px",
-						borderRadius: "50%",
-						objectFit: "cover",
-					}}
-				/>
-			);
-		},
-	},
-	{ field: "title", headerName: "Title", width: 200 },
-
-	{
-		field: "stock",
-		headerName: "Stock",
-		description: "This column has a value getter and is not sortable.",
-		sortable: false,
-		width: 70,
-	},
-	{ field: "price", headerName: "Price", width: 130 },
-];
-
 //catercories list table
 export const categoriesColumns = [
 	{ field: "id", headerName: "ID", width: 130 },
@@ -104,31 +68,6 @@ export const ordersColumns = [
 	{ field: "total", headerName: "Total", width: 70 },
 	{ field: "payment", headerName: "Payment", width: 130 },
 	{ field: "status", headerName: "Status", width: 130 },
-];
-
-//users list table
-export const usersColumns = [
-	{ field: "id", headerName: "No.", width: 70 },
-	{ field: "username", headerName: "User Name", width: 100 },
-	{ field: "email", headerName: "Email", width: 200 },
-
-	{
-		field: "status",
-		headerName: "Status",
-		description: "This column has a value getter and is not sortable.",
-		sortable: false,
-		width: 70,
-		renderCell: (params) => {
-			return (
-				<span
-					className={`badge ${params.row.status}`}
-					style={{ color: "black" }}
-				>
-					{params.row.status}
-				</span>
-			);
-		},
-	},
 ];
 
 //coupons list table

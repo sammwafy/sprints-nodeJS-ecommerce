@@ -8,7 +8,6 @@ import Featured from '../../Componenets/AdminComponents/featured/Featured'
 import NavBar from '../../Componenets/AdminComponents/navbar/NavBar'
 import SideBar from '../../Componenets/AdminComponents/sidebar/SideBar'
 import TableList from '../../Componenets/AdminComponents/table/TableList'
-import Widget from "../../Componenets/AdminComponents/widgets/Widget"
 import axios from '../../Hooks/axios'
 import "./home.scss"
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -17,8 +16,6 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 
 const Home = () => {
-
-  const [inputs, setInputs] = useState([])
   const [cookies, setCookie] = useCookies(["token", "id"]);
 
   //users status Widgets status
@@ -97,7 +94,7 @@ const Home = () => {
             {/* <Widget type="order today count" /> */}
 
             {/* total income last 7 days */}
-            <WidgetCustum title="Today Orders" value={totalIncome?.total || 0} icon={<MonetizationOnIcon className="icon" style={{ color: "red", backgroundColor: 'rgba(255, 0, 0, 0.284)' }} />} type="$" />
+            <WidgetCustum title="Today Income" value={totalIncome?.total || 0} icon={<MonetizationOnIcon className="icon" style={{ color: "red", backgroundColor: 'rgba(255, 0, 0, 0.284)' }} />} type="$" />
             {/* <Widget type="income" /> */}
           </div>
 

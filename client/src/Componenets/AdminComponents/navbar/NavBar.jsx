@@ -6,7 +6,10 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import useAuth from "../../../Hooks/useAuth"
+import { BsPersonCircle } from "react-icons/bs"
 const NavBar = () => {
+    const { auth } = useAuth()
     return (
         <div className="navbar">
             <div className="wrapper">
@@ -15,28 +18,15 @@ const NavBar = () => {
                     <SearchIcon className="navIcon" />
                 </div>
                 <div className="items">
-                    <div className="item">
-                        <LanguageIcon className="navIcon" />
-                    </div>
-                    <div className="item">
-                        <DarkModeIcon className="navIcon" />
-                    </div>
-                    <div className="item">
-                        <FullscreenExitIcon className="navIcon" />
-                    </div>
+
                     <div className="item">
                         <NotificationsNoneIcon className="navIcon" />
-                        <div className="badge">1</div>
-                    </div>
-                    <div className="item">
-                        <ChatBubbleIcon className="navIcon" />
                         <div className="badge">2</div>
                     </div>
+
                     <div className="item">
-                        <FormatListBulletedIcon className="navIcon" />
-                    </div>
-                    <div className="item">
-                        <img src="/main-qimg-7b3f1fc4dd119a2a4a3978dfcf536904-lq.jpeg" className="avatar" alt="cat" />
+                        <BsPersonCircle style={{ fontSize: "20px" }} />
+                        <p>Welcome, {auth?.username}</p>
                     </div>
                 </div>
             </div>

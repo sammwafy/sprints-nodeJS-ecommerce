@@ -37,7 +37,6 @@ const CheckoutLayout = () => {
 
     //Collapse open/close
     const [open, setOpen] = useState(false);
-    console.log(open);
 
     //cart info
     const cartItems = useSelector(state => state.cart)
@@ -45,7 +44,7 @@ const CheckoutLayout = () => {
     const { auth, cartProducts, setCartProducts } = useAuth();
     console.log(cartProducts);
 
-    //adress form state
+    //adress form state and actions
     const [inputData, setInputData] = useState({});
     console.log(inputData);
 
@@ -61,27 +60,10 @@ const CheckoutLayout = () => {
         const formData = new FormData(e.currentTarget);
         console.log(Object.fromEntries([...formData]));
     }
-
-
-    useEffect(() => {
-        cartItems.length > 0 &&
-            Promise.all(
-                cartItems.map((item) =>
-                    axios
-                        .get(`/api/products/find/${item.productId}`)
-                        .then((res) => setProducts((prev) => [...prev, res.data]))
-                        .catch((err) => console.log(err))
-                )
-            );
-
-
-    }, [])
-
-    console.log(products);
-    console.log(cartItems);
+    //................................................................
 
     const rows = cartItems.length > 0 && cartItems.map((item) => {
-        let product = products.filter(product => product._id === item.productId)[0]
+        let product = cartProducts.filter(product => product._id === item.productId)[0]
 
         return createData(
             <img src="" alt="product?Img" />,
@@ -89,7 +71,7 @@ const CheckoutLayout = () => {
                 <p>{product?.title}</p>
             </div>,
             <div className="table-quantity">
-                888
+                {item.quantity}
             </div>,
             <p>{product?.price}</p>,
             <p>{product?.price * item.quantity}</p>)
@@ -162,20 +144,6 @@ const CheckoutLayout = () => {
                                         <TableCell align="center">TOTAL</TableCell>
                                     </TableRow>
                                 </TableHead>
-
-                                <TableRow
-
-                                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                                >
-                                    <TableCell align="center" component="th" scope="row">
-                                        test
-                                    </TableCell>
-                                    <TableCell align="center">test</TableCell>
-                                    <TableCell align="center">test</TableCell>
-                                    <TableCell align="center">test</TableCell>
-                                    <TableCell align="center">test</TableCell>
-                                </TableRow>
-
 
                                 <TableBody>
                                     {rows.length > 0 && rows.map((row) => (
