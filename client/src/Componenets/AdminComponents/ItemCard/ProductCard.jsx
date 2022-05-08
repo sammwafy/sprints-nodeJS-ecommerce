@@ -2,10 +2,12 @@ import "./itemCard.scss";
 import ReviewPagination from "../../ProductView/Reviews/ReviewPagination.js";
 import { useEffect, useState } from "react";
 import { chunk } from "lodash";
+import { Link, useParams } from "react-router-dom";
 const ProductCard = ({ data }) => {
   const { title, description, price, quantity, size, reviews, image } = data;
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsArr, setReviewsArr] = useState(1);
+  const { id } = useParams()
 
   useEffect(() => {
     setReviewsArr(chunk(reviews, 5));
@@ -15,7 +17,10 @@ const ProductCard = ({ data }) => {
   return (
     <div className="d-flex justify-content-between flex-wrap ">
       <div className="item-card">
-        <span className="edit">Edit</span>
+
+        <Link to={`/admin/products/${id}/edit`}>
+          <span className="edit">Edit</span>
+        </Link>
         <h1 className="item-title">Details</h1>
         <div className="item-wrapper">
           <div className="avatar-wrapper">
@@ -31,27 +36,27 @@ const ProductCard = ({ data }) => {
 
           <div className="info">
             <div className="item-detail">
-              <span className="key">"Title"</span>
+              <span className="key">Title</span>
               <span className="key-value">{title}</span>
             </div>
 
             <div className="item-detail">
-              <span className="key">"Description"</span>
+              <span className="key">Description</span>
               <span className="key-value">{description}</span>
             </div>
 
             <div className="item-detail">
-              <span className="key">"Price"</span>
+              <span className="key">Price</span>
               <span className="key-value">{price}</span>
             </div>
 
             <div className="item-detail">
-              <span className="key">"Quantity"</span>
+              <span className="key">Quantity</span>
               <span className="key-value">{quantity}</span>
             </div>
 
             <div className="item-detail">
-              <span className="key">"size"</span>
+              <span className="key">size</span>
               <span className="key-value">{size}</span>
             </div>
           </div>

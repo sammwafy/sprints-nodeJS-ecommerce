@@ -144,53 +144,7 @@ const AdminEdit = ({ type }) => {
   let inputs;
   switch (type) {
     case "products":
-      inputs = [
-        {
-          id: 1,
-          label: "Title",
-          type: "text",
-          name: "title",
-          placeholder: "Table",
-          required: true,
-          defaultValue: data.title,
-        },
-        {
-          id: 2,
-          label: "Size",
-          type: "text",
-          name: "size",
-          placeholder: "medium",
-          required: true,
-          defaultValue: data.size,
-        },
-        {
-          id: 3,
-          label: "Quantity",
-          type: "number",
-          name: "quantity",
-          placeholder: "1",
-          required: true,
-          defaultValue: data.quantity,
-        },
-        {
-          id: 4,
-          label: "Price",
-          type: "number",
-          name: "price",
-          placeholder: "1",
-          required: true,
-          defaultValue: data.price,
-        },
-        {
-          id: 6,
-          label: "color",
-          type: "color",
-          name: "color",
-          placeholder: "1",
-          required: true,
-          defaultValue: data.color,
-        },
-      ];
+
       break;
     case "brands":
       inputs = [
@@ -244,15 +198,6 @@ const AdminEdit = ({ type }) => {
           <h1 className="title">{`Edit ${type}`} </h1>
         </div>
         <div className="bottom">
-          <img
-            src={
-              file
-                ? URL.createObjectURL(file)
-                : "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
-            }
-            alt=""
-            className="image"
-          />
 
           <form onSubmit={handleSubmit}>
             <div className="left">
