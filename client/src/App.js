@@ -46,6 +46,7 @@ import ProductsList from "./Pages/Admin/products/productsList/ProductsList";
 import { loadStripe } from "@stripe/stripe-js";
 import ProductEdit from "./Pages/Admin/products/ProductEdit/ProductEdit";
 import NewProduct from "./Pages/Admin/products/newProduct/NewProduct";
+import Profile from "./Componenets/Profile/Profile.js";
 
 function App() {
 	const { auth } = useAuth();
@@ -65,12 +66,19 @@ function App() {
 				<Route path='/' element={<HomePage />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
-				<Route path='/logout' element={<Logout />} />
+
 				<Route path='/404' element={<ErrorPage />} />
 				<Route path='/cart' element={<CartPage />} />
 				<Route path='/checkout' element={<CheckOut />} />
 				<Route path='/order' element={<OrderHistory />} />
 				<Route path='/details' element={<OrderDetails />} />
+
+				{/* user access only */}
+
+				<Route element={<ProtectedRoute />}>
+					<Route path='/logout' element={<Logout />} />
+					<Route path='/profile' element={<Profile />} />
+				</Route>
 
 				<Route path='shop'>
 					<Route index element={<Shop />} />

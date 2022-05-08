@@ -60,6 +60,7 @@ const SignIn = ({ user }) => {
 			const accessToken = response?.data?.accessToken;
 			const username = response?.data?.username;
 			const userID = response?.data?._id;
+      
 			if (username && password && accessToken) {
 				setSuccessMsg(true);
 				setEmail("");
@@ -79,7 +80,7 @@ const SignIn = ({ user }) => {
 							setAuth(response?.data);
 							setCookie("token", accessToken);
 							setCookie("id", userID);
-							setCookie("username", username);
+              setCookie("username", username);
 						})
 						.catch((err) => console.log(err));
 				}

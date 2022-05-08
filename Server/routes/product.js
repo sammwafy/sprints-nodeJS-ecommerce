@@ -44,13 +44,6 @@ const upload = multer({
 
 //CREATE
 router.post("/", upload.array("productImg", 6), async (req, res) => {
-  // const url = req.protocol + "://" + req.get("host");
-  // const imgArray = req.files.map((file) => url + "/Imgs/" + file.filename);
-  // const data = {
-  //   ...req.body,
-  //   image: imgArray,
-  // };
-
   const urls = [];
   const files = req.files;
   for (const file of files) {
@@ -86,23 +79,35 @@ router.put(
   verifyTokenAndAdmin,
   upload.array("productImg", 6),
   async (req, res) => {
-    const url = req.protocol + "://" + req.get("host");
-    const imgArray = req.files.map((file) => url + "/Imgs/" + file.filename);
-    const data = {
-      ...req.body,
-      image: imgArray,
-    };
-    try {
-      const updatedProduct = await Product.findByIdAndUpdate(
-        req.params.id,
-        {
-          $set: data,
-        },
-        { new: true }
-      );
-      res.status(200).json(updatedProduct);
-    } catch (err) {
-      return res.status(500).json(err);
+    const urls = [];
+    const files = req.files;
+    for (const file of files) {
+      const { path } = file;
+      try {
+        const newPath = await cloudinary.uploader.upload(path);
+        urls.push(newPath?.secure_url);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    if (urls?.length > 0) {
+      const data = {
+        ...req.body,
+        image: urls,
+      };
+      try {
+        const updatedProduct = await Product.findByIdAndUpdate(
+          req.params.id,
+          {
+            $set: data,
+          },
+          { new: true }
+        );
+        res.status(200).json(updatedProduct);
+      } catch (err) {
+        return res.status(500).json(err);
+      }
     }
   }
 );
