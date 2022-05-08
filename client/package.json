@@ -1,6 +1,6 @@
 {
 	"name": "client",
-	"proxy": "https://secure-brushlands-98723.herokuapp.com",
+	"proxy": "http://localhost:5009",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
