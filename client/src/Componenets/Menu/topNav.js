@@ -3,13 +3,13 @@
 import { TopNavWrapper } from "./styles/topNav.style";
 import axios from "../../Hooks/axios";
 import {
-  FaBars,
-  FaSignInAlt,
-  FaSignOutAlt,
-  FaStore,
-  FaUserAlt,
-  FaSearch,
-  FaShoppingBag,
+	FaBars,
+	FaSignInAlt,
+	FaSignOutAlt,
+	FaStore,
+	FaUserAlt,
+	FaSearch,
+	FaShoppingBag,
 } from "react-icons/fa";
 import TopBar from "./TopBar";
 import styled from "styled-components";
@@ -22,105 +22,105 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
-  const { auth } = useAuth();
-  const location = useLocation();
-  const [sum, setSum] = useState(0);
+	const { auth } = useAuth();
+	const location = useLocation();
+	const [sum, setSum] = useState(0);
 
-  const [showSearch, setShowshowSearch] = useState(false);
+	const [showSearch, setShowshowSearch] = useState(false);
 
-  const handleClose = () => setShowshowSearch(false);
-  const handleShow = () => setShowshowSearch(true);
+	const handleClose = () => setShowshowSearch(false);
+	const handleShow = () => setShowshowSearch(true);
 
-  //get number of cart items
-  const cartItems = useSelector((state) => state.cart?.products);
-  const cart = localStorage.getItem("cart");
+	//get number of cart items
+	const cartItems = useSelector((state) => state.cart);
+	const cart = localStorage.getItem("cart");
 
-  useEffect(() => {
-    let sumNum = cartItems?.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
-    localStorage.setItem("cartBadge", JSON.stringify(sumNum));
-    setSum(sumNum);
-  }, [cartItems]);
+	useEffect(() => {
+		let sumNum = cartItems?.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
+		localStorage.setItem("cartBadge", JSON.stringify(sumNum));
+		setSum(sumNum);
+	}, [cartItems]);
 
-  return (
-    <TopWrapper>
-      <SearchModal show={showSearch} close={handleClose} />
-      <TopBar />
-      <TopNavWrapper>
-        <div className="leftTopNav">
-          <ul>
-            <li
-              onClick={() => MenuOpenHadler(!isMenuOpen)}
-              style={{ cursor: "pointer" }}
-            >
-              <FaBars />
-            </li>
-            <Link to="/shop" style={{ display: "flex" }}>
-              <FaStore className="shopIcon" />
-              <li>SHOP</li>
-            </Link>
+	return (
+		<TopWrapper>
+			<SearchModal show={showSearch} close={handleClose} />
+			<TopBar />
+			<TopNavWrapper>
+				<div className='leftTopNav'>
+					<ul>
+						<li
+							onClick={() => MenuOpenHadler(!isMenuOpen)}
+							style={{ cursor: "pointer" }}
+						>
+							<FaBars />
+						</li>
+						<Link to='/shop' style={{ display: "flex" }}>
+							<FaStore className='shopIcon' />
+							<li>SHOP</li>
+						</Link>
 
-            {auth?.username ? (
-              <li className="logout">
-                <a href="/logout">
-                  <FaSignOutAlt /> Logout
-                </a>
-              </li>
-            ) : (
-              <li className="signIn">
-                <Link to="/login" state={{ from: location }} replace>
-                  <FaSignInAlt /> SIGN IN
-                </Link>
-              </li>
-            )}
-          </ul>
-        </div>
-        <div className="middleTopNav">
-          <Link to="/">
-            <img src={logo} alt="logo" />
-          </Link>
-        </div>
-        <div className="rightTopNav">
-          <ul>
-            {auth?.username && (
-              <li className="helloMSG">
-                hi <span>{auth?.username}</span>
-              </li>
-            )}
+						{auth?.username ? (
+							<li className='logout'>
+								<a href='/logout'>
+									<FaSignOutAlt /> Logout
+								</a>
+							</li>
+						) : (
+							<li className='signIn'>
+								<Link to='/login' state={{ from: location }} replace>
+									<FaSignInAlt /> SIGN IN
+								</Link>
+							</li>
+						)}
+					</ul>
+				</div>
+				<div className='middleTopNav'>
+					<Link to='/'>
+						<img src={logo} alt='logo' />
+					</Link>
+				</div>
+				<div className='rightTopNav'>
+					<ul>
+						{auth?.username && (
+							<li className='helloMSG'>
+								hi <span>{auth?.username}</span>
+							</li>
+						)}
 
-            <li onClick={handleShow} style={{ cursor: "pointer" }}>
-              <FaSearch />
-            </li>
-            {auth?.username && (
-              <Link to="/profile" state={{ from: location }} replace>
-                <li className="badgeContainer">
-                  <FaUserAlt style={{ color: "black" }} />
-                </li>
-              </Link>
-            )}
+						<li onClick={handleShow} style={{ cursor: "pointer" }}>
+							<FaSearch />
+						</li>
+						{auth?.username && (
+							<Link to='/profile' state={{ from: location }} replace>
+								<li className='badgeContainer'>
+									<FaUserAlt style={{ color: "black" }} />
+								</li>
+							</Link>
+						)}
 
-            <Link to="/cart" state={{ from: location }} replace>
-              <li className="badgeContainer">
-                {sum > 0 && <span className="badge">{sum}</span>}
-                <FaShoppingBag style={{ color: "black" }} />
-              </li>
-            </Link>
-          </ul>
-        </div>
-      </TopNavWrapper>
-    </TopWrapper>
-  );
+						<Link to='/cart' state={{ from: location }} replace>
+							<li className='badgeContainer'>
+								{sum > 0 && <span className='badge'>{sum}</span>}
+								<FaShoppingBag style={{ color: "black" }} />
+							</li>
+						</Link>
+					</ul>
+				</div>
+			</TopNavWrapper>
+		</TopWrapper>
+	);
 };
 
 export default TopNav;
 
 const TopWrapper = styled.div`
-  height: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+	height: 10vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 
-  /** small laptops up to 13 inch */
-  @media screen and (min-width: 1024px) and (max-width: 1336px) {
-    height: 12vh;
-  }
+	/** small laptops up to 13 inch */
+	@media screen and (min-width: 1024px) and (max-width: 1336px) {
+		height: 12vh;
+	}
 `;

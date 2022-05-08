@@ -58,7 +58,7 @@ const CheckoutLayout = () => {
             try {
                 const res = await axios.post(`/api/stripe/payment`, {
                     tokenID: stripeToken.id,
-                    amount: 9769,
+                    amount: totalAmount,
                 })
                 console.log(res.data);
             } catch (err) {
@@ -86,15 +86,19 @@ const CheckoutLayout = () => {
             return { ...prevState, [e.target.name]: e.target.value };
         });
     };
+    console.log(cookies.id);
+    console.log(cartItems);
+    console.log(totalAmount);
+    console.log(inputData);
 
     const handleCashOrder = (e) => {
         e.preventDefault();
-        axios.post(`/api/ordes/`,
+        axios.post(`/api/orders/`,
             {
                 userId: cookies.id,
                 products: cartItems,
                 amount: totalAmount,
-                adress: inputData,
+                address: inputData,
                 status: "pending",
             }
             ,
