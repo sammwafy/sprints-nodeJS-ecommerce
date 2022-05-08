@@ -55,7 +55,6 @@ export default function Cart() {
   //get array of items in cart slice id/quantity
   const cartItems = useSelector((state) => state.cart);
 
-
   useEffect(() => {
     //get products by id from backend and set to cartProducts global state
     cartItems.length > 0 &&
@@ -68,7 +67,6 @@ export default function Cart() {
         )
       );
   }, []);
-
 
   ////set cart to local and database............
   useEffect(() => {
@@ -94,7 +92,7 @@ export default function Cart() {
             withCredentials: true,
           }
         )
-        .then((res) => console.log(res.data))
+        .then((res) => dispatch(cartActions.setCart(res.data.products)))
         .catch((err) => console.log(err));
     }
 
@@ -111,7 +109,7 @@ export default function Cart() {
     //   } else {
     //     localStorage.setItem("cart", JSON.stringify(cartItems))
     //   }
-  }, [cartProducts]);
+  }, [cartItems]);
 
   //dispatch to cart slice
   const dispatch = useDispatch()
@@ -122,11 +120,7 @@ export default function Cart() {
     setCartProducts(filteredProducts)
     dispatch(cartActions.setCart(filteredCart))
   }
-  useEffect(() => {
 
-
-
-  }, [cartProducts])
 
   let totalPrice = 0;
   const rows =
@@ -156,7 +150,8 @@ export default function Cart() {
 
     });
 
-  console.log(rows);
+
+
   console.log(cartItems);
   console.log(cartProducts);
 

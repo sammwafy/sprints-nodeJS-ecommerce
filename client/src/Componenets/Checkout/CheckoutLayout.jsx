@@ -13,6 +13,8 @@ import { BsCashCoin } from "react-icons/bs";
 import useAuth from "../../Hooks/useAuth";
 import CardSection from './CardSection';
 
+import StripeCheckout from 'react-stripe-checkout';
+
 
 
 //strip................................
@@ -23,7 +25,6 @@ import { loadStripe } from "@stripe/stripe-js";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 
 
@@ -32,22 +33,50 @@ function createData(image, productName, quantity, unitPrice, total) {
     return { image, productName, quantity, unitPrice, total };
 }
 
+const key = "pk_test_51Kwvb1EC091tOSrIKnqiSJtaVVp8ualm3nywRDZ6ckXMXdHUPZieYKGLmDKTgxAFkyCHxUNOKvGVND5bCsoVpXSG00IDvkywA2"
+
 
 const CheckoutLayout = () => {
+    //stripe requirment
+    const [payment, setPayment] = useState(0)
+    const [stripeToken, setStripeToken] = useState(null)
+    const [totalAmount, setTotalAmount] = useState(0)
+    console.log("test", typeof (parseInt(totalAmount)));
+    const onToken = (token) => {
+        setStripeToken(token)
+    }
+
+    useEffect(() => {
+
+        const makeRequest = async () => {
+            try {
+                const res = await axios.post(`/api/stripe/payment`, {
+                    tokenID: stripeToken.id,
+                    amount: 9769,
+                })
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+
+        };
+
+        stripeToken && makeRequest()
+    }, [stripeToken])
 
 
-    //Collapse open/close
-    const [open, setOpen] = useState(false);
+    //
 
     //cart info
     const cartItems = useSelector(state => state.cart)
     const [products, setProducts] = useState([])
     const { auth, cartProducts, setCartProducts } = useAuth();
+    console.log(cartItems);
     console.log(cartProducts);
 
     //adress form state and actions
     const [inputData, setInputData] = useState({});
-    console.log(inputData);
+
 
     const handleChange = (e) => {
         setInputData((prevState) => {
@@ -58,16 +87,19 @@ const CheckoutLayout = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const formData = new FormData(e.currentTarget);
-        console.log(Object.fromEntries([...formData]));
+        const formData = Object.fromEntries([...new FormData(e.currentTarget)]);
+        console.log(Object.fromEntries([...new FormData(e.currentTarget)]));
     }
     //................................................................
 
+    let totalPrice = 0
     const rows = cartItems.length > 0 && cartItems.map((item) => {
         let product = cartProducts.filter(product => product._id === item.productId)[0]
 
+
+        totalPrice += product?.price * item.quantity
         return createData(
-            <img src="" alt="product?Img" />,
+            <img src={product?.image[0]} alt={product?.title} className="checkout-img" />,
             <div>
                 <p>{product?.title}</p>
             </div>,
@@ -75,9 +107,16 @@ const CheckoutLayout = () => {
                 {item.quantity}
             </div>,
             <p>{product?.price}</p>,
-            <p>{product?.price * item.quantity}</p>)
-    })
+            <p>{product?.price * item.quantity}</p>,
 
+        )
+
+    })
+    console.log("here", totalPrice);
+
+    useEffect(() => {
+        setTotalAmount(totalPrice)
+    }, [totalPrice])
 
     return (
         <div className="checkout-wrapper">
@@ -89,10 +128,11 @@ const CheckoutLayout = () => {
                     <Form.Check
                         inline
                         label="Cash on delivery"
+                        value={payment}
                         name="group1"
                         type="radio"
                         id={`inline-radio-1`}
-                        onChange={(e) => e.target.checked ? setOpen(false) : ""}
+                        onChange={(e) => setPayment(0)}
                         className="mx-3"
                     />
                     <BsCashCoin style={{ fontSize: "20px", marginLeft: "-10px" }} />
@@ -102,7 +142,7 @@ const CheckoutLayout = () => {
                         name="group1"
                         type="radio"
                         id={`inline-radio-2`}
-                        onChange={(e) => e.target.checked ? setOpen(true) : ""}
+                        onChange={(e) => setPayment(1)}
                         className="mx-3"
 
                     />
@@ -110,19 +150,7 @@ const CheckoutLayout = () => {
                 </div>
             </div>
 
-            <Collapse in={open}>
 
-
-                {/* try stripe..... */}
-                <div className="chechout-middle">
-                    <h4 className="checkout-title">card DETAILS</h4>
-                    <Elements stripe={stripePromise}>
-                        <CheckoutForm />
-                    </Elements>
-                </div>
-                {/* try stripe...... */}
-
-            </Collapse>
 
             <div className="checkout-bottom">
                 <div className="checkout-bottom-left">
@@ -181,21 +209,51 @@ const CheckoutLayout = () => {
                             </div>
                             <div className="checkout-summary-line">
                                 <span className="checkout-summary-title">SHIPPING RATE :</span>
-                                <span className="checkout-summary-value">12300 $</span>
+                                <span className="checkout-summary-value">{totalAmount} $</span>
                             </div>
                             <div className="checkout-summary-line">
                                 <span className="checkout-summary-title">TOTAL :</span>
-                                <span className="checkout-summary-value">12300 $</span>
+                                <span className="checkout-summary-value">{totalAmount} $</span>
                             </div>
                         </div>
                     </div>
-                    <Button variant="dark" className="checkout-button">place order</Button>
+
+
+
+
+                    {payment === 1 ?
+
+                        <StripeCheckout
+                            name="sprints"
+                            image="logo192.png"
+                            billingAddress
+                            shippingAddress
+                            discription={`Your  Total is ${totalAmount}`}
+                            amount={totalAmount}
+                            token={onToken}
+                            stripeKey={key}
+
+                        >
+                            <Button variant="dark" className="checkout-button" >place order</Button>
+
+                        </StripeCheckout>
+
+
+                        :
+                        <Button variant="dark" className="checkout-button" onClick={e => console.log("cash clicked")}>place order</Button>
+
+                    }
+
+
+
+
+
                 </div>
-            </div>
+            </div >
 
 
 
-        </div>
+        </div >
     )
 }
 

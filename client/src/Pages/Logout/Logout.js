@@ -11,73 +11,74 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthProvider";
 import { useDispatch } from "react-redux";
 import { reset } from "../../store/reset";
+import { cartActions } from "../../store/cartSlice";
 
 const Logout = () => {
-  const [cookies, _, removeCookie] = useCookies(["token", "id"]);
-  const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
-  const dispatch = useDispatch();
+	const [cookies, _, removeCookie] = useCookies(["token", "id"]);
+	const navigate = useNavigate();
+	const { setAuth } = useContext(AuthContext);
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.removeItem("cart");
-    localStorage.removeItem("cartBadge");
+	useEffect(() => {
+		localStorage.removeItem("cart");
+		localStorage.removeItem("cartBadge");
 
-    dispatch(reset());
-    removeCookie("token");
-    removeCookie("id");
-    removeCookie("username");
-    setAuth();
+		dispatch(cartActions.setCart([]));
+		removeCookie("token");
+		removeCookie("id");
+		removeCookie("username");
+		setAuth();
 
-    if (!cookies.id && !cookies.token) {
-      setTimeout(() => navigate("/login", { replace: false }), 3600);
-    }
-  }, [cookies]);
+		if (!cookies.id && !cookies.token) {
+			setTimeout(() => navigate("/login", { replace: false }), 3600);
+		}
+	}, [cookies]);
 
-  return (
-    <LogoutWrapper>
-      <Layout>
-        {!("id" in cookies) && !("token" in cookies) ? (
-          <div className="cardMSG">
-            <Container className="msgContainer">
-              <img src={checkCircle} alt="checkCircle" />
-              loginout ...
-            </Container>
-          </div>
-        ) : (
-          <div>cannot logout</div>
-        )}
-      </Layout>
-    </LogoutWrapper>
-  );
+	return (
+		<LogoutWrapper>
+			<Layout>
+				{!("id" in cookies) && !("token" in cookies) ? (
+					<div className='cardMSG'>
+						<Container className='msgContainer'>
+							<img src={checkCircle} alt='checkCircle' />
+							loginout ...
+						</Container>
+					</div>
+				) : (
+					<div>cannot logout</div>
+				)}
+			</Layout>
+		</LogoutWrapper>
+	);
 };
 const LogoutWrapper = styled.div`
-  .cardMSG {
-    display: block;
-    padding: 50px 0;
-    background: #9633ff;
-  }
-  .msgContainer {
-    width: calc(100vw / 2.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 400px;
-    margin: 50px auto;
-    background: white;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border-radius: 8px;
-    padding: 15px 5.4rem;
-    font-weight: 600;
-    font-size: 1.8rem;
-    img {
-      width: 100px;
-      margin-bottom: 20px;
-    }
-    @media screen and (max-width: 482px) {
-      width: 90vw;
-      padding: 15px 1.4rem;
-    }
-  }
+	.cardMSG {
+		display: block;
+		padding: 50px 0;
+		background: #9633ff;
+	}
+	.msgContainer {
+		width: calc(100vw / 2.2);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 400px;
+		margin: 50px auto;
+		background: white;
+		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+		border-radius: 8px;
+		padding: 15px 5.4rem;
+		font-weight: 600;
+		font-size: 1.8rem;
+		img {
+			width: 100px;
+			margin-bottom: 20px;
+		}
+		@media screen and (max-width: 482px) {
+			width: 90vw;
+			padding: 15px 1.4rem;
+		}
+	}
 `;
 export default Logout;

@@ -2,7 +2,7 @@
 
 .profile-card {
 	background: #ffb300;
-	width: 400px !important;
+	width: 400px;
 	height: 400px;
 	position: absolute;
 	left: 50%;
@@ -47,8 +47,8 @@
 }
 
 .profile-card header {
-	width: 600px;
-	height: 600px;
+	width: 60px;
+	height: 60px;
 	padding: 40px 20px 30px 20px;
 	display: inline-block;
 	float: left;
@@ -187,9 +187,11 @@
 		background: #ffb300;
 		top: 100%;
 	}
+
 	50% {
 		top: 40%;
 	}
+
 	100% {
 		top: 50%;
 		background: #e0e0e0;
@@ -204,8 +206,8 @@
 		border-radius: 4px;
 	}
 	100% {
-		width: 440px;
-		height: 280px;
+		width: 40px;
+		height: 40px;
 		background: #ffffff;
 		border-radius: 4px;
 	}
@@ -305,6 +307,7 @@
 }
 
 .button {
+	margin: 10px;
 	align-self: center;
 	background-color: #fff;
 	background-image: none;
