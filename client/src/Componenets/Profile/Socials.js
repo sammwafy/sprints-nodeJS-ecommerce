@@ -14,6 +14,8 @@ const Socials = ({ setEditSocials, id, token, scoials }) => {
   const [Twitter, setTwitter] = useState(scoials?.twitter || "");
   const [Telegram, setTelegram] = useState(scoials?.telegram || "");
   const [Instagram, setInstagram] = useState(scoials?.instagram || "");
+  const [error, setError] = useState("");
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -40,7 +42,7 @@ const Socials = ({ setEditSocials, id, token, scoials }) => {
           setEditSocials(false);
         }
       } catch (err) {
-        console.log(err);
+          setError(err?.response?.data);
       }
     } else {
       alert("about me must be more than 50 char");
@@ -115,6 +117,7 @@ const Socials = ({ setEditSocials, id, token, scoials }) => {
         />
       </InputGroup>
       <Button type="submit">submit</Button>
+      <p style={{padding: '15px 0'}}>{error && error}</p>
     </Form>
   );
 };

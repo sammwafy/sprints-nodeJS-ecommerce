@@ -23,8 +23,8 @@ const SignIn = ({ user }) => {
 	const [data, setData] = useState({});
 	const emailRefrence = useRef();
 	const errRefrence = useRef();
-	const [email, setEmail] = useState("sameh@gmail.com");
-	const [password, setPassword] = useState("sameh");
+	const [email, setEmail] = useState("admin@gmail.com");
+	const [password, setPassword] = useState("");
 	const [errorMsg, setErrorMsg] = useState("");
 	const [succesMsg, setSuccessMsg] = useState("");
 	// redirection

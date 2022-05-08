@@ -47,6 +47,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import ProductEdit from "./Pages/Admin/products/ProductEdit/ProductEdit";
 import NewProduct from "./Pages/Admin/products/newProduct/NewProduct";
 import Profile from "./Componenets/Profile/Profile.js";
+import UserProfilePage from "./Pages/Profile/userProfilePage.js";
 
 function App() {
 	const { auth } = useAuth();
@@ -77,7 +78,7 @@ function App() {
 
 				<Route element={<ProtectedRoute />}>
 					<Route path='/logout' element={<Logout />} />
-					<Route path='/profile' element={<Profile />} />
+					<Route path='/profile' element={<UserProfilePage />} />
 				</Route>
 
 				<Route path='shop'>

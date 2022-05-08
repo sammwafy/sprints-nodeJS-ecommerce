@@ -4,6 +4,7 @@ import { FaLongArrowAltLeft } from "react-icons/fa";
 import axios from "../../Hooks/axios";
 const AboutMe = ({ setEditAboutMe, id, token }) => {
   const [AboutMe, setAboutMe] = useState("")
+  const [error, setError] = useState("");
   const submitHandler = async (e) => {
     e.preventDefault();
    
@@ -20,7 +21,7 @@ const AboutMe = ({ setEditAboutMe, id, token }) => {
         setEditAboutMe(false)
       }
     } catch (err) {
-      console.log(err);
+      setError(err?.response?.data);
     }
   }else{
     alert('about me must be more than 50 char')
@@ -46,6 +47,7 @@ const AboutMe = ({ setEditAboutMe, id, token }) => {
         />
       </InputGroup>
       <Button type="submit">submit</Button>
+      <p style={{padding: '15px 0'}}>{error && error}</p>
     </Form>
   );
 };
