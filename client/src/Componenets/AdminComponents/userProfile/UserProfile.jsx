@@ -97,7 +97,7 @@ const UserProfile = () => {
                                 <MenuItem value={"suspended"}>Suspended</MenuItem>
                             </Select>
                         </FormControl>
-                        <button type="submit">Update</button>
+                        <button type="submit" className="button">Update</button>
                     </Form>
 
                 </Collapse>
