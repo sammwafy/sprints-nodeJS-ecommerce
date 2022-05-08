@@ -55,7 +55,7 @@ const OrderHistory = () => {
                     <p>no</p>
                   </TableCell>
                   <TableCell align="center">
-                    <button>Details</button>
+                    <button className="details">Details</button>
                   </TableCell>
                 </TableRow>
                 <TableRow
