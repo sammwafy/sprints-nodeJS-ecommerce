@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 // app.use(bodyParser.urlencoded({ extended:true  }));
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://sprints-ecommerce-server.herokuapp.com",
   credentials: true, //allow-credentials
   optionSuccessStatus: 200,
 };
