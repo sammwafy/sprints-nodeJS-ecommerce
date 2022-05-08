@@ -14,7 +14,7 @@ const cartSlice = createSlice({
 			state.push(action.payload);
 		},
 		reset(state, action) {
-			state = {};
+			state = [];
 		},
 		setCart(state, action) {
 			return (state = action.payload);

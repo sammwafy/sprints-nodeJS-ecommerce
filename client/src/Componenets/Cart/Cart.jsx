@@ -110,7 +110,7 @@ export default function Cart() {
     //     localStorage.setItem("cart", JSON.stringify(cartItems))
     //   }
   }, [cartItems]);
-
+  console.log(cartItems);
   //dispatch to cart slice
   const dispatch = useDispatch()
   //handle remove from cart buttons

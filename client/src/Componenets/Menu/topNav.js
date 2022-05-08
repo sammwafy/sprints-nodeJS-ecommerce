@@ -31,9 +31,9 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const handleShow = () => setShowshowSearch(true);
 
 	//get number of cart items
-	const cartItems = useSelector((state) => state.cart?.products);
+	const cartItems = useSelector((state) => state.cart);
 	const cart = localStorage.getItem("cart");
-
+	console.log(cartItems);
 	useEffect(() => {
 		let sumNum = cartItems?.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
 		localStorage.setItem("cartBadge", JSON.stringify(sumNum));

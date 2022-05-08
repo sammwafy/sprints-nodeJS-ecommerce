@@ -14,6 +14,7 @@ export default function CardContainer() {
     axios
       .get(`/api/products/?new=true`)
       .then((res) => {
+        console.log(res.data);
         setProducts(res.data);
         dispatch(productActions.getProducts(res.data));
       })
