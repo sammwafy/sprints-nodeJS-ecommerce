@@ -45,6 +45,7 @@ import ProductsList from "./Pages/Admin/products/productsList/ProductsList";
 
 import { loadStripe } from "@stripe/stripe-js";
 import ProductEdit from "./Pages/Admin/products/ProductEdit/ProductEdit";
+import NewProduct from "./Pages/Admin/products/newProduct/NewProduct";
 
 function App() {
 	const { auth } = useAuth();
@@ -92,12 +93,9 @@ function App() {
 
 							<Route path=':id'>
 								<Route index element={<Single type='products' />} />
-								<Route path='edit' element={<ProductEdit type='products' />} />
+								<Route path='edit' element={<ProductEdit />} />
 							</Route>
-							<Route
-								path='new'
-								element={<New type='products' title='Add new Product' />}
-							/>
+							<Route path='new' element={<NewProduct />} />
 						</Route>
 
 						<Route path='categories'>

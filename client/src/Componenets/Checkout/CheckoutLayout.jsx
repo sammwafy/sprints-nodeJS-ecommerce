@@ -21,6 +21,8 @@ import StripeCheckout from 'react-stripe-checkout';
 import CheckoutForm from './CheckoutForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from "@stripe/stripe-js";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
@@ -37,6 +39,10 @@ const key = "pk_test_51Kwvb1EC091tOSrIKnqiSJtaVVp8ualm3nywRDZ6ckXMXdHUPZieYKGLmD
 
 
 const CheckoutLayout = () => {
+    const [cookies, setCookie] = useCookies(["token", "id"]);
+    const navigate = useNavigate();
+
+
     //stripe requirment
     const [payment, setPayment] = useState(0)
     const [stripeToken, setStripeToken] = useState(null)
@@ -69,10 +75,7 @@ const CheckoutLayout = () => {
 
     //cart info
     const cartItems = useSelector(state => state.cart)
-    const [products, setProducts] = useState([])
     const { auth, cartProducts, setCartProducts } = useAuth();
-    console.log(cartItems);
-    console.log(cartProducts);
 
     //adress form state and actions
     const [inputData, setInputData] = useState({});
@@ -83,6 +86,28 @@ const CheckoutLayout = () => {
             return { ...prevState, [e.target.name]: e.target.value };
         });
     };
+
+    const handleCashOrder = (e) => {
+        e.preventDefault();
+        axios.post(`/api/ordes/`,
+            {
+                userId: cookies.id,
+                products: cartItems,
+                amount: totalAmount,
+                adress: inputData,
+                status: "pending",
+            }
+            ,
+            {
+                headers: {
+                    token: "Bearer " + cookies.token,
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err))
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -205,7 +230,7 @@ const CheckoutLayout = () => {
                         <div className="checkout-summary">
                             <div className="checkout-summary-line">
                                 <span className="checkout-summary-title">SUB-TOTAL :</span>
-                                <span className="checkout-summary-value">12300 $</span>
+                                <span className="checkout-summary-value">{totalAmount} $</span>
                             </div>
                             <div className="checkout-summary-line">
                                 <span className="checkout-summary-title">SHIPPING RATE :</span>
@@ -240,7 +265,7 @@ const CheckoutLayout = () => {
 
 
                         :
-                        <Button variant="dark" className="checkout-button" onClick={e => console.log("cash clicked")}>place order</Button>
+                        <Button variant="dark" className="checkout-button" onClick={handleCashOrder}>place order</Button>
 
                     }
 
