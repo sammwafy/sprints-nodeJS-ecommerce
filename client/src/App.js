@@ -44,7 +44,8 @@ import UsersProfile from "./Pages/Admin/users/userProfiles/UsersProfile";
 import ProductsList from "./Pages/Admin/products/productsList/ProductsList";
 
 import { loadStripe } from "@stripe/stripe-js";
-import UserProfile from "./Pages/Profile/UserProfile.js";
+import ProductEdit from "./Pages/Admin/products/ProductEdit/ProductEdit";
+import UserProfile from "./Componenets/AdminComponents/userProfile/UserProfile.jsx";
 
 function App() {
 	const { auth } = useAuth();
@@ -100,7 +101,7 @@ function App() {
 
 							<Route path=':id'>
 								<Route index element={<Single type='products' />} />
-								<Route path='edit' element={<AdminEdit type='products' />} />
+								<Route path='edit' element={<ProductEdit type='products' />} />
 							</Route>
 							<Route
 								path='new'
