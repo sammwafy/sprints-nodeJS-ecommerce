@@ -54,8 +54,8 @@ const BrandsCarousel = ({ items, interval }) => {
         itemClass="image-item"
         responsive={responsive}
       >
-        {images.slice(0, 20).map((image) => {
-          return <Image draggable={false} src={image} />;
+        {images.slice(0, 20).map((image,i) => {
+          return <Image draggable={false} src={image} key={i}/>;
         })}
       </Carousel>
     </BrandsWrapper>

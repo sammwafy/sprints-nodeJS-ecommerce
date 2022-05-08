@@ -7,8 +7,8 @@ const FullScreenCarousel = ({ items, interval,subHeader }) => {
     <FullScreenWrapper style={subHeader && {height: '90vh'}}>
       <Carousel interval={interval} controls={false}>
         {items &&
-          items.map((item) => (
-            <Carousel.Item>
+          items.map((item,i) => (
+            <Carousel.Item key={i}>
               <img
                 className="d-block w-100"
                 src={item.imgSrc}
