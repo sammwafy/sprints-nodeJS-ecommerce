@@ -22,19 +22,21 @@ const Profile = () => {
   const [EditAvatar, setEditAvatar] = useState(false);
   const [EditPassword, setEditPassword] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-
+console.log(auth)
   useEffect(() => {
+    if(auth.id){
     const config = {
       headers: {
         token: `Bearer ${auth?.token}`,
       },
     };
 
-    axios.get(`/api/users/findMyInfo/${auth?.id}`, config).then(
+    axios.get(`/api/users/findMyInfo/${auth.id}`, config).then(
       (response) => {
         setUserInfo({
           avatar: response?.data?.avatar,
           status: response?.data?.status,
+          username: response?.data?.username,
           aboutMe: response?.data?.aboutMe || "",
           email: response?.data?.email,
           socials: response?.data?.socials,
@@ -44,9 +46,11 @@ const Profile = () => {
         console.log(err);
       }
     );
-  }, []);
+  }
+  }, [auth.id]);
 
-
+console.log(auth)
+console.log(userInfo)
   return (
     userInfo  && 
     userInfo.status === 'active' &&
@@ -72,11 +76,15 @@ const Profile = () => {
           socials={userInfo.socials}
         />
         ) : EditPassword ? (
-          <ChangePassword setEditPassword={setEditPassword} />
+          <ChangePassword 
+          setEditPassword={setEditPassword}
+          id={auth?.id}
+          token={auth?.token}
+          />
         ) : (
           <>
             <div className="avatar">
-              <Image src={auth?.avatar} />
+              <Image src={userInfo?.avatar} />
               <FaEdit
                 className="editAvatar"
                 onClick={() => setEditAvatar(true)}
@@ -122,9 +130,9 @@ const Profile = () => {
               </Row>
             </div>
             <hr />
-            <div>
-              need to change password ?{" "}
-              <Button onClick={() => setEditPassword(true)}>
+            <div className="d-flex justify-content-between">
+              <p style={{fontWeight: '600'}}>need to change password ?</p>
+              <Button variant="warning" onClick={() => setEditPassword(true)}>
                 change password
               </Button>
             </div>
