@@ -16,7 +16,6 @@ export default function CardContainer() {
       .then((res) => {
         setProducts(res.data);
         dispatch(productActions.getProducts(res.data));
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -43,6 +42,7 @@ export default function CardContainer() {
             img={product.image}
             price={product.price}
             id={product._id}
+            key={product._id}
           />
         ))}
       </div>

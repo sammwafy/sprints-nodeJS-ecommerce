@@ -31,11 +31,11 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const handleShow = () => setShowshowSearch(true);
 
 	//get number of cart items
-	const cartItems = useSelector((state) => state.cart);
+	const cartItems = useSelector((state) => state.cart?.products);
 	const cart = localStorage.getItem("cart");
 
 	useEffect(() => {
-		let sumNum = cartItems.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
+		let sumNum = cartItems?.reduce((acc, product) => acc + product.quantity, 0); //get cart items + quantity
 		localStorage.setItem("cartBadge", JSON.stringify(sumNum));
 		setSum(sumNum);
 	}, [cartItems]);

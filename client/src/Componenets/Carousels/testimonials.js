@@ -8,8 +8,8 @@ const TestimonialsCarousel = ({ items, interval }) => {
        <h5>WHAT OUR CUSTOMERS SAY</h5>
       <Carousel interval={interval} variant="dark">
         {items &&
-          items.map((item) => (
-            <Carousel.Item>
+          items.map((item,i) => (
+            <Carousel.Item key={i}>
               <p className="slide-top">{item.text}</p>
               <h5 className="slide-bottom">{item.author}</h5>
             </Carousel.Item>

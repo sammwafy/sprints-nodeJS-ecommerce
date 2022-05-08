@@ -52,9 +52,9 @@ const CategoryCarousel = ({ interval }) => {
             sliderClass="carousel-slider"
             containerClass="carousel-container"
          >
-            {images.slice().map((item) => {
+            {images.slice().map((item, i) => {
                return (
-                  <a href="#">
+                  <a href="#" key={i}>
                      <div className="hoverEffect">
                         <div className="backG">
                            <Image draggable={false} src={item.imgSrc} />
