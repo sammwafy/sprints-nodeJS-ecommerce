@@ -13,6 +13,7 @@ const ProductSchema = new mongoose.Schema(
 			},
 		],
 		categories: { type: Array },
+		Brand: { type: String },
 		size: { type: String },
 		color: { type: String },
 		price: { type: Number, required: true },
@@ -22,7 +23,7 @@ const ProductSchema = new mongoose.Schema(
 				username: String,
 				userId: String,
 				rating: Number,
-				comment: String
+				comment: String,
 			},
 		],
 	},

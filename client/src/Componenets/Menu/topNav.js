@@ -74,9 +74,9 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 					</ul>
 				</div>
 				<div className='middleTopNav'>
-					<a href='/'>
+					<Link to='/'>
 						<img src={logo} alt='logo' />
-					</a>
+					</Link>
 				</div>
 				<div className='rightTopNav'>
 					<ul>

@@ -66,6 +66,10 @@
 				margin: 5px;
 				background: rgb(222, 220, 220);
 				padding: 0.5em;
+				.checkout-img {
+					width: 50px;
+					height: 50px;
+				}
 			}
 			.checkout-bottom-right-summary {
 				margin: 5px;
@@ -85,7 +89,7 @@
 			}
 			.checkout-button {
 				width: 120px;
-				align-self: flex-end;
+				align-self: flex-start;
 				margin: 5px;
 				&:hover {
 					background-color: crimson;
