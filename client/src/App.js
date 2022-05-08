@@ -45,7 +45,7 @@ import ProductsList from "./Pages/Admin/products/productsList/ProductsList";
 
 import { loadStripe } from "@stripe/stripe-js";
 import ProductEdit from "./Pages/Admin/products/ProductEdit/ProductEdit";
-import UserProfile from "./Componenets/AdminComponents/userProfile/UserProfile.jsx";
+import Profile from "./Componenets/Profile/Profile.js";
 
 function App() {
 	const { auth } = useAuth();
@@ -76,7 +76,7 @@ function App() {
 
         <Route element={<ProtectedRoute  />}>
 				<Route path='/logout' element={<Logout />} />
-				<Route path='/profile' element={<UserProfile />} />
+				<Route path='/profile' element={<Profile />} />
         </Route>
 
         
