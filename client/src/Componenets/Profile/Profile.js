@@ -101,7 +101,7 @@ const Profile = () => {
 								<h3>
 									About Me <FaEdit onClick={() => setEditAboutMe(true)} />
 								</h3>
-								<p>{userInfo?.aboutMe || "no bio text yet"}</p>
+								<p className="aboutMeTXT">{userInfo?.aboutMe || "no bio text yet"}</p>
 								<hr />
 								<h3>
 									Social Links <FaEdit onClick={() => setEditSocials(true)} />
