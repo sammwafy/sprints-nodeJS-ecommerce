@@ -32,7 +32,7 @@ const OrderDetails = () => {
             .catch((err) => console.log(err))
         )
       );
-  }, []);
+  }, [orders[0]]);
   console.log(orders);
   console.log(products);
 
