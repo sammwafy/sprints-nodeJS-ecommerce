@@ -60,6 +60,27 @@ const CheckoutLayout = () => {
                     tokenID: stripeToken.id,
                     amount: totalAmount,
                 })
+                if (res.data.paid) {
+                    axios.post(`/api/orders/`,
+                        {
+                            userId: cookies.id,
+                            products: cartItems,
+                            amount: totalAmount,
+                            address: inputData,
+                            status: "pending",
+                        }
+                        ,
+                        {
+                            headers: {
+                                token: "Bearer " + cookies.token,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    )
+                        .then(res => navigate(`/order`))
+                        .catch(err => console.log(err))
+
+                }
                 console.log(res.data);
             } catch (err) {
                 console.log(err);
@@ -109,7 +130,7 @@ const CheckoutLayout = () => {
                 },
             }
         )
-            .then(res => console.log(res.data))
+            .then(res => navigate(`/order`))
             .catch(err => console.log(err))
     }
 

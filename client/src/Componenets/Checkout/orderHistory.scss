@@ -29,12 +29,13 @@ h2 {
   position: relative;
   text-align: center;
   text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
+  // user-select: none;
+  // -webkit-user-select: none;
   touch-action: manipulation;
   width: 60%;
   &:hover,
   &:focus {
     background-color: crimson;
+    color: #fff;
   }
 }

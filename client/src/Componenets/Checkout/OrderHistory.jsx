@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,8 +10,25 @@ import Paper from "@mui/material/Paper";
 import { format } from "date-fns";
 import data from "./data";
 import "./orderHistory.scss";
+import axios from "../../Hooks/axios";
+import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
 
 const OrderHistory = () => {
+  const [orders, setOrders] = useState([]);
+  const [cookies, setCookie] = useCookies(["token", "id"]);
+  useEffect(() => {
+    axios
+      .get(`/api/orders/find/${cookies.id}`, {
+        headers: {
+          token: "Bearer " + cookies.token,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => setOrders(res.data))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <Layout>
       <div>
@@ -25,7 +42,7 @@ const OrderHistory = () => {
                   <TableCell align="center">DATE</TableCell>
                   <TableCell align="center">TOTAL</TableCell>
                   <TableCell align="center">PAID</TableCell>
-                  <TableCell align="center">DELEVERED</TableCell>
+                  <TableCell align="center">STATUSE</TableCell>
                   <TableCell align="center">ACTIONS</TableCell>
                 </TableRow>
               </TableHead>
@@ -52,10 +69,12 @@ const OrderHistory = () => {
                     <p>no</p>
                   </TableCell>
                   <TableCell align="center">
-                    <p>no</p>
+                    <p>bending</p>
                   </TableCell>
                   <TableCell align="center">
-                    <button className="details">Details</button>
+                    <Link to="/details" className="details">
+                      Details
+                    </Link>
                   </TableCell>
                 </TableRow>
                 <TableRow
@@ -80,10 +99,12 @@ const OrderHistory = () => {
                     <p>no</p>
                   </TableCell>
                   <TableCell align="center">
-                    <p>no</p>
+                    <p>arrived</p>
                   </TableCell>
                   <TableCell align="center">
-                    <button className="details">Details</button>
+                    <Link to="/details" className="details">
+                      Details
+                    </Link>
                   </TableCell>
                 </TableRow>
               </TableBody>
