@@ -60,7 +60,7 @@ const ProductEdit = () => {
         });
     };
 
-
+    console.log(inputData);
     const handleSubmit = async (e) => {
         e.preventDefault();
         let newCategories = [...inputData.categories].map(c => c.value)
