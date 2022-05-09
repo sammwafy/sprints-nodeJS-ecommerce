@@ -7,7 +7,7 @@ import "./orderDetails.scss";
 
 const OrderDetails = () => {
   const [orders, setOrders] = useState([]);
-  const [produts, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [cookies, setCookie] = useCookies(["token", "id"]);
   const { id } = useParams();
   useEffect(() => {
@@ -22,41 +22,19 @@ const OrderDetails = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  // useEffect(() => {
-  //   orders &&
-  //     Promise.all(
-  //       orders.products.map((item) =>
-  //         axios
-  //           .get(`/api/products/find/${item.productId}`)
-  //           .then((res) => setProducts((prev) => [...prev, res.data]))
-  //           .catch((err) => console.log(err))
-  //       )
-  //     );
-  // }, [orders]);
+  useEffect(() => {
+    orders[0] &&
+      Promise.all(
+        orders[0]?.products.map((item) =>
+          axios
+            .get(`/api/products/find/${item.productId}`)
+            .then((res) => setProducts((prev) => [...prev, res.data]))
+            .catch((err) => console.log(err))
+        )
+      );
+  }, []);
   console.log(orders);
-  const order = {
-    userId: "admin",
-    paymentMethod: "payment on delivery",
-    products: [
-      {
-        productId: "mirror",
-        quantity: 3,
-        price: 100,
-      },
-      {
-        productId: "sofa",
-        quantity: 1,
-        price: 1500,
-      },
-    ],
-    amount: 3456,
-    adress: {
-      street: "abc st.",
-      city: "cairo",
-      country: "Egypt",
-    },
-    status: "pending",
-  };
+  console.log(products);
 
   return (
     <Layout>
@@ -66,41 +44,40 @@ const OrderDetails = () => {
           <hr />
           <p>name : {cookies.username}</p>
           <p>adress :</p>
-          <p>{orders?.address?.street || "no address"}</p>
-          <p>{orders?.address?.city || "no address"}</p>
-          <p>{orders?.address?.country || "no address"}</p>
+          <p>{orders[0]?.address?.street || "no address"}</p>
+          <p>{orders[0]?.address?.city || "no address"}</p>
+          <p>{orders[0]?.address?.country || "no address"}</p>
         </section>
         <section className="payment">
           <h2> payment </h2>
           <hr />
-          <p> method : {orders.payment} </p>
+          <p> method : {orders[0]?.payment} </p>
         </section>
         <section className="order-items">
           <h2>order items</h2>
           <hr />
-          {/* {orders &&
-            orders.products.map((product, index) => (
+          {products.length > 0 &&
+            orders[0]?.products.map((product, index) => (
               <div>
-                <img src={produts[index].image[0]} alt="item" />
+                <img src={products[index]?.image[0]} alt="item" />
                 <div className="paragraph">
-                  <p> {produts[index].title} </p>
+                  <p> {products[index]?.title} </p>
                   <p>
-                    {`${product.quantity}×${produts[index].price} ${
-                      product.quantity * produts[index].price
-                    } `}
+                    {`${product.quantity}×${products[index].price} ${product.quantity * products[index].price
+                      } `}
                   </p>
                 </div>
               </div>
-            ))} */}
+            ))}
         </section>
         <section className="order-summary">
           <h2>order summary</h2>
           <hr />
-          <p>items : {orders.length}</p>
-          <p>shipping :{} </p>
-          <p>total :</p>
+          <p>items : {orders[0]?.products.reduce((acc, e) => acc + e.quantity, 0)}</p>
+          <p>shipping :no Shipping </p>
+          <p>total :$ {orders[0]?.amount}</p>
           <div className="order-state">
-            <p> status : {orders.status} </p>
+            <p> status : {orders[0]?.status} </p>
             <button> cancel order </button>
           </div>
         </section>
