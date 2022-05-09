@@ -129,4 +129,13 @@ router.get("/lastsevendays", verifyTokenAndAdmin, async (req, res) => {
 		res.status(500).json(err);
 	}
 });
+// GET USER ORDERS DETAILS
+router.get("/details/:id", verifyTokenAndAuthorization, async (req, res) => {
+	try {
+		const orders = await Order.find({ userId: { $eq: req.params.id } }).sort({ createdAt: -1 });
+		res.status(200).json(orders);
+	} catch (err) {
+		res.status(500).json(err);
+	}
+})
 module.exports = router;
