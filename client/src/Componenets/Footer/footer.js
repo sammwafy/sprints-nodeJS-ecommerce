@@ -1,5 +1,6 @@
 import { FooterWrapper } from "./styles/footer.styled";
 import LogoWhite from "../../Assets/imgs/sprintsWhite.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -147,10 +148,10 @@ const Footer = () => {
                       </a>
                     </li>
                     <li className="menu-item">
-                      <a href="/">
+                      <Link to="/order">
                         <i className="fa-solid fa-angle-right arrow"></i>
                         <span className="links-text">Order History</span>
-                      </a>
+                      </Link>
                     </li>
                     <li className="menu-item">
                       <a href="/">
