@@ -79,6 +79,7 @@ router.put(
 	verifyTokenAndAdmin,
 	upload.array("productImg", 6),
 	async (req, res) => {
+		console.log(req.body);
 		const urls = [];
 		const files = req.files;
 		for (const file of files) {

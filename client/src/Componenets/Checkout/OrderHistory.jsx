@@ -12,6 +12,7 @@ import data from "./data";
 import "./orderHistory.scss";
 
 const OrderHistory = () => {
+
   return (
     <Layout>
       <div>

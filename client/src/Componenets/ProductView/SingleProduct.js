@@ -78,7 +78,7 @@ const SingleProduct = () => {
                         price: product?.price,
                         description: product?.description,
                         quantity: product?.quantity,
-                        category: "sofa",
+                        category: product?.categories,
                         id: product._id
                       }}
                     />

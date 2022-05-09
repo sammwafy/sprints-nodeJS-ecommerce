@@ -74,9 +74,11 @@
 			flex-direction: column;
 			padding: 0 4rem;
 			.form-input {
+				#react-select-2-input {
+					width: 300px !important;
+				}
 				padding: 15px;
 				display: flex;
-				align-items: center;
 				label {
 					cursor: pointer;
 					width: 110px;

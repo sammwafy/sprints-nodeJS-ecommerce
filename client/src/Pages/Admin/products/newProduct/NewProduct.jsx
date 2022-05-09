@@ -8,6 +8,14 @@ import Button from "react-bootstrap/Button";
 import axios from "../../../../Hooks/axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import Select from 'react-select'
+
+
+
+
+
+
+
 const NewProduct = () => {
 
     const [inputData, setInputData] = useState({ categories: "" });
@@ -38,7 +46,7 @@ const NewProduct = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        let newCategories = [...inputData.categories].map(c => c.value)
         const imgsFiles = images.map((image) => image.file);
         const formData = new FormData();
         for (var i = 0; i < imgsFiles.length; i++) {
@@ -51,7 +59,8 @@ const NewProduct = () => {
         formData.append("quantity", inputData.quantity);
         formData.append("size", inputData.size);
         formData.append("title", inputData.title);
-        formData.append("categories", inputData.categories);
+
+        formData.append("categories", newCategories);
         try {
             const res = await axios.post(
                 `/api/products/`,
@@ -117,7 +126,7 @@ const NewProduct = () => {
 
     // const categories = ["outdoors", "sofa", "kitchen"];
     //to options
-    const options = [{
+    const optionss = [{
         name: "category",
         value: "outdoors",
         id: useId()
@@ -139,6 +148,54 @@ const NewProduct = () => {
     //   value: category,
     //   id:useId()
     // }));
+    console.log(inputData.categories);
+    const options = [
+        { value: 'Furniture', label: 'Furniture' },
+        { value: 'Gaming furniture', label: 'Gaming furniture' },
+        { value: "Sofas & armchairs", label: "Sofas & armchairs" },
+        { value: "Wardrobes", label: "Wardrobes" },
+
+        { value: "Lighting", label: "Lighting" },
+        { value: "Smart lighting", label: "Smart lighting" },
+        { value: "Decorative lighting", label: "Decorative lighting" },
+        { value: "Integrated lighting", label: "Integrated lighting" },
+        { value: "Outdoor lighting", label: "Outdoor lighting" },
+
+
+        { value: "Decoration", label: "Decoration" },
+        { value: "Frames & pictures", label: "Frames & pictures" },
+        { value: "Plants & flowers", label: "Plants & flowers" },
+        { value: "Mirrors", label: "Mirrors" },
+        { value: "Vases & bowls", label: "Vases & bowls" },
+
+        { value: "Rugs, mats & flooring", label: "Rugs, mats & flooring" },
+        { value: "Rugs", label: "Rugs" },
+        { value: "Outdoor flooring", label: "Outdoor flooring" },
+        { value: "Door mats", label: "Door mats" },
+        { value: "Bath mats", label: "Bath mats" },
+
+
+        { value: "Working from home", label: "Working from home" },
+        { value: "Desks & computer desks", label: "Desks & computer desks" },
+        { value: "Work lamps", label: "Work lamps" },
+        { value: "Drawer units", label: "Drawer units" },
+        { value: "Desk chairs", label: "Desk chairs" },
+
+
+        { value: "Kitchen & appliances", label: "Kitchen & appliances" },
+        { value: "Kitchen cabinets", label: "Kitchen cabinets" },
+        { value: "Kitchen worktops", label: "Kitchen worktops" },
+        { value: "Appliances", label: "Appliances" },
+        { value: "Pantry", label: "Pantry" },
+
+        { value: "Outdoor", label: "Outdoor" },
+        { value: "Dining Furniture", label: "Dining Furniture" },
+        { value: "Accessories", label: "Accessories" },
+        { value: "BABY & KIDS", label: "BABY & KIDS" },
+        { value: "Kids", label: "Kids" },
+        { value: "Baby ", label: "Baby " },
+    ]
+
 
 
     return (
@@ -285,7 +342,21 @@ const NewProduct = () => {
                                 />
                             </div>
                             <div className="form-input">
-                                <Form.Select
+
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    isMulti
+                                    options={options}
+                                    onChange={(e) =>
+                                        setInputData((prev) => ({
+                                            ...prev,
+                                            categories: e,
+                                        }))
+                                    }
+
+                                />
+
+                                {/* <Form.Select
                                     value={inputData.category}
                                     onChange={(e) =>
                                         setInputData((prev) => ({
@@ -297,12 +368,12 @@ const NewProduct = () => {
                                     <option name="category" value="1">
                                         category
                                     </option>
-                                    {options.map((option) => (
+                                    {optionss.map((option) => (
                                         <option name={option.name} value={option.value} key={option.id}>
                                             {option.value}
                                         </option>
                                     ))}
-                                </Form.Select>
+                                </Form.Select> */}
                             </div>
                             <button className="submit" disabled={required}>
                                 Submit

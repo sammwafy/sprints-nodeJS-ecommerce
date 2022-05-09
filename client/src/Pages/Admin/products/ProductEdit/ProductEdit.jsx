@@ -12,7 +12,7 @@ import { useEffect, useId } from "react";
 import ImageUploading from "react-images-uploading";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import Select from 'react-select'
 
 const ProductEdit = () => {
 
@@ -63,13 +63,21 @@ const ProductEdit = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        let newCategories = [...inputData.categories].map(c => c.value)
         const imgsFiles = images.map((image) => image.file);
-        const formData = new FormData(e.currentTarget);
-
+        const formData = new FormData();
         for (var i = 0; i < imgsFiles.length; i++) {
             formData.append("productImg", imgsFiles[i]);
         }
+        formData.append("featuredImg", uniqueImgIndex);
+        formData.append("description", inputData.description);
+        formData.append("image", inputData.image);
+        formData.append("price", inputData.price);
+        formData.append("quantity", inputData.quantity);
+        formData.append("size", inputData.size);
+        formData.append("title", inputData.title);
+
+        formData.append("categories", newCategories);
 
         try {
             const res = await axios.put(
@@ -83,6 +91,7 @@ const ProductEdit = () => {
                     withCredentials: true,
                 }
             );
+            console.log(res.data);
         } catch (err) {
             console.log(err);
         }
@@ -143,22 +152,52 @@ const ProductEdit = () => {
 
 
     const options = [
-        {
-            name: "category",
-            value: "outdoors",
-            id: useId(),
-        },
-        {
-            name: "category",
-            value: "sofa",
-            id: useId(),
-        },
-        {
-            name: "category",
-            value: "kitchen",
-            id: useId(),
-        },
-    ];
+        { value: 'Furniture', label: 'Furniture' },
+        { value: 'Gaming furniture', label: 'Gaming furniture' },
+        { value: "Sofas & armchairs", label: "Sofas & armchairs" },
+        { value: "Wardrobes", label: "Wardrobes" },
+
+        { value: "Lighting", label: "Lighting" },
+        { value: "Smart lighting", label: "Smart lighting" },
+        { value: "Decorative lighting", label: "Decorative lighting" },
+        { value: "Integrated lighting", label: "Integrated lighting" },
+        { value: "Outdoor lighting", label: "Outdoor lighting" },
+
+
+        { value: "Decoration", label: "Decoration" },
+        { value: "Frames & pictures", label: "Frames & pictures" },
+        { value: "Plants & flowers", label: "Plants & flowers" },
+        { value: "Mirrors", label: "Mirrors" },
+        { value: "Vases & bowls", label: "Vases & bowls" },
+
+        { value: "Rugs, mats & flooring", label: "Rugs, mats & flooring" },
+        { value: "Rugs", label: "Rugs" },
+        { value: "Outdoor flooring", label: "Outdoor flooring" },
+        { value: "Door mats", label: "Door mats" },
+        { value: "Bath mats", label: "Bath mats" },
+
+
+        { value: "Working from home", label: "Working from home" },
+        { value: "Desks & computer desks", label: "Desks & computer desks" },
+        { value: "Work lamps", label: "Work lamps" },
+        { value: "Drawer units", label: "Drawer units" },
+        { value: "Desk chairs", label: "Desk chairs" },
+
+
+        { value: "Kitchen & appliances", label: "Kitchen & appliances" },
+        { value: "Kitchen cabinets", label: "Kitchen cabinets" },
+        { value: "Kitchen worktops", label: "Kitchen worktops" },
+        { value: "Appliances", label: "Appliances" },
+        { value: "Pantry", label: "Pantry" },
+
+        { value: "Outdoor", label: "Outdoor" },
+        { value: "Dining Furniture", label: "Dining Furniture" },
+        { value: "Accessories", label: "Accessories" },
+        { value: "BABY & KIDS", label: "BABY & KIDS" },
+        { value: "Kids", label: "Kids" },
+        { value: "Baby ", label: "Baby " },
+    ]
+
     return (
         <AdminLayout>
             <div className="edit">
@@ -294,30 +333,30 @@ const ProductEdit = () => {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="form-input">
-                                <Form.Select
-                                    name="categories"
-                                    value={inputData.category}
+                            <div className="form-input cate-select" >
+                                <Select
+
+                                    style={{ minWidth: '200px' }}
+                                    closeMenuOnSelect={false}
+                                    isMulti
+                                    options={options}
                                     onChange={(e) =>
                                         setInputData((prev) => ({
                                             ...prev,
-                                            [e.target.name]: e.target.value,
+                                            categories: e,
                                         }))
                                     }
-                                >
-                                    <option name="category" value="1">
-                                        category
-                                    </option>
-                                    {options.map((option) => (
-                                        <option
-                                            name={option.name}
-                                            value={option.value}
-                                            key={option.id}
-                                        >
-                                            {option.value}
-                                        </option>
-                                    ))}
-                                </Form.Select>
+                                    theme={(theme) => ({
+                                        ...theme,
+                                        borderRadius: 0,
+                                        width: 20,
+                                        colors: {
+                                            ...theme.colors,
+                                            primary25: 'hotpink',
+                                            primary: 'black',
+                                        },
+                                    })}
+                                />
                             </div>
                             <button className="submit" disabled={required}>
                                 Submit

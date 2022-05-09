@@ -1,8 +1,11 @@
 import './ordersList.scss';
-
+import AdminLayout from ''
 const OrdersLists = () => {
     return (
-        <div>OrdersLists</div>
+        <AdminLayout>
+
+
+        </AdminLayout>
     )
 }
 

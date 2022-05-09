@@ -6,6 +6,7 @@ import AddToCarts from "./AddToCarts.js";
 import { FaAngleRight } from "react-icons/fa";
 const Description = ({ data }) => {
 	const price = data?.price && parseFloat(data?.price).toFixed(2);
+	console.log(data?.category);
 	return (
 		<div className='productDesc'>
 			<div className='price'>${price}</div>
@@ -25,7 +26,7 @@ const Description = ({ data }) => {
 					)}
 				</h5>
 				<h5>
-					<FaAngleRight /> categories : {data?.category}
+					<FaAngleRight /> categories : {data?.category?.map((c) => c)}
 				</h5>
 			</div>
 		</div>
