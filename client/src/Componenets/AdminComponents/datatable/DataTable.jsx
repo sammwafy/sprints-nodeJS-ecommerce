@@ -64,37 +64,28 @@ const DataTable = ({ columns, type }) => {
 
 
   useEffect(() => {
-    switch (type) {
-      case "products":
 
-        break;
+    axios
+      .get(`/api/orders`, {
+        headers: {
+          token: "Bearer " + cookies.token,
 
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then(function (response) {
+        // handle success
 
-      case "orders":
-        axios
-          .get(`/api/orders`, {
-            headers: {
-              token: "Bearer " + cookies.token,
+        setOrders(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
 
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
-          })
-          .then(function (response) {
-            // handle success
-
-            setOrders(response.data);
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          });
-        break;
-      default:
-        return;
-    }
     // call useEffect every change in type
-  }, [type]);
+  }, []);
 
   //get data from redux
 
