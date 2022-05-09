@@ -81,7 +81,7 @@ const CheckoutLayout = () => {
                             },
                         }
                     )
-                        .then(res => navigate(`/order`))
+                        .then(res => console.log(res.data))
                         .catch(err => console.log(err))
 
                 }

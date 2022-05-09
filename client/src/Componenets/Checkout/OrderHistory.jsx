@@ -19,7 +19,7 @@ const OrderHistory = () => {
   const [cookies, setCookie] = useCookies(["token", "id"]);
   useEffect(() => {
     axios
-      .get(`/api/orders/find/${cookies.id}`, {
+      .get(`/api/orders/details/${cookies.id}`, {
         headers: {
           token: "Bearer " + cookies.token,
           "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const OrderHistory = () => {
       .then((res) => setOrders(res.data))
       .catch((error) => console.log(error));
   }, []);
-
+  console.log(orders);
   return (
     <Layout>
       <div>
