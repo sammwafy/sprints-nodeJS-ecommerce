@@ -23,6 +23,8 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from "@stripe/stripe-js";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../store/cartSlice";
 
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
@@ -41,6 +43,7 @@ const key = "pk_test_51Kwvb1EC091tOSrIKnqiSJtaVVp8ualm3nywRDZ6ckXMXdHUPZieYKGLmD
 const CheckoutLayout = () => {
     const [cookies, setCookie] = useCookies(["token", "id"]);
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
 
     //stripe requirment
@@ -68,6 +71,7 @@ const CheckoutLayout = () => {
                             amount: totalAmount,
                             address: inputData,
                             status: "pending",
+                            payment: "Card"
                         }
                         ,
                         {
@@ -81,6 +85,8 @@ const CheckoutLayout = () => {
                         .catch(err => console.log(err))
 
                 }
+                localStorage.removeItem("cart")
+                dispatch(cartActions.setCart([]))
                 console.log(res.data);
             } catch (err) {
                 console.log(err);
@@ -121,6 +127,7 @@ const CheckoutLayout = () => {
                 amount: totalAmount,
                 address: inputData,
                 status: "pending",
+                payment: "Cash on delivery"
             }
             ,
             {
@@ -132,6 +139,8 @@ const CheckoutLayout = () => {
         )
             .then(res => navigate(`/order`))
             .catch(err => console.log(err))
+        localStorage.removeItem("cart")
+        dispatch(cartActions.setCart([]))
     }
 
     const handleSubmit = (e) => {
