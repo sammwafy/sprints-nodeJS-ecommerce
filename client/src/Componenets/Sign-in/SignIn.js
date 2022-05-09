@@ -60,7 +60,7 @@ const SignIn = ({ user }) => {
 			const accessToken = response?.data?.accessToken;
 			const username = response?.data?.username;
 			const userID = response?.data?._id;
-
+			console.log(response?.data);
 			if (username && password && accessToken) {
 				setSuccessMsg(true);
 				setEmail("");
@@ -75,10 +75,9 @@ const SignIn = ({ user }) => {
 							withCredentials: true,
 						})
 						.then((res) => {
-							console.log(res.data);
 							localStorage.setItem("cart", JSON.stringify(res.data.products));
 							dispatch(cartActions.setCart(res.data.products));
-							setAuth(response?.data);
+							setAuth({ token: accessToken, id: userID, username: username });
 							setCookie("token", accessToken);
 							setCookie("id", userID);
 							setCookie("username", username);
