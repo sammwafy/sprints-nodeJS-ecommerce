@@ -7,6 +7,7 @@ import {
 	FaSignInAlt,
 	FaSignOutAlt,
 	FaStore,
+	FaUserAlt,
 	FaSearch,
 	FaShoppingBag,
 } from "react-icons/fa";
@@ -31,7 +32,7 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 	const handleShow = () => setShowshowSearch(true);
 
 	//get number of cart items
-	const cartItems = useSelector((state) => state.cart?.products);
+	const cartItems = useSelector((state) => state.cart);
 	const cart = localStorage.getItem("cart");
 
 	useEffect(() => {
@@ -89,6 +90,13 @@ const TopNav = ({ MenuOpenHadler, isMenuOpen }) => {
 						<li onClick={handleShow} style={{ cursor: "pointer" }}>
 							<FaSearch />
 						</li>
+						{auth?.username && (
+							<Link to='/profile' state={{ from: location }} replace>
+								<li className='badgeContainer'>
+									<FaUserAlt style={{ color: "black" }} />
+								</li>
+							</Link>
+						)}
 
 						<Link to='/cart' state={{ from: location }} replace>
 							<li className='badgeContainer'>

@@ -58,8 +58,29 @@ const CheckoutLayout = () => {
             try {
                 const res = await axios.post(`/api/stripe/payment`, {
                     tokenID: stripeToken.id,
-                    amount: 9769,
+                    amount: totalAmount,
                 })
+                if (res.data.paid) {
+                    axios.post(`/api/orders/`,
+                        {
+                            userId: cookies.id,
+                            products: cartItems,
+                            amount: totalAmount,
+                            address: inputData,
+                            status: "pending",
+                        }
+                        ,
+                        {
+                            headers: {
+                                token: "Bearer " + cookies.token,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    )
+                        .then(res => navigate(`/order`))
+                        .catch(err => console.log(err))
+
+                }
                 console.log(res.data);
             } catch (err) {
                 console.log(err);
@@ -86,15 +107,19 @@ const CheckoutLayout = () => {
             return { ...prevState, [e.target.name]: e.target.value };
         });
     };
+    console.log(cookies.id);
+    console.log(cartItems);
+    console.log(totalAmount);
+    console.log(inputData);
 
     const handleCashOrder = (e) => {
         e.preventDefault();
-        axios.post(`/api/ordes/`,
+        axios.post(`/api/orders/`,
             {
                 userId: cookies.id,
                 products: cartItems,
                 amount: totalAmount,
-                adress: inputData,
+                address: inputData,
                 status: "pending",
             }
             ,
@@ -105,7 +130,7 @@ const CheckoutLayout = () => {
                 },
             }
         )
-            .then(res => console.log(res.data))
+            .then(res => navigate(`/order`))
             .catch(err => console.log(err))
     }
 

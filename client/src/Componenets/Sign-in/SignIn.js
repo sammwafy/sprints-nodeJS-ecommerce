@@ -23,8 +23,8 @@ const SignIn = ({ user }) => {
 	const [data, setData] = useState({});
 	const emailRefrence = useRef();
 	const errRefrence = useRef();
-	const [email, setEmail] = useState("sameh@gmail.com");
-	const [password, setPassword] = useState("sameh");
+	const [email, setEmail] = useState("admin@gmail.com");
+	const [password, setPassword] = useState("");
 	const [errorMsg, setErrorMsg] = useState("");
 	const [succesMsg, setSuccessMsg] = useState("");
 	// redirection
@@ -60,7 +60,7 @@ const SignIn = ({ user }) => {
 			const accessToken = response?.data?.accessToken;
 			const username = response?.data?.username;
 			const userID = response?.data?._id;
-      
+			console.log(response?.data);
 			if (username && password && accessToken) {
 				setSuccessMsg(true);
 				setEmail("");
@@ -77,10 +77,10 @@ const SignIn = ({ user }) => {
 						.then((res) => {
 							localStorage.setItem("cart", JSON.stringify(res.data.products));
 							dispatch(cartActions.setCart(res.data.products));
-							setAuth(response?.data);
+							setAuth({ token: accessToken, id: userID, username: username });
 							setCookie("token", accessToken);
 							setCookie("id", userID);
-              setCookie("username", username);
+							setCookie("username", username);
 						})
 						.catch((err) => console.log(err));
 				}

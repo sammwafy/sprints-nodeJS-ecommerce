@@ -1,12 +1,46 @@
 /** @format */
 
 const User = require("../models/User");
+const CryptoJS = require("crypto-js");
 const {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
 const router = require("express").Router();
+const cloudinary = require("../utils/cloudinary");
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+
+// handle file upload
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./Imgs");
+  },
+  filename: function (req, file, cb) {
+    const newName = file.originalname.toLowerCase().split(" ").join("-");
+    cb(null, uuidv4() + "-" + newName);
+  },
+});
+
+// check upload extension
+
+const upload = multer({
+  storage: storage,
+  limits: { fieldNameSize: 300, fileSize: 4194304 },
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+});
 
 //UPDATE by Admin
 router.put("/admin/:id", verifyTokenAndAdmin, async (req, res) => {
@@ -31,29 +65,70 @@ router.put("/admin/:id", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //UPDATE by user
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
-  if (req.body.password) {
-    req.body.password = CryptoJS.AES.encrypt(
-      req.body.password,
-      process.env.PASS_SEC
-    ).toString();
+router.put(
+  "/:id",
+  verifyTokenAndAuthorization,
+  upload.single("productImg"),
+  async (req, res) => {
+    if (req.body.password) {
+  
+      const user = await User.findOne({ _id: req.headers.id });
+      if (!user) {
+        return res.status(401).json("Worng User Credentials");
+      }
+      const hashedPassword = CryptoJS.AES.decrypt(
+        user.password,
+        process.env.PASS_SEC
+      );
+      const originalPassord = hashedPassword.toString(CryptoJS.enc.Utf8);
+      if(req.headers.oldpassword !== originalPassord){
+        return res.status(401).json("Worng Password");
+      }
+      
+      req.body.password = CryptoJS.AES.encrypt(
+        req.body.password,
+        process.env.PASS_SEC
+      ).toString();
+    }
+   
+    if (req.file) {
+      
+      try {
+        const newPath = await cloudinary.uploader.upload(req?.file?.path);
+   
+        if (newPath) {
+          try {
+            const updatedUser = await User.findByIdAndUpdate(
+              req.params.id,
+              {
+                $set: {"avatar" : newPath.secure_url},
+              },
+              { new: true }
+            );
+            res.status(200).json(updatedUser);
+          } catch (err) {
+            res.status(500).json(err);
+          }
+        }
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      try {
+        const updatedUser = await User.findByIdAndUpdate(
+          req.params.id,
+          {
+            $set: req.body,
+          },
+          { new: true }
+        );
+        res.status(200).json(updatedUser);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    }
   }
-
- 
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedUser);
-  }
-   catch (err) {
-    res.status(500).json(err);
-  }
-});
+);
 
 //DELETE
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
