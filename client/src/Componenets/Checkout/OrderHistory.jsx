@@ -19,7 +19,7 @@ const OrderHistory = () => {
   const [cookies, setCookie] = useCookies(["token", "id"]);
   useEffect(() => {
     axios
-      .get(`/api/orders/find/${cookies.id}`, {
+      .get(`/api/orders/details/${cookies.id}`, {
         headers: {
           token: "Bearer " + cookies.token,
           "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const OrderHistory = () => {
       .then((res) => setOrders(res.data))
       .catch((error) => console.log(error));
   }, []);
-
+  console.log(orders);
   return (
     <Layout>
       <div>
@@ -41,72 +41,41 @@ const OrderHistory = () => {
                   <TableCell align="center">ID</TableCell>
                   <TableCell align="center">DATE</TableCell>
                   <TableCell align="center">TOTAL</TableCell>
-                  <TableCell align="center">PAID</TableCell>
-                  <TableCell align="center">STATUSE</TableCell>
+                  <TableCell align="center">PAYMENT</TableCell>
+                  <TableCell align="center">STATUS</TableCell>
                   <TableCell align="center">ACTIONS</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="center">
-                    <p> MKJHNBG542187HGFD</p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <p>
-                      <div>
-                        {data.map((post) => (
-                          <p>{format(post.createdAt, "dd/mm/yyyy")}</p>
-                        ))}
-                      </div>
-                    </p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <p>254136</p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <p>no</p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <p>bending</p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Link to="/details" className="details">
-                      Details
-                    </Link>
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="center">
-                    <p> MKJHNBG542187HGFD</p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <p>
-                      <div>
-                        {data.map((post) => (
-                          <p>{format(post.createdAt, "dd/mm/yyyy")}</p>
-                        ))}
-                      </div>
-                    </p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <p>254136</p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <p>no</p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <p>arrived</p>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Link to="/details" className="details">
-                      Details
-                    </Link>
-                  </TableCell>
-                </TableRow>
+                {orders.map((order) => (
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    key={order._id}
+                  >
+                    <TableCell align="center">
+                      <p> {order._id}</p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <p>
+                        <div>{order.createdAt}</div>
+                      </p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <p>{order.amount}</p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <p>{order.payment}</p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <p>{order.status}</p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Link to={`/order/${order._id}`} className="details">
+                        Details
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>

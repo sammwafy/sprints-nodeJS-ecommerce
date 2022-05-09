@@ -70,8 +70,8 @@
       position: relative;
       text-align: center;
       text-transform: none;
-      user-select: none;
-      -webkit-user-select: none;
+      // user-select: none;
+      // -webkit-user-select: none;
       touch-action: manipulation;
       &:hover,
       &:focus {
