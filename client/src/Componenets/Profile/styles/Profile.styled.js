@@ -111,6 +111,12 @@ export const ProfileWrapper = styled.div`
     }
   }
 
+  .aboutMeTXT{
+    white-space: break-spaces;
+    overflow-wrap: break-word;
+    margin: 0 auto;
+    word-wrap: break-word;
+  }
   .socialLinks {
     margin: 0 auto;
   }
