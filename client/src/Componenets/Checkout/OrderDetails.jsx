@@ -58,7 +58,7 @@ const OrderDetails = () => {
           <hr />
           {products.length > 0 &&
             orders[0]?.products.map((product, index) => (
-              <div>
+              <div className="ordder-items-row">
                 <img src={products[index]?.image[0]} alt="item" />
                 <div className="paragraph">
                   <p> {products[index]?.title} </p>

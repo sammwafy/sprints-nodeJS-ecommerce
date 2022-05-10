@@ -15,7 +15,7 @@ const PaymentForm = ({ handleSubmit, onChange }) => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Adress</Form.Label>
-                    <Form.Control type="text" placeholder="aba st." name="adress" />
+                    <Form.Control type="text" placeholder="abc st." name="street" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>City</Form.Label>
