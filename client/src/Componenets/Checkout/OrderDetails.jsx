@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "../../Hooks/axios";
 import Layout from "../Layout/Layout";
 import "./orderDetails.scss";
@@ -10,6 +10,7 @@ const OrderDetails = () => {
   const [products, setProducts] = useState([]);
   const [cookies, setCookie] = useCookies(["token", "id"]);
   const { id } = useParams();
+  const navigate = useNavigate()
   useEffect(() => {
     axios
       .get(`/api/orders/find/${id}`, {
@@ -33,12 +34,26 @@ const OrderDetails = () => {
         )
       );
   }, [orders[0]]);
-  console.log(orders);
-  console.log(products);
+
+
+  const handleCancel = () => {
+    axios
+      .delete(`/api/orders/${id}`, {
+        headers: {
+          token: "Bearer " + cookies.token,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => navigate("/order"))
+      .catch((error) => console.log(error));
+  }
 
   return (
+
     <Layout>
+
       <div className="order-details">
+
         <section className="shipping">
           <h2>shipping</h2>
           <hr />
@@ -48,11 +63,13 @@ const OrderDetails = () => {
           <p>{orders[0]?.address?.city || "no address"}</p>
           <p>{orders[0]?.address?.country || "no address"}</p>
         </section>
+
         <section className="payment">
           <h2> payment </h2>
           <hr />
           <p> method : {orders[0]?.payment} </p>
         </section>
+
         <section className="order-items">
           <h2>order items</h2>
           <hr />
@@ -70,6 +87,7 @@ const OrderDetails = () => {
               </div>
             ))}
         </section>
+
         <section className="order-summary">
           <h2>order summary</h2>
           <hr />
@@ -78,11 +96,12 @@ const OrderDetails = () => {
           <p>total :$ {orders[0]?.amount}</p>
           <div className="order-state">
             <p> status : {orders[0]?.status} </p>
-            <button> cancel order </button>
+            {orders[0]?.status !== "" && <button onClick={handleCancel}> cancel order </button>}
           </div>
         </section>
-      </div>
-    </Layout>
+
+      </div >
+    </Layout >
   );
 };
 export default OrderDetails;

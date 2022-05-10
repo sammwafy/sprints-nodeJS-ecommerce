@@ -45,6 +45,7 @@ const CheckoutLayout = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
+    const [disabled, setDisabled] = useState(true)
 
     //stripe requirment
     const [payment, setPayment] = useState(0)
@@ -117,45 +118,50 @@ const CheckoutLayout = () => {
     console.log(cartItems);
     console.log(totalAmount);
     console.log(inputData);
-
+    console.log(Object.values(inputData).every(data => data !== null));
     const handleCashOrder = (e) => {
         e.preventDefault();
-        axios.post(`/api/orders/`,
-            {
-                userId: cookies.id,
-                products: cartItems,
-                amount: totalAmount,
-                address: inputData,
-                status: "pending",
-                payment: "Cash on delivery"
-            }
-            ,
-            {
-                headers: {
-                    token: "Bearer " + cookies.token,
-                    "Content-Type": "application/json",
-                },
-            }
-        )
-            .then(res => navigate(`/order`))
-            .catch(err => console.log(err))
-        localStorage.removeItem("cart")
-        dispatch(cartActions.setCart([]))
+
+        if (Object.values(inputData).every(data => data !== null)) {
+            axios.post(`/api/orders/`,
+                {
+                    userId: cookies.id,
+                    products: cartItems,
+                    amount: totalAmount,
+                    address: inputData,
+                    status: "pending",
+                    payment: "Cash on delivery"
+                }
+                ,
+                {
+                    headers: {
+                        token: "Bearer " + cookies.token,
+                        "Content-Type": "application/json",
+                    },
+                }
+            )
+                .then(res => navigate(`/order`))
+                .catch(err => console.log(err))
+            localStorage.removeItem("cart")
+            dispatch(cartActions.setCart([]))
+        } else {
+            alert("please fill the address")
+        }
+
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const formData = Object.fromEntries([...new FormData(e.currentTarget)]);
+        setInputData(formData)
         console.log(Object.fromEntries([...new FormData(e.currentTarget)]));
+        setDisabled(false)
     }
     //................................................................
 
     let totalPrice = 0
     const rows = cartItems.length > 0 && cartItems.map((item) => {
         let product = cartProducts.filter(product => product._id === item.productId)[0]
-
-
         totalPrice += product?.price * item.quantity
         return createData(
             <img src={product?.image[0]} alt={product?.title} className="checkout-img" />,
@@ -291,15 +297,16 @@ const CheckoutLayout = () => {
                             amount={totalAmount}
                             token={onToken}
                             stripeKey={key}
+                            disabled={disabled}
 
                         >
-                            <Button variant="dark" className="checkout-button" >place order</Button>
+                            <Button variant="dark" className="checkout-button" disabled={disabled}>place order</Button>
 
                         </StripeCheckout>
 
 
                         :
-                        <Button variant="dark" className="checkout-button" onClick={handleCashOrder}>place order</Button>
+                        <Button variant="dark" className="checkout-button" onClick={handleCashOrder} disabled={disabled}>place order</Button>
 
                     }
 

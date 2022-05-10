@@ -11,23 +11,23 @@ const PaymentForm = ({ handleSubmit, onChange }) => {
             <Form onSubmit={handleSubmit} onChange={onChange}>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Full Name</Form.Label>
-                    <Form.Control type="text" placeholder="john doe" name="name" />
+                    <Form.Control type="text" placeholder="john doe" name="name" defaultValue={null} required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Adress</Form.Label>
-                    <Form.Control type="text" placeholder="abc st." name="street" />
+                    <Form.Control type="text" placeholder="abc st." name="street" defaultValue={null} required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>City</Form.Label>
-                    <Form.Control type="text" placeholder="Cairo" name="city" />
+                    <Form.Control type="text" placeholder="Cairo" name="city" defaultValue={null} required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>post Code</Form.Label>
-                    <Form.Control type="number" placeholder="0000" name="code" />
+                    <Form.Control type="number" placeholder="0000" name="code" defaultValue={null} required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Country</Form.Label>
-                    <Form.Control type="text" placeholder="Egypt" name="country" />
+                    <Form.Control type="text" placeholder="Egypt" name="country" defaultValue={null} required />
                 </Form.Group>
                 <Button type="submit">submit</Button>
             </Form>
