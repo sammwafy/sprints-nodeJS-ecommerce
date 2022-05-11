@@ -13,11 +13,11 @@ const UserProfile = () => {
     // to get premisions
     const [cookies, setCookie] = useCookies(["token", "id"]);
     //store coming data
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState(null)
     //for collapse open control
     const [open, setOpen] = useState(false)
     //carray value of status field
-    const [status, setStatus] = useState(user.status || "active")
+    const [status, setStatus] = useState("active")
 
     useEffect(() => {
         axios
@@ -54,62 +54,66 @@ const UserProfile = () => {
 
     return (
 
-        <aside className="profile-card">
-            <header>
+
+        <>
+            {
+                user ?
+                    <aside className="profile-card">
+                        <header>
 
 
-                <img src="https://picsum.photos/640/360" className="hoverZoomLink" />
-
-
-
-                <h1>
-                    {user.username}
-                </h1>
-
-
-                <h2>
-                    Email: {user.email}
-                </h2>
-
-            </header>
-
-
-            <div className="profile-bio">
-
-                <p>
-                    status: {user.status}
-                </p>
-                <button className="button" onClick={() => setOpen(!open)}>Change status</button>
-                <Collapse in={open}>
-
-                    <Form className="m-4 p-6" onSubmit={handleSubmit}>
-                        <FormControl>
-                            <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={status}
-                                label="Status"
-                                onChange={handleChange}
-                            >
-                                <MenuItem value={"active"}>Active</MenuItem>
-                                <MenuItem value={"deactive"}>Deactive</MenuItem>
-                                <MenuItem value={"suspended"}>Suspended</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <button type="submit" className="button">Update</button>
-                    </Form>
-
-                </Collapse>
-
-            </div>
+                            <img src="https://picsum.photos/640/360" className="hoverZoomLink" />
 
 
 
+                            <h1>
+                                {user.username}
+                            </h1>
 
 
+                            <h2>
+                                Email: {user.email}
+                            </h2>
 
-        </aside>
+                        </header>
+
+
+                        <div className="profile-bio">
+
+                            <p>
+                                status: {user.status}
+                            </p>
+                            <button className="button" onClick={() => setOpen(!open)}>Change status</button>
+                            <Collapse in={open}>
+
+                                <Form className="m-4 p-6" onSubmit={handleSubmit}>
+                                    <FormControl>
+                                        <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={status}
+                                            label="Status"
+                                            onChange={handleChange}
+                                        >
+                                            <MenuItem value={"active"}>Active</MenuItem>
+                                            <MenuItem value={"deactive"}>Deactive</MenuItem>
+                                            <MenuItem value={"suspended"}>Suspended</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <button type="submit" className="button">Update</button>
+                                </Form>
+
+                            </Collapse>
+
+                        </div>
+                    </aside>
+                    :
+                    <div className="errMsg">sorry no user</div>
+            }
+
+
+        </>
     )
 }
 
