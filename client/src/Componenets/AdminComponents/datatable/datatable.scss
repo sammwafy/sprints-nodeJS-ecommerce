@@ -89,6 +89,35 @@
 			background-color: rgba(255, 0, 0, 0.193);
 		}
 	}
+
+	.status {
+		padding: 5px;
+		border-radius: 5px;
+		&.pending {
+			color: orange;
+			background-color: rgba(255, 166, 0, 0.179);
+		}
+		&.inReview {
+			color: rgb(169, 17, 141);
+			background-color: rgba(169, 17, 141, 0.216);
+		}
+		&.inProgress {
+			color: rgb(36, 166, 206);
+			background-color: rgba(36, 166, 206, 0.239);
+		}
+		&.canceled {
+			color: rgb(128, 0, 0);
+			background-color: rgba(128, 0, 0, 0.282);
+		}
+		&.onTheWay {
+			color: rgb(14, 59, 90);
+			background-color: rgba(14, 60, 90, 0.253);
+		}
+		&.delivered {
+			color: green;
+			background-color: rgba(0, 128, 0, 0.155);
+		}
+	}
 	.actions {
 		display: flex;
 		gap: 20px;

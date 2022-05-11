@@ -59,9 +59,9 @@ const OrderDetails = () => {
           <hr />
           <p>name : {cookies.username}</p>
           <p>adress :</p>
-          <p>{orders[0]?.address?.street || "no address"}</p>
-          <p>{orders[0]?.address?.city || "no address"}</p>
-          <p>{orders[0]?.address?.country || "no address"}</p>
+          <p>Street :{orders[0]?.address?.street || "no address"}</p>
+          <p>City : {orders[0]?.address?.city || "no address"}</p>
+          <p>Country : {orders[0]?.address?.country || "no address"}</p>
         </section>
 
         <section className="payment">

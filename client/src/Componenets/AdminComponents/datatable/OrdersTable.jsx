@@ -51,8 +51,20 @@ const OrdersTable = () => {
         },
         { field: "total", headerName: "Total", width: 70 },
         { field: "payment", headerName: "Payment", width: 130 },
-        { field: "status", headerName: "Status", width: 130 },
+        {
+            field: "status", headerName: "Status", width: 130,
+            renderCell: (params) => {
+                return (
+
+                    <span className={`status ${params.row.status}`}>{params.row.status}</span>
+
+                );
+            },
+
+
+        },
     ];
+
 
     const actionColumns = [
         {

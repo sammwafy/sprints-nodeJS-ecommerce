@@ -51,7 +51,7 @@ const CheckoutLayout = () => {
     const [payment, setPayment] = useState(0)
     const [stripeToken, setStripeToken] = useState(null)
     const [totalAmount, setTotalAmount] = useState(0)
-    console.log("test", typeof (parseInt(totalAmount)));
+
     const onToken = (token) => {
         setStripeToken(token)
     }

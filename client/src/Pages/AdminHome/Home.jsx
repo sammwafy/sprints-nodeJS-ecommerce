@@ -74,6 +74,7 @@ const Home = () => {
     }).catch(err => console.log(err))
 
   }, [])
+  console.log(orders)
 
   return (
     <div className="home">
@@ -104,7 +105,7 @@ const Home = () => {
           </div>
 
           <div className="widgets">
-            {orders.map(order => (<WidgetCustum title={order._id} value={order?.total || 0} icon={<PersonOutlineIcon className="icon" style={{ color: "red", backgroundColor: 'rgba(255, 0, 0, 0.284)' }} />} type="Orders" />))}
+            {orders.map(order => (<WidgetCustum title={order._id} value={order?.total || 0} icon={<CreditCardIcon className="icon" style={{ color: "red", backgroundColor: 'rgba(255, 0, 0, 0.284)' }} />} type="Orders" />))}
           </div>
         </div>
 

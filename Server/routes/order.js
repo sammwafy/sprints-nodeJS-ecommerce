@@ -69,10 +69,11 @@ router.get("/status", verifyTokenAndAdmin, async (req, res) => {
 					status: {
 						$in: [
 							"pending",
-							"in review",
-							"in progress",
-							"on the way",
+							"inReview",
+							"inProgress",
+							"onTheWay",
 							"delivered",
+							"canceled",
 						],
 					},
 				},
