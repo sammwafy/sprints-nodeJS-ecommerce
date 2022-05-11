@@ -31,7 +31,6 @@ function createData(image, productName, quantity, unitPrice, total) {
 export default function Cart() {
   //Collapse open close state
   const [open, setOpen] = useState(false);
-
   // redirection
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,13 +69,12 @@ export default function Cart() {
 
   ////set cart to local and database............
   useEffect(() => {
-    let newArr = [];
-    newArr = JSON.parse(localStorage.getItem("cart")) || [];
-    newArr.products = cartItems;
 
-    localStorage.setItem("cart", JSON.stringify(newArr));
 
     if (auth?.username && cartItems.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+
+      //this response is just string 😂 be careful
       axios
         .put(
           `/api/carts/${auth?.id}`,
@@ -92,7 +90,10 @@ export default function Cart() {
             withCredentials: true,
           }
         )
-        .then((res) => dispatch(cartActions.setCart(res.data.products)))
+        .then((res) => {
+          console.log(res.data);
+
+        })
         .catch((err) => console.log(err));
     }
 

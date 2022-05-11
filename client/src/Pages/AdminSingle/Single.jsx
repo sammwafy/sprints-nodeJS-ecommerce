@@ -45,7 +45,6 @@ const Single = ({ type }) => {
             <div className="view-details">
               <div className="top">
                 <div className="left">
-                  {type === "users" && <UserCard data={data} />}
                   {type === "products" && <ProductCard data={data} />}
 
                   {/* {(type !== "users" && type !== "products") &&

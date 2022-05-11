@@ -28,6 +28,7 @@ export default function Card({ title, price, id, img }) {
       newCartItems.push(modifiedProduct);
 
       dispatch(cartActions.setCart(newCartItems));
+      localStorage.setItem("cart", JSON.stringify(newCartItems));
     } else {
       dispatch(
         cartActions.addtoCart({
@@ -35,8 +36,16 @@ export default function Card({ title, price, id, img }) {
           quantity: 1,
         })
       );
+      let fromStorage = JSON.parse(localStorage.getItem("cart")).push({
+        productId: id,
+        quantity: 1,
+      })
+      localStorage.setItem("cart", JSON.stringify(fromStorage));
+
     }
   };
+
+  console.log(cartItems);
 
   return (
     <div className="card">
