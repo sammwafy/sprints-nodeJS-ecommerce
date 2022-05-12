@@ -1,5 +1,5 @@
 # sprints nodeJS ecommerce
-Sprints is an ecommerce app build using MERN STACK
+Sprints is an ecommerce app built using MERN STACK
 
 using React 18 🖤 for the frontend, NodeJS/expressJS for 
 the backend and mongo/mongose for the database
